@@ -2,8 +2,8 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import AdSenseAd from '../../../components/AdSenseAd.astro';
 
-const title = "Cat Age Calculator | AAHA/AVMA Standard Human Age Conversion";
-const description = "Use the American Animal Hospital Association (AAHA) and AVMA standard formula to accurately calculate your cat's equivalent human age and life stage.";
+const title = "Cat Age Calculator: Cat Years to Human Years";
+const description = "Use this cat age calculator to estimate cat years in human years with a transparent educational model and life-stage context.";
 const canonicalPath = "/en/tools/cat-age-calculator";
 const siteUrl = "https://www.petaginghub.com";
 
@@ -13,332 +13,182 @@ const breadcrumbs = [
 ];
 
 const hrefLangAlternates = [
-  { lang: 'zh-TW', url: siteUrl + '/tools/cat-age-calculator' },
-  { lang: 'en', url: siteUrl + '/en/tools/cat-age-calculator' },
-  { lang: 'x-default', url: siteUrl + '/tools/cat-age-calculator' },
+  { lang: 'zh-TW', url: siteUrl + '/tools/cat-age-calculator/' },
+  { lang: 'en', url: siteUrl + '/en/tools/cat-age-calculator/' },
+  { lang: 'x-default', url: siteUrl + '/tools/cat-age-calculator/' },
 ];
 
 const lifeStages = [
-  { range: '0-1 year', human: 'Infant to Teenager', stage: 'kitten' },
-  { range: '1-3 years', human: 'Teenager to Young Adult', stage: 'young' },
-  { range: '3-7 years', human: 'Adult', stage: 'adult' },
-  { range: '7-10 years', human: 'Middle-Aged / Senior', stage: 'senior' },
-  { range: '10+ years', human: 'Geriatric', stage: 'geriatric' }
+  { range: 'Birth–1 yr', stage: 'Kitten', note: 'A period of rapid growth and development.' },
+  { range: '1–6 yrs', stage: 'Young adult', note: 'Health, nutrition, behavior, and weight still matter.' },
+  { range: '7–10 yrs', stage: 'Mature adult', note: 'Changes in mobility, appetite, or grooming are worth discussing with a veterinarian.' },
+  { range: '>10 yrs', stage: 'Senior', note: 'Individual health needs can vary widely.' },
 ];
 ---
 
 <BaseLayout title={title} description={description} breadcrumbs={breadcrumbs} lang="en" hrefLangAlternates={hrefLangAlternates}>
+  <header class="max-w-4xl mx-auto px-6 pt-10 pb-8">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="text-4xl">🐱</span>
+      <span class="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">Educational estimate</span>
+    </div>
+    <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">Cat Age Calculator</h1>
+    <p class="text-lg text-slate-600 leading-relaxed max-w-2xl">
+      Wondering how old your cat is in human years? Use this cat age calculator for a transparent, general estimate and helpful feline life-stage context. It is not a veterinary assessment.
+    </p>
+  </header>
 
-<!-- Hero Section -->
-<header class="max-w-4xl mx-auto px-6 pt-10 pb-8">
-  <div class="flex items-center gap-3 mb-4">
-    <span class="text-4xl">&#x1F431;</span>
-    <span class="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">AAHA / AVMA Standard</span>
-  </div>
-  <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
-    Cat Age Calculator
-  </h1>
-  <p class="text-lg text-slate-600 leading-relaxed max-w-2xl">
-    Wondering how old your cat is in human years? This tool uses the scientifically validated formula jointly recognized by the American Animal Hospital Association (AAHA) and the American Veterinary Medical Association (AVMA) to accurately convert your cat's age and life stage.
-  </p>
-</header>
-
-<!-- Calculator Card -->
-<section class="max-w-4xl mx-auto px-6 mb-10">
-  <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-8">
-    <div class="max-w-sm mx-auto text-center">
-      <div class="mb-6">
-        <label class="block text-sm font-semibold text-slate-700 mb-2">Cat's Current Age (years)</label>
-        <input
-          type="number"
-          id="catAge"
-          class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-center text-lg"
-          value="3"
-          min="0"
-          max="30"
-        />
-      </div>
-
-      <div class="bg-gradient-to-b from-blue-50 to-slate-50 rounded-xl p-6 mb-4">
-        <p class="text-sm text-slate-500 mb-2">Equivalent Human Age</p>
-        <p class="text-5xl font-black text-blue-600 mb-2" id="result">32 yrs</p>
-        <p class="text-sm text-slate-500" id="lifeStageText">Adult stage</p>
-      </div>
-
-      <!-- Life Stage Bar -->
-      <div class="w-full bg-slate-100 rounded-full h-4 relative overflow-hidden border border-slate-200">
-        <div id="progressFill" class="h-full transition-all duration-700 bg-blue-600 rounded-full" style="width: 15%"></div>
-        <div class="absolute inset-0 flex justify-between px-2 text-[9px] text-slate-400 font-medium items-center uppercase tracking-wider">
-          <span>Kitten</span><span>Adult</span><span>Senior</span><span>Geriatric</span>
+  <section class="max-w-4xl mx-auto px-6 mb-10">
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-8">
+      <div class="max-w-sm mx-auto text-center">
+        <div class="mb-6">
+          <label class="block text-sm font-semibold text-slate-700 mb-2" for="catAge">Cat's age (years)</label>
+          <input type="number" id="catAge" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-center text-lg" value="3" min="0" max="30" />
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Trust Signal -->
-<section class="max-w-4xl mx-auto px-6 mb-12">
-  <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 flex items-start gap-4">
-    <div class="text-blue-600 mt-0.5">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-      </svg>
-    </div>
-    <div>
-      <p class="text-sm font-semibold text-slate-800">Based on AAHA / AVMA Dual Standard</p>
-      <p class="text-sm text-slate-500 mt-0.5">
-        The American Animal Hospital Association (AAHA) and American Veterinary Medical Association (AVMA) are among the most authoritative companion animal health organizations in North America. Their jointly published feline life stage guidelines are a key reference for veterinarians worldwide.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- In-article Ad -->
-<div class="max-w-4xl mx-auto px-6 mb-12">
-  <AdSenseAd format="in-article" />
-</div>
-
-<!-- SEO Introduction -->
-<section class="max-w-4xl mx-auto px-6 mb-12">
-  <h2 class="text-2xl font-bold text-slate-900 mb-4">Why Understanding Your Cat's Human Age Matters</h2>
-  <div class="prose prose-slate prose-headings:text-slate-900 prose-p:text-slate-600 max-w-none space-y-4">
-    <p>
-      Cats age very differently from humans. A 1-year-old cat is already physically equivalent to a 15-year-old human. By age 2, they are comparable to a 24-year-old. Cats compress an entire childhood and adolescence into just two years.
-    </p>
-    <p>
-      Knowing your cat's true equivalent age helps you tailor their care to their life stage. Kittens need high-protein, calorie-dense diets for rapid growth. Adult cats need balanced nutrition to maintain a healthy weight. Senior and geriatric cats often need low-phosphorus, low-sodium formulas to protect kidney function.
-    </p>
-    <p>
-      The AAHA defines six feline life stages: kitten, young adult, adult, mature adult, senior, and super senior. Each stage has distinct health monitoring priorities and nutritional needs.
-    </p>
-  </div>
-</section>
-
-<!-- Methodology Section -->
-<section class="max-w-4xl mx-auto px-6 mb-12">
-  <h2 class="text-2xl font-bold text-slate-900 mb-4">How We Calculate Your Cat's Human Age</h2>
-  <div class="bg-white border border-slate-200 rounded-xl p-6 space-y-4">
-    <p class="text-slate-600">
-      This calculator uses the AAHA-recognized, AVMA-cited segmented linear formula. It accounts for cats' extremely rapid development in the first two years, followed by a more gradual but steady aging rate thereafter.
-    </p>
-
-    <div class="bg-slate-50 rounded-lg p-4 font-mono text-sm">
-      <p class="font-semibold text-slate-700 mb-2">Formula:</p>
-      <p class="text-slate-600">Year 1 = 15 human years (adolescent)</p>
-      <p class="text-slate-600">Year 2 = 24 human years (young adult)</p>
-      <p class="text-slate-600">Year 3+ = +4 human years per year</p>
-    </div>
-
-    <div class="bg-slate-50 rounded-lg p-4 text-sm">
-      <p class="font-semibold text-slate-700 mb-2">Reference Chart:</p>
-      <div class="space-y-1 text-slate-600">
-        <p>1 year &rarr; 15 human years (teenager)</p>
-        <p>2 years &rarr; 24 human years (young adult)</p>
-        <p>5 years &rarr; 36 human years (mature adult)</p>
-        <p>7 years &rarr; 44 human years (senior)</p>
-        <p>10 years &rarr; 56 human years (senior)</p>
-        <p>15 years &rarr; 76 human years (super senior)</p>
-      </div>
-    </div>
-
-    <p class="text-xs text-slate-500">
-      Source: American Animal Hospital Association (AAHA). <em>Feline Life Stage Guidelines</em>. Journal of the American Animal Hospital Association, 2019; 55(1): 1-16.
-    </p>
-  </div>
-</section>
-
-<!-- Life Stages Reference -->
-<section class="max-w-4xl mx-auto px-6 mb-12">
-  <h2 class="text-2xl font-bold text-slate-900 mb-4">Cat Life Stages &amp; Care Highlights</h2>
-  <div class="grid gap-4">
-    {lifeStages.map((stage) => (
-      <div class="bg-white border border-slate-200 rounded-xl p-5">
-        <div class="flex items-start justify-between gap-4">
-          <div>
-            <span class={`inline-block text-xs font-bold px-2 py-0.5 rounded mb-2 ${
-              stage.stage === 'kitten' ? 'bg-pink-100 text-pink-700' :
-              stage.stage === 'young' ? 'bg-orange-100 text-orange-700' :
-              stage.stage === 'adult' ? 'bg-green-100 text-green-700' :
-              stage.stage === 'senior' ? 'bg-yellow-100 text-yellow-700' :
-              'bg-red-100 text-red-700'
-            }`}>
-              {stage.range}
-            </span>
-            <p class="text-slate-600">{stage.human}</p>
+        <div class="bg-gradient-to-b from-blue-50 to-slate-50 rounded-xl p-6 mb-4">
+          <p class="text-sm text-slate-500 mb-2">Estimated human-equivalent age</p>
+          <p class="text-5xl font-black text-blue-600 mb-2" id="result">28 yrs</p>
+          <p class="text-sm text-slate-500" id="lifeStageText">Estimated stage: Young adult</p>
+        </div>
+        <div class="w-full bg-slate-100 rounded-full h-4 relative overflow-hidden border border-slate-200">
+          <div id="progressFill" class="h-full transition-all duration-700 bg-blue-600 rounded-full" style="width: 24%"></div>
+          <div class="absolute inset-0 flex justify-between px-2 text-[9px] text-slate-400 font-medium items-center uppercase tracking-wider">
+            <span>Kitten</span><span>Adult</span><span>Senior</span>
           </div>
-          <div class={`w-3 h-3 rounded-full mt-1.5 ${
-            stage.stage === 'kitten' ? 'bg-pink-400' :
-            stage.stage === 'young' ? 'bg-orange-400' :
-            stage.stage === 'adult' ? 'bg-green-400' :
-            stage.stage === 'senior' ? 'bg-yellow-400' :
-            'bg-red-400'
-          }`}></div>
         </div>
       </div>
-    ))}
-  </div>
-</section>
+    </div>
+  </section>
 
-<!-- FAQ Section -->
-<section class="max-w-4xl mx-auto px-6 mb-12">
-  <h2 class="text-2xl font-bold text-slate-900 mb-4">Frequently Asked Questions</h2>
-  <div class="space-y-4">
-    <details class="bg-white border border-slate-200 rounded-xl group">
-      <summary class="p-5 cursor-pointer font-semibold text-slate-800 hover:text-blue-600 transition-colors">
-        Why does year 2 only add 9 years instead of 4?
-      </summary>
-      <div class="px-5 pb-5 text-slate-600">
-        Cats develop extremely rapidly in their first year (equivalent to 15 human years). The second year continues this fast development (adding another 9 years to reach 24). From year 3 onward, the pace stabilizes at about 4 human years per cat year. This differs from dogs because cats and dogs have different developmental curves.
+  <section class="max-w-4xl mx-auto px-6 mb-12">
+    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 flex items-start gap-4">
+      <div class="text-blue-600 mt-0.5">ⓘ</div>
+      <div>
+        <p class="text-sm font-semibold text-slate-800">A transparent educational model</p>
+        <p class="text-sm text-slate-500 mt-0.5">
+          This calculator uses a commonly used segmented estimate: 15 human-equivalent years for the first cat year, 24 by the second, then about four per additional year. Pet Aging Hub defines this simplified model; it is not an official AAHA, AAFP, or AVMA conversion formula.
+        </p>
       </div>
-    </details>
+    </div>
+  </section>
 
-    <details class="bg-white border border-slate-200 rounded-xl group">
-      <summary class="p-5 cursor-pointer font-semibold text-slate-800 hover:text-blue-600 transition-colors">
-        Do indoor cats age differently than outdoor cats?
-      </summary>
-      <div class="px-5 pb-5 text-slate-600">
-        Indoor cats generally live longer due to reduced exposure to hazards, more stable nutrition, and easier access to veterinary care. However, indoor cats may get less exercise due to limited space, so weight management is important. Outdoor cats face risks from traffic, infectious disease, and parasites.
+  <div class="max-w-4xl mx-auto px-6 mb-12"><AdSenseAd format="in-article" /></div>
+
+  <section class="max-w-4xl mx-auto px-6 mb-12">
+    <h2 class="text-2xl font-bold text-slate-900 mb-4">How cat years are estimated</h2>
+    <div class="prose prose-slate prose-headings:text-slate-900 prose-p:text-slate-600 max-w-none space-y-4">
+      <p>Cats mature quickly during their first two years, then their rate of aging changes. That is why a simple “one cat year equals seven human years” rule is not a reliable way to describe every stage of a cat’s life.</p>
+      <p>The estimate is a useful conversation starter, not a prediction of health, lifespan, or biological age. Breed, body condition, lifestyle, genetics, and medical history all make a difference for an individual cat.</p>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-6 mb-12">
+    <h2 class="text-2xl font-bold text-slate-900 mb-4">Cat years to human years: the model</h2>
+    <div class="bg-white border border-slate-200 rounded-xl p-6 space-y-4">
+      <div class="bg-slate-50 rounded-lg p-4 font-mono text-sm text-slate-600">
+        <p>Year 1 → 15 human-equivalent years</p>
+        <p>Year 2 → 24 human-equivalent years</p>
+        <p>Year 3 onward → add about 4 years per cat year</p>
       </div>
-    </details>
+      <p class="text-slate-600">Examples: a 5-year-old cat estimates to about 36 human-equivalent years; a 10-year-old cat estimates to about 56. These are rounded educational references, not clinical facts.</p>
+    </div>
+  </section>
 
-    <details class="bg-white border border-slate-200 rounded-xl group">
-      <summary class="p-5 cursor-pointer font-semibold text-slate-800 hover:text-blue-600 transition-colors">
-        At what age is a cat considered senior?
-      </summary>
-      <div class="px-5 pb-5 text-slate-600">
-        According to AAHA definitions, cats aged 7 and older enter the mature/senior category, and cats 11 and older are considered super senior. For cats 7+, bi-annual wellness exams are recommended, with particular attention to kidney function, thyroid health, dental health, and joint mobility.
-      </div>
-    </details>
+  <section class="max-w-4xl mx-auto px-6 mb-12">
+    <h2 class="text-2xl font-bold text-slate-900 mb-4">Feline life-stage context</h2>
+    <p class="text-slate-600 mb-4">The 2021 AAHA/AAFP Feline Life Stage Guidelines describe kitten, young adult, mature adult, and senior age-related stages. These groupings support individualized care; they are not a human-age conversion chart.</p>
+    <div class="grid gap-4">
+      {lifeStages.map((stage) => (
+        <div class="bg-white border border-slate-200 rounded-xl p-5">
+          <span class="inline-block text-xs font-bold px-2 py-0.5 rounded mb-2 bg-blue-100 text-blue-700">{stage.range}</span>
+          <h3 class="font-semibold text-slate-800">{stage.stage}</h3>
+          <p class="text-slate-600 mt-1">{stage.note}</p>
+        </div>
+      ))}
+    </div>
+  </section>
 
-    <details class="bg-white border border-slate-200 rounded-xl group">
-      <summary class="p-5 cursor-pointer font-semibold text-slate-800 hover:text-blue-600 transition-colors">
-        What dietary changes does a senior cat need?
-      </summary>
-      <div class="px-5 pb-5 text-slate-600">
-        Senior cats often experience gradual decline in kidney function, so a low-phosphorus, low-sodium diet is typically recommended. Senior cats may also have reduced appetite, so high-quality, easily digestible protein becomes especially important. Always consult your veterinarian for diet changes tailored to your cat's individual health status.
-      </div>
-    </details>
-  </div>
-</section>
+  <section class="max-w-4xl mx-auto px-6 mb-12">
+    <h2 class="text-2xl font-bold text-slate-900 mb-4">Frequently asked questions</h2>
+    <div class="space-y-4">
+      <details class="bg-white border border-slate-200 rounded-xl group">
+        <summary class="p-5 cursor-pointer font-semibold text-slate-800 hover:text-blue-600 transition-colors">How old is a 20-year-old cat in human years?</summary>
+        <div class="px-5 pb-5 text-slate-600">Using this estimator, a 20-year-old cat is about 96 human-equivalent years. It is a mathematical estimate only; it does not describe a cat’s health or quality of life.</div>
+      </details>
+      <details class="bg-white border border-slate-200 rounded-xl group">
+        <summary class="p-5 cursor-pointer font-semibold text-slate-800 hover:text-blue-600 transition-colors">When is a cat considered senior?</summary>
+        <div class="px-5 pb-5 text-slate-600">The 2021 AAHA/AAFP life-stage guidance describes cats over 10 years as senior. Age groups are general reference points, and individual cats can have different needs.</div>
+      </details>
+      <details class="bg-white border border-slate-200 rounded-xl group">
+        <summary class="p-5 cursor-pointer font-semibold text-slate-800 hover:text-blue-600 transition-colors">Should I change my cat's food because of age?</summary>
+        <div class="px-5 pb-5 text-slate-600">Food choices should reflect an individual cat’s health, weight, appetite, and veterinary advice. Do not change a therapeutic diet solely because of an online age estimate.</div>
+      </details>
+    </div>
+  </section>
 
-<!-- References Section -->
-<section class="max-w-4xl mx-auto px-6 mb-12">
-  <h2 class="text-2xl font-bold text-slate-900 mb-4">References</h2>
-  <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 space-y-3 text-sm text-slate-600">
-    <p>1. American Animal Hospital Association. <em>2019 AAHA Feline Life Stage Guidelines</em>. Journal of the American Animal Hospital Association, 2019; 55(1): 1-16.</p>
-    <p>2. American Veterinary Medical Association. <em>Senior Pet Care Guidelines</em>. American Veterinary Medical Association, 2012.</p>
-    <p>3. Dowgray MG, et al. Aging in cats: Common physical signs and owner observations. <em>Journal of Feline Medicine and Surgery</em>. 2022; 24(6): 555-570.</p>
-    <p>4. Finch CE, et al. Comparative biology of aging in cats. <em>Journal of Veterinary Internal Medicine</em>. 2018; 32(1): 260-272.</p>
-  </div>
-</section>
+  <section class="max-w-4xl mx-auto px-6 mb-12">
+    <h2 class="text-2xl font-bold text-slate-900 mb-4">Related tools and reading</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <a href="/en/blog/cat-aging-by-weight/" class="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-md transition-all group">
+        <div class="flex items-center gap-3 mb-2"><span class="text-2xl">📖</span><span class="font-semibold text-slate-800 group-hover:text-blue-600 transition-colors">Cat aging by weight</span></div>
+        <p class="text-sm text-slate-500">Explore how weight, lifestyle, and individual factors can affect aging context.</p>
+      </a>
+      <a href="/en/blog/senior-cat-care/" class="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-md transition-all group">
+        <div class="flex items-center gap-3 mb-2"><span class="text-2xl">🐾</span><span class="font-semibold text-slate-800 group-hover:text-blue-600 transition-colors">Senior cat care guide</span></div>
+        <p class="text-sm text-slate-500">Practical, non-diagnostic guidance for supporting an older cat at home.</p>
+      </a>
+    </div>
+  </section>
 
-<!-- Related Calculators -->
-<section class="max-w-4xl mx-auto px-6 mb-12">
-  <h2 class="text-2xl font-bold text-slate-900 mb-4">Related Calculators</h2>
-  <div class="grid md:grid-cols-2 gap-4">
-    <a href="/en/tools/dog-age-calculator" class="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-md transition-all group">
-      <div class="flex items-center gap-3 mb-2">
-        <span class="text-2xl">&#x1F436;</span>
-        <span class="font-semibold text-slate-800 group-hover:text-blue-600 transition-colors">Dog Age Calculator</span>
-      </div>
-      <p class="text-sm text-slate-500">Using AVMA standards to convert your dog's age to human years. Supports size-based adjustments.</p>
-    </a>
-  </div>
-</section>
+  <section class="max-w-4xl mx-auto px-6 mb-12">
+    <div class="border-t border-slate-200 pt-8">
+      <p class="text-xs text-slate-500 leading-relaxed"><strong>Disclaimer:</strong> This calculator gives a general educational estimate, not veterinary advice, diagnosis, or treatment. Your cat’s health and aging can differ from any chart. Consult a licensed veterinarian about changes in behavior, appetite, mobility, hydration, or health.</p>
+    </div>
+  </section>
 
-<!-- Disclaimer -->
-<section class="max-w-4xl mx-auto px-6 mb-12">
-  <div class="border-t border-slate-200 pt-8">
-    <p class="text-xs text-slate-500 leading-relaxed">
-      <strong>Disclaimer:</strong> Results from this tool are based on general guidelines published by the American Animal Hospital Association (AAHA) and the American Veterinary Medical Association (AVMA), and are intended for informational purposes only. They do not constitute veterinary diagnosis or treatment advice. Every cat's health is unique â please consult a licensed veterinarian for any health concerns about your pet.
-    </p>
-  </div>
-</section>
+  <nav class="max-w-4xl mx-auto px-6 pb-12 flex justify-between items-center text-sm">
+    <a href="/en/tools/dog-age-calculator/" class="text-blue-600 hover:text-blue-700 font-medium">← Dog Age Calculator</a>
+    <a href="/en/tools/" class="text-blue-600 hover:text-blue-700 font-medium">All Tools →</a>
+  </nav>
 
-<!-- Navigation -->
-<nav class="max-w-4xl mx-auto px-6 pb-12 flex justify-between items-center text-sm">
-  <a href="/en/tools/dog-age-calculator" class="text-blue-600 hover:text-blue-700 font-medium">&larr; Dog Age Calculator</a>
-  <a href="/tools" class="text-blue-600 hover:text-blue-700 font-medium">All Tools &rarr;</a>
-</nav>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Cat Age Calculator",
+    "description":"Estimate a cat’s human-equivalent age with a transparent educational model and feline life-stage context.",
+    "url":siteUrl + canonicalPath,
+    "applicationCategory":"UtilitiesApplication",
+    "operatingSystem":"All",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "inLanguage":"en"
+  })} />
 
-<!-- JSON-LD -->
-<script type="application/ld+json" is:inline set:html={JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Cat Age Calculator",
-  "description": "AAHA/AVMA standard formula for accurately converting your cat's age to human years and life stage.",
-  "url": siteUrl + canonicalPath,
-  "applicationCategory": "UtilitiesApplication",
-  "operatingSystem": "All",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "inLanguage": "en"
-})} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"How old is a 20-year-old cat in human years?","acceptedAnswer":{"@type":"Answer","text":"Using this estimator, a 20-year-old cat is about 96 human-equivalent years. It is a mathematical estimate only; it does not describe a cat’s health or quality of life."}},
+      {"@type":"Question","name":"When is a cat considered senior?","acceptedAnswer":{"@type":"Answer","text":"The 2021 AAHA/AAFP life-stage guidance describes cats over 10 years as senior. Age groups are general reference points, and individual cats can have different needs."}},
+      {"@type":"Question","name":"Should I change my cat's food because of age?","acceptedAnswer":{"@type":"Answer","text":"Food choices should reflect an individual cat’s health, weight, appetite, and veterinary advice. Do not change a therapeutic diet solely because of an online age estimate."}}
+    ]
+  })} />
 
-<script type="application/ld+json" is:inline set:html={JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Why does year 2 only add 9 years instead of 4?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Cats develop extremely rapidly in their first year (equivalent to 15 human years). The second year adds another 9 years to reach 24. From year 3 onward, the pace stabilizes at about 4 human years per cat year."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do indoor cats age differently than outdoor cats?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Indoor cats generally live longer due to reduced hazards, stable nutrition, and easier veterinary access. However, indoor cats may get less exercise so weight management is important. Outdoor cats face traffic, infectious disease, and parasite risks."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "At what age is a cat considered senior?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "According to AAHA, cats aged 7 and older enter the mature/senior category, and cats 11 and older are super senior. Bi-annual wellness exams are recommended for cats 7+, with attention to kidney, thyroid, dental health, and joint mobility."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What dietary changes does a senior cat need?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Senior cats often need a low-phosphorus, low-sodium diet to protect kidney function. High-quality, easily digestible protein is especially important as appetite may decrease. Consult your veterinarian for personalized dietary advice."
-      }
-    }
-  ]
-})} />
+  <script>
+    const ageInput = document.getElementById('catAge') as HTMLInputElement;
+    const resultDisplay = document.getElementById('result');
+    const lifeStageText = document.getElementById('lifeStageText');
+    const progressFill = document.getElementById('progressFill');
 
-<script>
-const ageInput = document.getElementById('catAge') as HTMLInputElement;
-const resultDisplay = document.getElementById('result');
-const lifeStageText = document.getElementById('lifeStageText');
-const progressFill = document.getElementById('progressFill');
+    const update = () => {
+      const age = parseInt(ageInput.value) || 0;
+      const humanAge = age <= 0 ? 0 : age === 1 ? 15 : age === 2 ? 24 : 24 + (age - 2) * 4;
+      const stage = age <= 1 ? 'Kitten' : age <= 6 ? 'Young adult' : age <= 10 ? 'Mature adult' : 'Senior';
+      if (resultDisplay) resultDisplay.textContent = humanAge + ' yrs';
+      if (lifeStageText) lifeStageText.textContent = 'Estimated stage: ' + stage;
+      if (progressFill) progressFill.style.width = Math.min(100, Math.max(5, age * 8)) + '%';
+    };
 
-const getStage = (age: number): { text: string; progress: number } => {
-  if (age <= 0) return { text: 'Kitten stage', progress: 5 };
-  if (age === 1) return { text: 'Adolescent stage', progress: 10 };
-  if (age === 2) return { text: 'Young adult', progress: 15 };
-  if (age < 7) return { text: 'Adult stage', progress: 20 + (age - 2) * 8 };
-  if (age < 10) return { text: 'Senior stage', progress: 60 + (age - 7) * 10 };
-  return { text: 'Geriatric stage', progress: Math.min(90 + (age - 10) * 3, 100) };
-};
-
-const update = () => {
-  const age = parseInt(ageInput.value) || 0;
-  const humanAge = age <= 0 ? 0 : age === 1 ? 15 : age === 2 ? 24 : 24 + (age - 2) * 4;
-  const { text, progress } = getStage(age);
-
-  if (resultDisplay) resultDisplay.textContent = `${humanAge} yrs`;
-  if (lifeStageText) lifeStageText.textContent = text;
-  if (progressFill) progressFill.style.width = `${progress}%`;
-};
-
-ageInput.addEventListener('input', update);
-update();
-</script>
+    ageInput.addEventListener('input', update);
+    update();
+  </script>
 </BaseLayout>
