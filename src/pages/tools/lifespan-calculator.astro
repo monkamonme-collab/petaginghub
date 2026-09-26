@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdSenseAd from '../../components/AdSenseAd.astro';
+import { dogSizeBands, getDogSizeLabel, lifespanRanges } from '../../utils/agingModel';
 
 const currentPath = Astro.url.pathname;
 
-const siteUrl = "https://git-github-com-kenny-yan9-ad-site.vercel.app";
+const siteUrl = Astro.site?.origin ?? "https://www.petaginghub.com";
 const hrefLangAlternates = [
   { lang: 'zh-TW', url: siteUrl + '/tools/lifespan-calculator' },
   { lang: 'x-default', url: siteUrl + '/tools/lifespan-calculator' },
@@ -13,7 +14,7 @@ const hrefLangAlternates = [
 
 <BaseLayout
   title="寵物壽命計算機：根據品種、年齡與健康狀況估算剩餘壽命"
-  description="輸入你家寵物的品種、年齡和生活方式，估算剩餘壽命和生命階段。基於全球大規模寵物壽命研究數據，提供科學化的壽命預測。"
+  description="輸入寵物的年齡、體型與生活背景，查看壽命範圍與生命階段的教育性參考；這不是壽命保證或醫療預測。"
   breadcrumbs={[{ label: '工具集', url: '/tools' }, { label: '寵物壽命計算機', url: currentPath }]}
  lang="zh-TW" hrefLangAlternates={hrefLangAlternates}>
   <div class="bg-gradient-to-br from-emerald-50 to-teal-50 border-b border-emerald-100">
@@ -25,7 +26,7 @@ const hrefLangAlternates = [
         寵物壽命計算機
       </h1>
       <p class="text-lg text-slate-600 max-w-2xl mx-auto">
-        根據品種、年齡和生活方式，估算你家寵物的剩餘壽命與生命階段。基於全球大規模寵物壽命研究數據。
+        根據體型、年齡和生活背景，提供壽命範圍與生命階段的教育性參考；個體差異可能很大。
       </p>
     </div>
   </div>
@@ -67,27 +68,13 @@ const hrefLangAlternates = [
 
         <!-- Dog Breed -->
         <div id="dog-breed-section" class="hidden">
-          <label class="block text-sm font-semibold text-slate-700 mb-2">狗狗品種（影響計算結果）</label>
+          <label for="dog-breed" class="block text-sm font-semibold text-slate-700 mb-2">狗狗體型（影響範圍參考）</label>
           <select
             id="dog-breed"
             class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200"
           >
-            <option value="">選擇品種類型</option>
-            <optgroup label="巨型犬（>50kg）">
-              <option value="giant">大丹犬、紐芬蘭犬、聖伯納</option>
-            </optgroup>
-            <optgroup label="大型犬（25-50kg）">
-              <option value="large">拉布拉多、黃金獵犬、德國牧羊犬、阿拉斯加雪橇犬</option>
-            </optgroup>
-            <optgroup label="中型犬（10-25kg）">
-              <option value="medium">柴犬、邊境牧羊犬、臘腸犬、柯基、法國鬥牛犬</option>
-            </optgroup>
-            <optgroup label="小型犬（5-10kg）">
-              <option value="small">貴賓犬、雪納瑞、約克夏、瑪爾濟斯、博美</option>
-            </optgroup>
-            <optgroup label="玩具犬（<5kg）">
-              <option value="toy">吉娃娃</option>
-            </optgroup>
+            <option value="">選擇成年體型</option>
+            {dogSizeBands.map(({ size }) => <option value={size}>{getDogSizeLabel(size, 'zh')}；本站壽命參考 {lifespanRanges.dog[size].join('–')} 歲</option>)}
             <optgroup label="混種">
               <option value="mixed">米克斯（依成年體重估算）</option>
             </optgroup>
@@ -99,35 +86,36 @@ const hrefLangAlternates = [
 
         <!-- Cat Weight -->
         <div id="cat-weight-section" class="hidden">
-          <label class="block text-sm font-semibold text-slate-700 mb-2">貓咪體型（影響計算結果）</label>
+          <label for="cat-type" class="block text-sm font-semibold text-slate-700 mb-2">貓咪生活／品種背景（影響範圍參考）</label>
           <select
             id="cat-type"
             class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200"
           >
-            <option value="">選擇體型</option>
-            <option value="small">小型/嬌小型（<3.5kg）</option>
-            <option value="standard">標準室內貓（3.5-5kg）</option>
-            <option value="large">大型/肌肉型（5-7kg）</option>
-            <option value="obese">過重（>6kg普通 / >8kg大型品種）</option>
+            <option value="">選擇生活／品種背景</option>
+            <option value="indoor">室內貓</option>
+            <option value="outdoor">戶外／自由活動貓</option>
+            <option value="indoor_outdoor">室內外活動貓</option>
+            <option value="large_breed">大型品種（例如緬因、布偶）</option>
           </select>
         </div>
 
         <!-- Age -->
         <div>
-          <label class="block text-sm font-semibold text-slate-700 mb-2">寵物目前年齡（歲）</label>
+          <label for="pet-age" class="block text-sm font-semibold text-slate-700 mb-2">寵物目前年齡（歲）</label>
           <input
             type="number"
             id="pet-age"
             min="0"
             max="30"
             value="5"
+            step="0.01"
             class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200"
           />
         </div>
 
         <!-- Weight for mixed dogs -->
         <div id="mixed-weight-section" class="hidden">
-          <label class="block text-sm font-semibold text-slate-700 mb-2">狗狗體重（kg）</label>
+          <label for="mixed-weight" class="block text-sm font-semibold text-slate-700 mb-2">狗狗體重（kg）</label>
           <input
             type="number"
             id="mixed-weight"
@@ -138,26 +126,11 @@ const hrefLangAlternates = [
           />
         </div>
 
-        <!-- Lifestyle -->
-        <div>
-          <label class="block text-sm font-semibold text-slate-700 mb-3">生活環境</label>
-          <div class="grid grid-cols-2 gap-3">
-            <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition-colors">
-              <input type="radio" name="lifestyle" value="indoor" checked class="w-4 h-4 text-emerald-600" />
-              <span class="text-sm text-slate-700">🏠 室內為主</span>
-            </label>
-            <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition-colors">
-              <input type="radio" name="lifestyle" value="outdoor" class="w-4 h-4 text-emerald-600" />
-              <span class="text-sm text-slate-700">🌳 室外/室內外</span>
-            </label>
-          </div>
-        </div>
-
         <!-- Spayed/Neutered -->
         <div>
           <label class="flex items-center gap-3 cursor-pointer">
             <input type="checkbox" id="spayed" checked class="w-4 h-4 text-emerald-600 rounded" />
-            <span class="text-sm text-slate-700">已結紮（結紮過的寵物平均壽命較長）</span>
+            <span class="text-sm text-slate-700">已結紮（作為與獸醫討論個別健康背景的資訊）</span>
           </label>
         </div>
 
@@ -173,13 +146,13 @@ const hrefLangAlternates = [
     <!-- Results Section (hidden initially) -->
     <div id="results-section" class="hidden">
       <div class="text-center mb-8">
-        <h2 class="text-2xl font-bold text-slate-900 mb-2">壽命預測結果</h2>
-        <p class="text-slate-500">以下數值為統計估算，個體差異可達 ±3 年</p>
+        <h2 class="text-2xl font-bold text-slate-900 mb-2">壽命範圍參考</h2>
+        <p class="text-slate-500">以下為本站教育性參考範圍，並非個別寵物的統計預測</p>
       </div>
 
       <!-- Main Result Card -->
       <div class="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-3xl p-8 text-white mb-8 text-center">
-        <p class="text-sm opacity-80 mb-2">預估剩餘壽命</p>
+        <p class="text-sm opacity-80 mb-2">範圍中點減目前年齡（不是剩餘壽命預測）</p>
         <p class="text-6xl md:text-7xl font-extrabold mb-2" id="remaining-years">--</p>
         <p class="text-2xl mb-4">年</p>
         <p class="text-emerald-100" id="life-expectancy"></p>
@@ -198,7 +171,7 @@ const hrefLangAlternates = [
           <p class="text-slate-600" id="life-stage-sub"></p>
         </div>
         <div class="bg-white rounded-2xl p-6 border border-slate-200 text-center">
-          <p class="text-sm text-slate-500 mb-1">預估總壽命</p>
+          <p class="text-sm text-slate-500 mb-1">本站壽命參考範圍</p>
           <p class="text-4xl font-bold text-slate-900" id="total-age">--</p>
           <p class="text-slate-600">歲</p>
         </div>
@@ -229,7 +202,7 @@ const hrefLangAlternates = [
 
       <!-- Calculator CTA -->
       <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100 text-center">
-        <p class="text-slate-700 font-medium mb-4">想更精確了解你家寵物的年齡嗎？</p>
+        <p class="text-slate-700 font-medium mb-4">想查看你家寵物的一般年齡對照嗎？</p>
         <div class="flex flex-wrap justify-center gap-4">
           <a
             href="/tools/dog-age-calculator/"
@@ -255,10 +228,10 @@ const hrefLangAlternates = [
     <h2 class="text-2xl font-bold text-slate-900 mb-6">關於壽命計算機</h2>
     <div class="prose-slate max-w-none">
       <p class="text-slate-700 leading-relaxed mb-4">
-        本工具的運算基礎是來自多個大規模寵物壽命研究的數據，包括英國皇家獸醫學院（RVC）的犬類壽命數據庫、美國寵物肥胖預防協會（APOP）的統計報告，以及劍橋貓科動物老化研究（the Dog Ageing Project）的公開數據。
+        本工具使用依物種、犬隻體型或貓咪生活／品種背景整理的教育性範圍。這些範圍不能預測個別寵物的壽命、健康或醫療需求。
       </p>
       <p class="text-slate-700 leading-relaxed mb-4">
-        需要注意的是：<strong>這些數值是統計平均值</strong>，實際壽命會受到遺傳、飲食、運動、醫療保健和生活環境等多種因素影響。良好的照護可以讓寵物顯著超過平均壽命，而忽視健康管理則可能導致壽命低於平均。我們建議將本工具的結果視為一個參考範圍（±3年），而非絕對數字。
+        需要注意的是：<strong>這些數值僅為一般參考</strong>。遺傳、病史、環境、體態與照護都可能造成很大的個體差異；如需個別評估，請諮詢獸醫。
       </p>
     </div>
 
@@ -279,93 +252,40 @@ const hrefLangAlternates = [
   </div>
 
   <script>
+    import { estimateDogHumanAge, estimateCatHumanAge, estimateLifespanRange, getDogLifeStage, getCatLifeStage, getDogSizeByWeight } from '../../utils/agingModel';
     let petType = '';
     let dogBreed = '';
     let catType = '';
     let mixedWeight = 15;
     let petAge = 5;
-    let lifestyle = 'indoor';
     let spayed = true;
 
-    // Base lifespans by type (years)
-    const baseDogLifespan = {
-      giant: 7,
-      large: 11,
-      medium: 13,
-      small: 15,
-      toy: 17,
-      mixed: 12
-    };
-
-    const baseCatLifespan = {
-      small: 18,
-      standard: 16,
-      large: 15,
-      obese: 12
-    };
-
     // Human age conversion
-    function dogToHuman(years) {
-      if (years <= 0) return 0;
-      if (years <= 2) return years === 1 ? 15 : 24;
-      return 24 + (years - 2) * 4;
+    function getDogModelSize() {
+      if (dogBreed === 'mixed') return getDogSizeByWeight(mixedWeight) || 'medium';
+      return dogBreed || 'medium';
     }
-
-    function catToHuman(years) {
-      if (years <= 0) return 0;
-      if (years === 1) return 15;
-      if (years === 2) return 24;
-      return 24 + (years - 2) * 4;
-    }
+    function dogToHuman(years) { return estimateDogHumanAge(years, getDogModelSize() as 'small' | 'medium' | 'large' | 'giant'); }
+    function catToHuman(years) { return estimateCatHumanAge(years); }
 
     function getLifeStage(years, isDog = true, breed = 'medium') {
-      if (isDog) {
-        const thresholds = {
-          giant: { adult: 2, mature: 4, senior: 6, geriatric: 7 },
-          large: { adult: 2, mature: 5, senior: 7, geriatric: 8 },
-          medium: { adult: 2, mature: 6, senior: 9, geriatric: 10 },
-          small: { adult: 2, mature: 7, senior: 10, geriatric: 12 },
-          toy: { adult: 2, mature: 9, senior: 12, geriatric: 14 },
-          mixed: { adult: 2, mature: 6, senior: 9, geriatric: 10 }
-        };
-        const t = thresholds[breed] || thresholds.medium;
-        if (years < t.adult) return { stage: '幼年期', sub: '發育中' };
-        if (years < t.mature) return { stage: '成年期', sub: '體能高峰' };
-        if (years < t.senior) return { stage: '中年期', sub: '逐漸老化' };
-        if (years < t.geriatric) return { stage: '老年期', sub: '需特別照護' };
-        return { stage: '高齡期', sub: '臨終關懷' };
-      } else {
-        if (years < 1) return { stage: '幼年期', sub: '發育中' };
-        if (years < 7) return { stage: '成熟期', sub: '體能高峰' };
-        if (years < 11) return { stage: '老年期', sub: '需特別照護' };
-        return { stage: '高齡期', sub: '臨終關懷' };
-      }
+      const stage = isDog
+        ? getDogLifeStage(years, breed as 'small' | 'medium' | 'large' | 'giant')
+        : getCatLifeStage(years);
+      const labels = {
+        puppy: { stage: '幼年期', sub: '一般生命階段參考' }, adult: { stage: '成年期', sub: '一般生命階段參考' },
+        senior: { stage: '老年期', sub: '一般生命階段參考' },
+        kitten: { stage: '幼貓期', sub: '一般生命階段參考' }, youngAdult: { stage: '青年成貓期', sub: '一般生命階段參考' }, matureAdult: { stage: '成熟成貓期', sub: '一般生命階段參考' }
+      };
+      return labels[stage];
     }
 
     function calculate() {
-      const baseLifespan = petType === 'dog' ? baseDogLifespan[dogBreed] : baseCatLifespan[catType];
-      
-      // Adjustments
-      let adjusted = baseLifespan;
-
-      // Indoor bonus
-      if (lifestyle === 'indoor') {
-        adjusted += petType === 'dog' ? 2 : 4;
-      } else {
-        adjusted -= petType === 'dog' ? 3 : 5;
-      }
-
-      // Spayed/neutered bonus
-      if (spayed) {
-        adjusted += petType === 'dog' ? 1 : 1.5;
-      }
-
-      // Mixed breed adjustment based on weight
-      if (petType === 'dog' && dogBreed === 'mixed') {
-        if (mixedWeight < 10) adjusted = 16;
-        else if (mixedWeight < 25) adjusted = 13;
-        else adjusted = 11;
-      }
+      const dogCategory = dogBreed ? getDogModelSize() : '';
+      const category = petType === 'dog' ? dogCategory : catType;
+      if ((petType !== 'dog' && petType !== 'cat') || !category) return;
+      const [low, high] = estimateLifespanRange(petType, category as 'small' | 'medium' | 'large' | 'giant' | 'indoor' | 'outdoor' | 'indoor_outdoor' | 'large_breed');
+      const adjusted = (low + high) / 2;
 
       // Calculate remaining and total
       const remaining = Math.max(0, adjusted - petAge);
@@ -375,7 +295,7 @@ const hrefLangAlternates = [
       const humanAge = petType === 'dog' ? dogToHuman(petAge) : catToHuman(petAge);
 
       // Life stage
-      const breed = petType === 'dog' ? dogBreed : 'standard';
+      const breed = petType === 'dog' ? getDogModelSize() : 'standard';
       const lifeStage = getLifeStage(petAge, petType === 'dog', breed);
 
       // Progress
@@ -386,30 +306,16 @@ const hrefLangAlternates = [
       document.getElementById('human-age').textContent = humanAge;
       document.getElementById('life-stage').textContent = lifeStage.stage;
       document.getElementById('life-stage-sub').textContent = lifeStage.sub;
-      document.getElementById('total-age').textContent = totalAge.toFixed(1);
+      document.getElementById('total-age').textContent = `${low}–${high}`;
       document.getElementById('life-expectancy').textContent = `生命階段：${lifeStage.stage}（${lifeStage.sub}）`;
       document.getElementById('current-age-marker').textContent = `${petAge}歲`;
       document.getElementById('progress-bar').style.width = `${progress}%`;
 
       // Health recommendations
       const recs = [];
-      if (remaining > 5) {
-        recs.push({ icon: '✓', color: 'green', text: '目前健康狀況良好，建議維持均衡飲食和適度運動。' });
-      } else if (remaining > 2) {
-        recs.push({ icon: '⚠', color: 'yellow', text: '已进入老年階段，建議每半年進行一次健康檢查。' });
-        recs.push({ icon: '💡', color: 'blue', text: '注意關節保護，可以開始補充關節保健品。' });
-      } else {
-        recs.push({ icon: '⚠', color: 'red', text: '進入高齡期，需要更密集的健康監控。' });
-        recs.push({ icon: '💡', color: 'blue', text: '建議與獸醫討論安寧照護計劃，確保生活品質。' });
-      }
-
-      if (petType === 'dog' && ['giant', 'large'].includes(dogBreed)) {
-        recs.push({ icon: '🔍', color: 'purple', text: '大型犬應注意心臟和關節健康，建議定期做超聲波檢查。' });
-      }
-
-      if (petType === 'cat' && catType === 'obese') {
-        recs.push({ icon: '⚠', color: 'red', text: '體重過重會顯著縮短壽命。建議立即開始體重管理計劃。' });
-      }
+      recs.push({ icon: 'ℹ️', color: 'blue', text: '此範圍不是對個別寵物健康或剩餘壽命的預測，請把結果作為與獸醫討論照護規劃的起點。' });
+      if (spayed) recs.push({ icon: '✓', color: 'green', text: '已結紮狀態已記錄為健康背景資訊；本工具不會把它換算成特定壽命差異。' });
+      if (lifeStage.stage === '老年期') recs.push({ icon: '💬', color: 'blue', text: '可在下次獸醫諮詢時討論年齡、生活品質與適合該寵物的預防照護安排。' });
 
       const recsHtml = recs.map(r => `
         <div class="flex gap-3 p-3 bg-${r.color}-50 rounded-xl">
@@ -456,12 +362,6 @@ const hrefLangAlternates = [
 
     document.getElementById('pet-age').addEventListener('change', (e) => {
       petAge = parseFloat(e.target.value) || 5;
-    });
-
-    document.querySelectorAll('input[name="lifestyle"]').forEach(radio => {
-      radio.addEventListener('change', (e) => {
-        lifestyle = e.target.value;
-      });
     });
 
     document.getElementById('spayed').addEventListener('change', (e) => {

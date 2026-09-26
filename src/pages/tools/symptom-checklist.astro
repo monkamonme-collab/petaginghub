@@ -4,7 +4,7 @@ import AdSenseAd from '../../components/AdSenseAd.astro';
 
 const currentPath = Astro.url.pathname;
 
-const siteUrl = "https://git-github-com-kenny-yan9-ad-site.vercel.app";
+const siteUrl = Astro.site?.origin ?? "https://www.petaginghub.com";
 const hrefLangAlternates = [
   { lang: 'zh-TW', url: siteUrl + '/tools/symptom-checklist' },
   { lang: 'x-default', url: siteUrl + '/tools/symptom-checklist' },
@@ -156,7 +156,7 @@ const hrefLangAlternates = [
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="physical" data-severity="moderate" data-symptom="lumps" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="physical" data-severity="moderate" data-symptom="lumps" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">皮膚有腫塊/腫瘤</span>
                     <p class="text-xs text-slate-500">新出現或快速增大的腫塊</p>
@@ -421,7 +421,7 @@ const hrefLangAlternates = [
         riskLevel = 'minimal';
         riskColor = 'slate';
         riskIcon = '✅';
-        riskMessage = '目前無明顯風險徵兆';
+        riskMessage = '目前未勾選所列症狀';
       }
 
       const colorClasses = {
@@ -458,7 +458,7 @@ const hrefLangAlternates = [
           <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 mb-6">
             <h3 class="font-bold text-emerald-800 mb-2">建議行動</h3>
             <p class="text-sm text-emerald-700 leading-relaxed">
-              目前觀察到的症狀都在正常老化範圍內。建議持續觀察，保持均衡飲食和適度運動。
+              未勾選到需要分級的症狀。這不表示寵物一定健康；請持續觀察，若有疑慮或症狀改變請諮詢獸醫。
             </p>
           </div>
         `;
@@ -496,7 +496,7 @@ const hrefLangAlternates = [
         <div class="mt-8 p-5 bg-slate-50 rounded-xl border border-slate-200">
           <h3 class="font-bold text-slate-900 mb-2">💡 關於症狀檢核</h3>
           <p class="text-sm text-slate-600 leading-relaxed">
-            本工具提供的是初步健康評估，不能取代獸醫的專業診斷。老化相關的症狀往往輕微且漸進，但突然出現的症狀變化需要特別關注。建議定期（每6-12個月）進行健康檢查，尤其是7歲以上的寵物。
+            本工具僅供教育與症狀整理參考，不能替代獸醫的專業檢查、診斷或治療建議。突然、嚴重或持續惡化的變化應盡快向獸醫尋求協助。
           </p>
         </div>
       `;

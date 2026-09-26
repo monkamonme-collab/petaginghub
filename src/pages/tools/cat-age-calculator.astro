@@ -2,8 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 
-const title = "貓咪年齡計算機 | AAHA/AVMA 標準精準換算";
-const description = "採用美國動物醫院協會 (AAHA) 與美國獸醫師協會 (AVMA) 標準，精準計算貓咪對應人類年齡與生命階段。了解熟齡貓與老年貓的照護重點。";
+const title = "貓咪年齡計算機 | 人類年齡教育性估算";
+const description = "以透明的教育性模型估算貓咪的人類年齡對應，並提供貓咪生命階段的參考資訊。";
 const canonicalPath = "/tools/cat-age-calculator";
 const canonicalURL = new URL(canonicalPath, "https://www.petaginghub.com/");
 
@@ -13,11 +13,10 @@ const breadcrumbs = [
 ];
 
 const lifeStages = [
-  { range: '0-1 歲', human: '嬰兒期至青少年', stage: 'kitten' },
-  { range: '1-3 歲', human: '青少年至青年期', stage: 'young' },
-  { range: '3-7 歲', human: '成年期', stage: 'adult' },
-  { range: '7-10 歲', human: '熟齡期', stage: 'senior' },
-  { range: '10+ 歲', human: '老年期', stage: 'geriatric' }
+  { range: '未滿 1 歲', human: '幼貓期', stage: 'kitten' },
+  { range: '1–未滿 7 歲', human: '青年成貓期', stage: 'young' },
+  { range: '7–10 歲（含）', human: '成熟成貓期', stage: 'adult' },
+  { range: '超過 10 歲', human: '老年期', stage: 'senior' }
 ];
 ---
 
@@ -26,13 +25,13 @@ const lifeStages = [
   <header class="max-w-4xl mx-auto px-6 pt-10 pb-8">
     <div class="flex items-center gap-3 mb-4">
       <span class="text-4xl">🐱</span>
-      <span class="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">AAHA / AVMA 雙標準</span>
+      <span class="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">教育性估算</span>
     </div>
     <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
       貓咪年齡計算機
     </h1>
     <p class="text-lg text-slate-600 leading-relaxed max-w-2xl">
-      想知道您的愛貓等於人類幾歲嗎？本工具採用美國動物醫院協會 (AAHA) 與美國獸醫師協會 (AVMA) 共同認可的科學公式，精準換算貓咪的人類年齡對應值與生命階段。
+      想知道您的愛貓約等於人類幾歲嗎？本工具提供透明的人類年齡教育性估算與生命階段參考，不是獸醫評估。
     </p>
   </header>
 
@@ -40,13 +39,13 @@ const lifeStages = [
     <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-8">
       <div class="max-w-sm mx-auto text-center">
         <div class="mb-6">
-          <label class="block text-sm font-semibold text-slate-700 mb-2">貓咪目前歲數</label>
-          <input type="number" id="catAge" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-center text-lg" value="3" min="0" max="30" />
+          <label for="catAge" class="block text-sm font-semibold text-slate-700 mb-2">貓咪目前歲數</label>
+          <input type="number" id="catAge" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-center text-lg" value="3" min="0" max="30" step="0.01" />
         </div>
         <div class="bg-gradient-to-b from-blue-50 to-slate-50 rounded-xl p-6 mb-4">
           <p class="text-sm text-slate-500 mb-2">對應人類年齡</p>
-          <p class="text-5xl font-black text-blue-600 mb-2" id="result">32 歲</p>
-          <p class="text-sm text-slate-500" id="lifeStageText">已進入成年期</p>
+          <p class="text-5xl font-black text-blue-600 mb-2" id="result">28 歲</p>
+          <p class="text-sm text-slate-500" id="lifeStageText">已進入青年成貓期</p>
         </div>
         <div class="w-full bg-slate-100 rounded-full h-4 relative overflow-hidden border border-slate-200">
           <div id="progressFill" class="h-full transition-all duration-700 bg-blue-600 rounded-full" style="width: 15%"></div>
@@ -64,8 +63,8 @@ const lifeStages = [
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
       </div>
       <div>
-        <p class="text-sm font-semibold text-slate-800">本計算機採用 AAHA / AVMA 雙重標準</p>
-        <p class="text-sm text-slate-500 mt-0.5">美國動物醫院協會與美國獸醫師協會是北美最具權威的伴侶動物醫療機構，其共同發布的貓咪生命階段指南是全球獸醫師的重要參考。</p>
+        <p class="text-sm font-semibold text-slate-800">透明的教育性模型</p>
+        <p class="text-sm text-slate-500 mt-0.5">人類年齡換算由 Pet Aging Hub 定義：第 1 年約 15 歲、第 2 年約 24 歲，之後每年約增加 4 歲；這不是 AAHA、AAFP 或 AVMA 的官方換算公式。</p>
       </div>
     </div>
   </section>
@@ -73,7 +72,7 @@ const lifeStages = [
   <section class="max-w-4xl mx-auto px-6 mb-12">
     <h2 class="text-2xl font-bold text-slate-900 mb-4">為什麼了解貓咪的「人類年齡」很重要？</h2>
     <div class="prose prose-slate max-w-none space-y-4">
-      <p class="text-slate-600">貓咪的生命進程與人類截然不同。一隻 1 歲的貓咪在生理發育上已相當於人類的 15 歲，2 歲時已相當於 24 歲。了解貓咪的真實年齡對應值，有助於主人針對不同生命階段提供適切的照護。幼貓需要高蛋白、高熱量的飲食來支撐快速生長；成貓需要均衡營養；熟齡貓與老年貓則需要低磷、低鈉的配方來保護腎臟功能。</p>
+      <p class="text-slate-600">貓咪在生命前兩年的成長較快，因此本站用分段模型估算人類年齡對應值，但這不代表個別貓咪的生理年齡。不同階段的飲食與照護應考慮健康狀況；不要僅因年齡增加就自行改用限制磷或鈉的飲食，請先諮詢獸醫。</p>
     </div>
   </section>
 
@@ -87,7 +86,7 @@ const lifeStages = [
       <div class="bg-slate-50 rounded-lg p-4 text-sm text-slate-600 space-y-1">
         <p>1歲→15歲 | 2歲→24歲 | 5歲→36歲 | 7歲→44歲 | 10歲→56歲 | 15歲→76歲</p>
       </div>
-      <p class="text-xs text-slate-500">資料來源：AAHA. <em>Feline Life Stage Guidelines</em>. JAAHA, 2019; 55(1): 1-16.</p>
+      <p class="text-xs text-slate-500">生命階段參考：2021 AAHA/AAFP Feline Life Stage Guidelines。該指引用於生命階段照護，不是本換算表的官方公式。</p>
     </div>
   </section>
 
@@ -98,10 +97,10 @@ const lifeStages = [
         <div class="bg-white border border-slate-200 rounded-xl p-5">
           <div class="flex items-start justify-between gap-4">
             <div>
-              <span class={`inline-block text-xs font-bold px-2 py-0.5 rounded mb-2 ${stage.stage === 'kitten' ? 'bg-pink-100 text-pink-700' : stage.stage === 'young' ? 'bg-orange-100 text-orange-700' : stage.stage === 'adult' ? 'bg-green-100 text-green-700' : stage.stage === 'senior' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}`}>{stage.range}</span>
+              <span class={`inline-block text-xs font-bold px-2 py-0.5 rounded mb-2 ${stage.stage === 'kitten' ? 'bg-pink-100 text-pink-700' : stage.stage === 'young' ? 'bg-orange-100 text-orange-700' : stage.stage === 'adult' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>{stage.range}</span>
               <p class="text-slate-600">{stage.human}</p>
             </div>
-            <div class={`w-3 h-3 rounded-full mt-1.5 ${stage.stage === 'kitten' ? 'bg-pink-400' : stage.stage === 'young' ? 'bg-orange-400' : stage.stage === 'adult' ? 'bg-green-400' : stage.stage === 'senior' ? 'bg-yellow-400' : 'bg-red-400'}`}></div>
+            <div class={`w-3 h-3 rounded-full mt-1.5 ${stage.stage === 'kitten' ? 'bg-pink-400' : stage.stage === 'young' ? 'bg-orange-400' : stage.stage === 'adult' ? 'bg-green-400' : 'bg-yellow-400'}`}></div>
           </div>
         </div>
       ))}
@@ -121,11 +120,11 @@ const lifeStages = [
       </details>
       <details class="bg-white border border-slate-200 rounded-xl group">
         <summary class="p-5 cursor-pointer font-semibold text-slate-800 hover:text-blue-600 transition-colors">貓咪幾歲算進入老年期？</summary>
-        <div class="px-5 pb-5 text-slate-600">根據 AAHA 的定義，7 歲以上的貓咪進入成熟期，11 歲以上進入老年期。7 歲以上的貓咪建議每半年進行一次健康檢查，並留意腎臟、甲狀腺、牙齒與關節的健康狀況。</div>
+        <div class="px-5 pb-5 text-slate-600">2021 AAHA/AAFP 生命階段指引將 7–10 歲（含）列為成熟成貓，超過 10 歲列為老年貓。年齡只是參考；個別照護與檢查安排請和獸醫討論。</div>
       </details>
       <details class="bg-white border border-slate-200 rounded-xl group">
         <summary class="p-5 cursor-pointer font-semibold text-slate-800 hover:text-blue-600 transition-colors">老年貓的飲食需要注意什麼？</summary>
-        <div class="px-5 pb-5 text-slate-600">老年貓的腎臟功能通常會逐漸衰退，因此需要選擇低磷、低鈉的處方飼料。具體飲食調整應諮詢獸醫師，根據個別健康狀況量身定制。</div>
+        <div class="px-5 pb-5 text-slate-600">年齡本身不能決定是否需要更換食物或處方飲食。飲食調整應依個別健康狀況、體態與獸醫建議決定。</div>
       </details>
     </div>
   </section>
@@ -135,7 +134,7 @@ const lifeStages = [
     <div class="grid md:grid-cols-2 gap-4">
       <a href="/tools/dog-age-calculator/" class="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-md transition-all group">
         <div class="flex items-center gap-3 mb-2"><span class="text-2xl">🐶</span><span class="font-semibold text-slate-800 group-hover:text-blue-600 transition-colors">狗狗年齡計算機</span></div>
-        <p class="text-sm text-slate-500">採用 AVMA 標準，計算愛犬的人類年齡對應，支援不同體型換算。</p>
+        <p class="text-sm text-slate-500">以體型分段的教育性模型估算愛犬的人類年齡對應。</p>
       </a>
       <a href="/blog/cat-aging-signs/" class="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-md transition-all group">
         <div class="flex items-center gap-2 mb-2"><span class="text-lg">📖</span><span class="font-semibold text-slate-800 group-hover:text-blue-600 transition-colors">貓咪老化徵兆：7個預示愛貓進入熟齡期的變化</span></div>
@@ -147,14 +146,14 @@ const lifeStages = [
       </a>
       <a href="/blog/pet-nutrition-by-age/" class="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-md transition-all group">
         <div class="flex items-center gap-2 mb-2"><span class="text-lg">🍖</span><span class="font-semibold text-slate-800 group-hover:text-blue-600 transition-colors">寵物各年齡階段的營養需求完整指南</span></div>
-        <p class="text-sm text-slate-500">依據 AAFCO 與 AVMA 標準，了解各生命階段的飲食重點。</p>
+        <p class="text-sm text-slate-500">了解各生命階段的飲食考量，並依個別健康狀況與獸醫建議調整。</p>
       </a>
     </div>
   </section>
 
   <section class="max-w-4xl mx-auto px-6 mb-12">
     <div class="border-t border-slate-200 pt-8">
-      <p class="text-xs text-slate-500 leading-relaxed"><strong>免責聲明：</strong>本工具的計算結果基於 AAHA 與 AVMA 發布的普遍性指導原則，結果僅供參考，不構成任何獸醫診斷或治療建議。若您對愛貓的健康有任何疑慮，請諮詢執業獸醫師。</p>
+      <p class="text-xs text-slate-500 leading-relaxed"><strong>免責聲明：</strong>本工具提供一般教育性估算，不構成獸醫建議、診斷或治療。貓咪的健康與老化可能和任何圖表不同；如有行為、食慾、行動或健康變化，請諮詢執業獸醫師。</p>
     </div>
   </section>
 
@@ -163,24 +162,21 @@ const lifeStages = [
     <a href="/tools/" class="text-blue-600 hover:text-blue-700 font-medium">所有工具 →</a>
   </nav>
 
-  <script type="application/ld+json" is:inline set:html={JSON.stringify({"@context":"https://schema.org","@type":"WebApplication","name":"貓咪年齡計算機","description":"採用 AAHA/AVMA 標準公式，精準計算貓咪對應人類年齡與生命階段。","url":canonicalURL,"applicationCategory":"UtilitiesApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}})} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify({"@context":"https://schema.org","@type":"WebApplication","name":"貓咪年齡計算機","description":"以透明教育性模型估算貓咪的人類年齡對應與生命階段參考。","url":canonicalURL,"applicationCategory":"UtilitiesApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}})} />
 
   <script>
+    import { estimateCatHumanAge, getCatLifeStage } from '../../utils/agingModel';
     const ageInput = document.getElementById('catAge') as HTMLInputElement;
     const resultDisplay = document.getElementById('result');
     const lifeStageText = document.getElementById('lifeStageText');
     const progressFill = document.getElementById('progressFill');
     const getStage = (age: number): { text: string; progress: number } => {
-      if (age <= 0) return { text: '幼年階段', progress: 5 };
-      if (age === 1) return { text: '青少年階段', progress: 10 };
-      if (age === 2) return { text: '成年初期', progress: 15 };
-      if (age < 7) return { text: '成年期', progress: 20 + (age - 2) * 8 };
-      if (age < 10) return { text: '熟齡期', progress: 60 + (age - 7) * 10 };
-      return { text: '老年期', progress: Math.min(90 + (age - 10) * 3, 100) };
+      const labels = { kitten: '幼貓期', youngAdult: '青年成貓期', matureAdult: '成熟成貓期', senior: '老年期' };
+      return { text: labels[getCatLifeStage(age)], progress: Math.min(100, Math.max(5, age * 8)) };
     };
     const update = () => {
-      const age = parseInt(ageInput.value) || 0;
-      const humanAge = age <= 0 ? 0 : age === 1 ? 15 : age === 2 ? 24 : 24 + (age - 2) * 4;
+      const age = Number.parseFloat(ageInput.value) || 0;
+      const humanAge = estimateCatHumanAge(age);
       const { text, progress } = getStage(age);
       if (resultDisplay) resultDisplay.textContent = `${humanAge} 歲`;
       if (lifeStageText) lifeStageText.textContent = `已進入 ${text}`;

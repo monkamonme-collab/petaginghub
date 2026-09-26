@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { dogSizeBands, getDogSizeLabel } from '../../../utils/agingModel';
 
 const breadcrumbs = [
   { label: 'Home', url: '/en/tools/' },
@@ -13,12 +14,6 @@ const hrefLangAlternates = [
   { lang: 'x-default', url: siteUrl + '/tools/compare-aging' },
 ];
 
-const dogBreedSizes = [
-  { label: 'Small (< 9 kg)', multipliers: [15,9,7.5,7,7,7,7,7,7,7] },
-  { label: 'Medium (9–22 kg)', multipliers: [15,9,8,7.5,7.5,7.5,7,7,7,7] },
-  { label: 'Large (22–40 kg)', multipliers: [15,10,8.5,8,8,8,7.5,7.5,7.5,7.5] },
-  { label: 'Giant (> 40 kg)', multipliers: [12,11,9,8.5,8.5,8,8,8,8,8] },
-];
 ---
 
 <BaseLayout
@@ -39,17 +34,14 @@ const dogBreedSizes = [
         <h2 class="text-xl font-bold text-slate-900 mb-4">🐶 Dog</h2>
         <div class="space-y-4">
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">Dog's Age (years)</label>
-            <input type="number" id="dogAge" min="0" max="30" placeholder="e.g. 7"
+            <label for="dogAge" class="block text-sm font-medium text-slate-700 mb-1">Dog's Age (years)</label>
+            <input type="number" id="dogAge" min="0" max="30" step="0.01" placeholder="e.g. 7"
               class="w-full border border-slate-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-amber-400" />
           </div>
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">Size / Breed</label>
+            <label for="dogSize" class="block text-sm font-medium text-slate-700 mb-1">Adult size</label>
             <select id="dogSize" class="w-full border border-slate-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-amber-400">
-              <option value="small">Small (&lt; 9 kg) — e.g. Chihuahua, Shih Tzu</option>
-              <option value="medium" selected>Medium (9–22 kg) — e.g. Beagle, Shiba Inu</option>
-              <option value="large">Large (22–40 kg) — e.g. Labrador, Golden Retriever</option>
-              <option value="giant">Giant (&gt; 40 kg) — e.g. Great Dane, Saint Bernard</option>
+              {dogSizeBands.map(({ size }) => <option value={size} selected={size === 'medium'}>{getDogSizeLabel(size, 'en')}</option>)}
             </select>
           </div>
         </div>
@@ -59,17 +51,9 @@ const dogBreedSizes = [
         <h2 class="text-xl font-bold text-slate-900 mb-4">🐱 Cat</h2>
         <div class="space-y-4">
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">Cat's Age (years)</label>
-            <input type="number" id="catAge" min="0" max="30" placeholder="e.g. 10"
+            <label for="catAge" class="block text-sm font-medium text-slate-700 mb-1">Cat's Age (years)</label>
+            <input type="number" id="catAge" min="0" max="30" step="0.01" placeholder="e.g. 10"
               class="w-full border border-slate-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-purple-400" />
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">Type</label>
-            <select id="catType" class="w-full border border-slate-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-purple-400">
-              <option value="indoor" selected>Indoor cat</option>
-              <option value="outdoor">Outdoor / free-roaming cat</option>
-              <option value="large">Large breed (Maine Coon, Ragdoll)</option>
-            </select>
           </div>
         </div>
       </div>
@@ -106,11 +90,11 @@ const dogBreedSizes = [
       <div class="grid md:grid-cols-2 gap-6 text-sm text-slate-700">
         <div>
           <h3 class="font-semibold mb-2">🐶 Dogs</h3>
-          <p class="leading-relaxed">Dog aging rates vary significantly by size. Small dogs age more slowly after year 2 and often live 14–16+ years, while giant breeds age faster and typically live 8–10 years. Our calculator uses size-adjusted multipliers based on published veterinary research.</p>
+          <p class="leading-relaxed">Dog age equivalence is a size-aware educational estimate. It is not an official veterinary conversion formula or a diagnosis.</p>
         </div>
         <div>
           <h3 class="font-semibold mb-2">🐱 Cats</h3>
-          <p class="leading-relaxed">Cats age rapidly in the first two years (year 1 ≈ 15 human years, year 2 ≈ 24 human years), then slow to roughly 4 human years per calendar year. Indoor cats typically live longer than outdoor cats. Large breeds like Maine Coons mature more slowly.</p>
+          <p class="leading-relaxed">Cats age rapidly in the first two years (year 1 ≈ 15 human years, year 2 ≈ 24 human years), then add about four human-equivalent years per calendar year. This is an educational estimate, not a medical assessment.</p>
         </div>
       </div>
     </div>
@@ -123,69 +107,27 @@ const dogBreedSizes = [
   </div>
 
   <script>
-    function calcDogHumanAge(age, size) {
-      if (age <= 0) return 0;
-      const multipliers = {
-        small:  [15, 9, 7.5, 7, 7, 7, 7, 7, 7, 7],
-        medium: [15, 9, 8, 7.5, 7.5, 7.5, 7, 7, 7, 7],
-        large:  [15, 10, 8.5, 8, 8, 8, 7.5, 7.5, 7.5, 7.5],
-        giant:  [12, 11, 9, 8.5, 8.5, 8, 8, 8, 8, 8],
-      };
-      const m = multipliers[size] || multipliers.medium;
-      let human = 0;
-      for (let y = 1; y <= Math.floor(age); y++) {
-        human += m[Math.min(y - 1, m.length - 1)];
-      }
-      const frac = age - Math.floor(age);
-      if (frac > 0) human += frac * m[Math.min(Math.floor(age), m.length - 1)];
-      return Math.round(human);
-    }
-
-    function calcCatHumanAge(age, type) {
-      if (age <= 0) return 0;
-      let human = 0;
-      for (let y = 1; y <= Math.floor(age); y++) {
-        if (y === 1) human += (type === 'large' ? 12 : 15);
-        else if (y === 2) human += (type === 'large' ? 10 : 9);
-        else human += (type === 'outdoor' ? 5 : 4);
-      }
-      const frac = age - Math.floor(age);
-      if (frac > 0) {
-        const yr = Math.floor(age) + 1;
-        const perYear = yr === 1 ? (type === 'large' ? 12 : 15) : yr === 2 ? (type === 'large' ? 10 : 9) : (type === 'outdoor' ? 5 : 4);
-        human += frac * perYear;
-      }
-      return Math.round(human);
-    }
-
-    function getLifeStage(humanAge) {
-      if (humanAge < 15) return '🐾 Junior';
-      if (humanAge < 35) return '💪 Young Adult';
-      if (humanAge < 55) return '🌟 Mature Adult';
-      if (humanAge < 70) return '🍂 Senior';
-      return '👴 Geriatric';
-    }
+    import { estimateDogHumanAge, estimateCatHumanAge, getDogLifeStage, getCatLifeStage } from '../../../utils/agingModel';
 
     document.getElementById('compareBtn').addEventListener('click', function() {
       const dogAge = parseFloat(document.getElementById('dogAge').value);
       const catAge = parseFloat(document.getElementById('catAge').value);
       const dogSize = document.getElementById('dogSize').value;
-      const catType = document.getElementById('catType').value;
       const hasDog = !isNaN(dogAge) && dogAge > 0;
       const hasCat = !isNaN(catAge) && catAge > 0;
       if (!hasDog && !hasCat) { alert('Please enter at least one age.'); return; }
-      const dogHuman = hasDog ? calcDogHumanAge(dogAge, dogSize) : null;
-      const catHuman = hasCat ? calcCatHumanAge(catAge, catType) : null;
+      const dogHuman = hasDog ? estimateDogHumanAge(dogAge, dogSize) : null;
+      const catHuman = hasCat ? estimateCatHumanAge(catAge) : null;
       document.getElementById('dogHumanAge').textContent = dogHuman !== null ? dogHuman : '—';
       document.getElementById('catHumanAge').textContent = catHuman !== null ? catHuman : '—';
-      document.getElementById('dogLifeStage').textContent = dogHuman !== null ? getLifeStage(dogHuman) : '';
-      document.getElementById('catLifeStage').textContent = catHuman !== null ? getLifeStage(catHuman) : '';
+      document.getElementById('dogLifeStage').textContent = dogHuman !== null ? getDogLifeStage(dogAge, dogSize).replace(/([A-Z])/g, ' $1') : '';
+      document.getElementById('catLifeStage').textContent = catHuman !== null ? getCatLifeStage(catAge).replace(/([A-Z])/g, ' $1') : '';
       let compText = '';
       if (hasDog && hasCat) {
         const diff = Math.abs(dogHuman - catHuman);
-        if (diff === 0) compText = 'Your dog and cat are at equivalent human ages — both around ' + dogHuman + ' human years!';
-        else if (dogHuman > catHuman) compText = 'Your dog (' + dogAge + ' yrs → ~' + dogHuman + ' human yrs) is biologically older than your cat (' + catAge + ' yrs → ~' + catHuman + ' human yrs) by about ' + diff + ' human years.';
-        else compText = 'Your cat (' + catAge + ' yrs → ~' + catHuman + ' human yrs) is biologically older than your dog (' + dogAge + ' yrs → ~' + dogHuman + ' human yrs) by about ' + diff + ' human years.';
+        if (diff === 0) compText = 'This educational model gives both pets around ' + dogHuman + ' human-equivalent years; it does not compare their health.';
+        else if (dogHuman > catHuman) compText = 'This educational model estimates ' + dogHuman + ' human-equivalent years for your dog and ' + catHuman + ' for your cat. The difference is not a measure of biological health.';
+        else compText = 'This educational model estimates ' + catHuman + ' human-equivalent years for your cat and ' + dogHuman + ' for your dog. The difference is not a measure of biological health.';
       } else if (hasDog) {
         compText = 'Your ' + dogAge + '-year-old dog is equivalent to approximately ' + dogHuman + ' human years. Enter a cat age to compare.';
       } else {

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdSenseAd from '../../components/AdSenseAd.astro';
+import { dogSizeBands, getDogSizeLabel } from '../../utils/agingModel';
 
 const currentPath = Astro.url.pathname;
 
@@ -30,33 +31,41 @@ const hrefLangAlternates = [
         </span>
       </h1>
       <p class="text-lg text-slate-300 max-w-2xl mx-auto mb-10">
-        同時計算你家狗狗和貓咪的人類年齡對照，快速了解兩種寵物的生命階段差異。依據 AVMA 科學數據，適用於所有體型與年齡。
+        同時計算你家狗狗和貓咪的人類年齡教育性估算，並以體型作為狗狗估算的參考。這不是診斷或官方獸醫公式。
       </p>
 
       <!-- Main Calculator Form -->
       <div class="max-w-xl mx-auto bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
-        <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="grid md:grid-cols-2 gap-4 mb-6">
           <!-- Dog Input -->
           <div class="text-left">
-            <label class="block text-sm text-slate-300 mb-2 font-medium">🐕 狗狗年齡（歲）</label>
+            <label for="dog-age" class="block text-sm text-slate-300 mb-2 font-medium">🐕 狗狗年齡（歲）</label>
             <input
               type="number"
               id="dog-age"
               min="0"
               max="30"
+              step="0.01"
               value="5"
               class="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white text-lg focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-slate-400"
               placeholder="輸入狗狗年齡"
             />
           </div>
+          <div class="text-left">
+            <label for="dog-size" class="block text-sm text-slate-300 mb-2 font-medium">狗狗成年體型</label>
+            <select id="dog-size" class="w-full px-4 py-3 bg-slate-800 border border-white/30 rounded-xl text-white text-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+              {dogSizeBands.map(({ size }) => <option value={size} selected={size === 'medium'}>{getDogSizeLabel(size, 'zh')}</option>)}
+            </select>
+          </div>
           <!-- Cat Input -->
           <div class="text-left">
-            <label class="block text-sm text-slate-300 mb-2 font-medium">🐱 貓咪年齡（歲）</label>
+            <label for="cat-age" class="block text-sm text-slate-300 mb-2 font-medium">🐱 貓咪年齡（歲）</label>
             <input
               type="number"
               id="cat-age"
               min="0"
               max="30"
+              step="0.01"
               value="5"
               class="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white text-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 placeholder-slate-400"
               placeholder="輸入貓咪年齡"
@@ -108,7 +117,7 @@ const hrefLangAlternates = [
           </div>
           <div class="flex justify-between text-sm">
             <span class="text-slate-600">距離老年還需</span>
-            <span class="font-medium text-blue-700" id="dog-years-left">約2年</span>
+            <span class="font-medium text-blue-700" id="dog-years-left">計算後顯示</span>
           </div>
         </div>
         <a
@@ -144,7 +153,7 @@ const hrefLangAlternates = [
           </div>
           <div class="flex justify-between text-sm">
             <span class="text-slate-600">距離老年還需</span>
-            <span class="font-medium text-indigo-700" id="cat-years-left">約2年</span>
+            <span class="font-medium text-indigo-700" id="cat-years-left">計算後顯示</span>
           </div>
         </div>
         <a
@@ -159,7 +168,7 @@ const hrefLangAlternates = [
     <!-- Summary Banner -->
     <div class="bg-slate-100 rounded-2xl p-6 text-center">
       <p class="text-slate-700 font-medium" id="summary-text">
-        你的狗狗目前處於中年階段，與同年齡的室內貓相比，狗狗的生理年齡通常對應更老化——這是因為大型犬的老化速度比貓咪更快。
+        輸入年齡後查看本站教育性對照結果；人類年齡換算並非生理年齡或診斷。
       </p>
       <p class="text-sm text-slate-500 mt-3">
         了解更詳細的
@@ -185,6 +194,7 @@ const hrefLangAlternates = [
               <th class="px-4 py-3 font-semibold text-slate-700">🐕 小型犬</th>
               <th class="px-4 py-3 font-semibold text-slate-700">🐕 中型犬</th>
               <th class="px-4 py-3 font-semibold text-slate-700">🐕 大型犬</th>
+              <th class="px-4 py-3 font-semibold text-slate-700">🐕 巨型犬</th>
               <th class="px-4 py-3 font-semibold text-slate-700 rounded-tr-lg">🐱 室內貓</th>
             </tr>
           </thead>
@@ -194,7 +204,7 @@ const hrefLangAlternates = [
         </table>
       </div>
       <p class="text-xs text-slate-500 text-center mt-4">
-        * 狗狗體型分類：小型犬（&lt;10kg&gt;）、中型犬（10-25kg）、大型犬（&gt;25kg）。貓咪數值適用於室內家貓。
+        * 狗狗體型分類：{dogSizeBands.map(({ size }) => getDogSizeLabel(size, 'zh')).join('、')}。分類是本站估算假設，非官方標準。
       </p>
       <div class="text-center mt-6">
         <a
@@ -222,7 +232,7 @@ const hrefLangAlternates = [
           <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">工具</span>
         </div>
         <h3 class="font-bold text-slate-900 mb-2 group-hover:text-blue-700">狗狗年齡計算機</h3>
-        <p class="text-sm text-slate-600">使用 AVMA 科學演算法，計算你家狗狗的人類年齡與生命階段</p>
+        <p class="text-sm text-slate-600">以體型分段的教育性模型，提供人類年齡與生命階段參考</p>
       </a>
 
       <!-- Cat Calculator -->
@@ -278,120 +288,61 @@ const hrefLangAlternates = [
   </div>
 
   <script>
-    // AVMA-based age conversion functions
+    import { estimateDogHumanAge, estimateCatHumanAge, getDogLifeStage, getCatLifeStage, getDogSeniorAge } from '../../utils/agingModel';
+    // Educational age-equivalence helpers are shared with the individual calculators.
     function dogToHuman(years, size = 'medium') {
-      if (years <= 0) return 0;
-
-      let humanAge = 0;
-      let remaining = years;
-
-      // Year 1
-      if (remaining >= 1) {
-        humanAge += size === 'large' ? 20 : 15;
-        remaining -= 1;
-      }
-      // Year 2
-      if (remaining >= 1) {
-        humanAge += 9;
-        remaining -= 1;
-      }
-      // Year 3+
-      const perYear = size === 'large' ? 8 : size === 'medium' ? 7 : 6;
-      humanAge += Math.floor(remaining) * perYear;
-
-      return humanAge;
+      return estimateDogHumanAge(years, size as 'small' | 'medium' | 'large' | 'giant');
     }
 
     function catToHuman(years) {
-      if (years <= 0) return 0;
-
-      let humanAge = 0;
-      if (years >= 1) humanAge += 15;
-      if (years >= 2) humanAge += 9;
-      if (years > 2) humanAge += (years - 2) * 4;
-
-      return humanAge;
+      return estimateCatHumanAge(years);
     }
 
-    function getDogStage(years, size = 'medium') {
-      const thresholds = size === 'large'
-        ? { adult: 2, mature: 5, senior: 7, geriatric: 10 }
-        : size === 'small'
-        ? { adult: 2, mature: 6, senior: 9, geriatric: 13 }
-        : { adult: 2, mature: 5, senior: 8, geriatric: 11 };
-
-      if (years < thresholds.adult) return '幼年期';
-      if (years < thresholds.mature) return '成年期';
-      if (years < thresholds.senior) return '中年期';
-      if (years < thresholds.geriatric) return '老年期';
-      return '高齡期';
-    }
-
-    function getCatStage(years) {
-      if (years < 1) return '幼年期';
-      if (years < 7) return '成熟期';
-      if (years < 11) return '老年期';
-      return '高齡期';
-    }
-
-    function getCheckupFrequency(years, isCat = false) {
-      if (isCat) {
-        if (years >= 11) return '每半年一次';
-        if (years >= 7) return '每年一次';
-        return '每年一次';
-      }
-
-      if (years >= 8) return '每半年一次';
-      if (years >= 5) return '每年一次';
-      return '每年一次';
-    }
+    const dogStageLabels = { puppy: '幼年期', adult: '成年期', senior: '老年期' };
+    const catStageLabels = { kitten: '幼貓期', youngAdult: '青年成貓期', matureAdult: '成熟成貓期', senior: '老年期' };
 
     function getYearsToSenior(years, isCat = false, dogSize = 'medium') {
-      const threshold = isCat ? 7 : dogSize === 'large' ? 5 : dogSize === 'small' ? 9 : 6;
+      const threshold = isCat ? 10 : getDogSeniorAge(dogSize as 'small' | 'medium' | 'large' | 'giant');
+      if (isCat && years === 10) return '10 歲後';
       const diff = threshold - years;
       if (diff <= 0) return '已進入';
       if (diff < 1) return '不到1年';
       return `約${Math.round(diff)}年`;
     }
 
-    function getDogSizeHumanAge(years) {
-      return {
-        small: catToHuman(years) + 5,
-        medium: catToHuman(years),
-        large: catToHuman(years) - 5
-      };
-    }
-
     function calculate() {
       const dogAge = parseFloat(document.getElementById('dog-age').value) || 0;
       const catAge = parseFloat(document.getElementById('cat-age').value) || 0;
+      const dogSize = document.getElementById('dog-size').value as 'small' | 'medium' | 'large' | 'giant';
 
       if (dogAge <= 0 || catAge <= 0) return;
 
-      const dogHumanAge = dogToHuman(dogAge, 'medium');
-      const catHumanAge = catToHuman(catAge);
+      const dogHumanAge = estimateDogHumanAge(dogAge, dogSize);
+      const catHumanAge = estimateCatHumanAge(catAge);
 
       // Update DOM
       document.getElementById('dog-human-age').textContent = dogHumanAge;
-      document.getElementById('dog-life-stage').textContent = getDogStage(dogAge, 'medium');
-      document.getElementById('dog-stage-label').textContent = `中型犬 · ${getDogStage(dogAge, 'medium')}`;
-      document.getElementById('dog-checkup').textContent = getCheckupFrequency(dogAge, false);
-      document.getElementById('dog-years-left').textContent = getYearsToSenior(dogAge, false, 'medium');
+      const dogStage = getDogLifeStage(dogAge, dogSize);
+      const catStage = getCatLifeStage(catAge);
+      document.getElementById('dog-life-stage').textContent = dogStageLabels[dogStage];
+      document.getElementById('dog-stage-label').textContent = `狗狗 · ${dogStageLabels[dogStage]}`;
+      document.getElementById('dog-checkup').textContent = '請與獸醫討論';
+      document.getElementById('dog-years-left').textContent = getYearsToSenior(dogAge, false, dogSize);
 
       document.getElementById('cat-human-age').textContent = catHumanAge;
-      document.getElementById('cat-life-stage').textContent = getCatStage(catAge);
-      document.getElementById('cat-stage-label').textContent = `室內貓 · ${getCatStage(catAge)}`;
-      document.getElementById('cat-checkup').textContent = getCheckupFrequency(catAge, true);
+      document.getElementById('cat-life-stage').textContent = catStageLabels[catStage];
+      document.getElementById('cat-stage-label').textContent = `貓咪 · ${catStageLabels[catStage]}`;
+      document.getElementById('cat-checkup').textContent = '請與獸醫討論';
       document.getElementById('cat-years-left').textContent = getYearsToSenior(catAge, true);
 
       // Summary text
       let summary = '';
       if (dogAge > catAge + 1) {
-        summary = `你的狗狗年齡比貓咪大 ${(dogAge - catAge).toFixed(1)} 歲。從生理年齡來看，狗狗可能已經進入中年階段，而同齡的室內貓可能還處於成熟期——大型犬的老化速度尤其快於貓咪。`;
+        summary = `狗狗的實際年齡比貓咪大 ${(dogAge - catAge).toFixed(1)} 歲；上方顯示各自的人類年齡教育性對照與生命階段。`;
       } else if (catAge > dogAge + 1) {
-        summary = `你的貓咪年齡比狗狗大 ${(catAge - dogAge).toFixed(1)} 歲。從生理年齡對照來看，貓咪的衰老速度通常比同齡的中型犬慢，這也是室內貓往往比多數狗更長壽的原因之一。`;
+        summary = `貓咪的實際年齡比狗狗大 ${(catAge - dogAge).toFixed(1)} 歲；上方顯示各自的人類年齡教育性對照與生命階段。`;
       } else {
-        summary = `你的狗狗和貓咪年齡相近。從人類年齡對照來看，兩者的生理階段可能相近，但具體的老化程度仍會因體型（狗狗）和個體健康狀況而有所差異。`;
+        summary = `狗狗和貓咪的實際年齡相近；人類年齡對照不能代表個別寵物的生理年齡或健康狀況。`;
       }
       document.getElementById('summary-text').textContent = summary;
 
@@ -414,6 +365,7 @@ const hrefLangAlternates = [
           <td class="px-4 py-3 text-slate-600">${dogToHuman(year, 'small')}歲</td>
           <td class="px-4 py-3 text-slate-600">${dogToHuman(year, 'medium')}歲</td>
           <td class="px-4 py-3 text-slate-600">${dogToHuman(year, 'large')}歲</td>
+          <td class="px-4 py-3 text-slate-600">${dogToHuman(year, 'giant')}歲</td>
           <td class="px-4 py-3 text-slate-600">${catToHuman(year)}歲</td>
         `;
         tbody.appendChild(tr);
