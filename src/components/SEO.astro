@@ -4,16 +4,17 @@ interface Props {
   description: string;
   ogType?: string;
   hrefLangAlternates?: { lang: string; url: string }[];
+  schemaType?: string;
 }
 
-const { title, description, ogType = 'website', hrefLangAlternates = [] } = Astro.props;
+const { title, description, ogType = 'website', hrefLangAlternates = [], schemaType } = Astro.props;
 const siteUrl = "https://www.petaginghub.com";
 const canonicalStr = siteUrl + Astro.url.pathname;
 
-const schemaType = ogType === 'article' ? 'BlogPosting' : 'WebPage';
+const resolvedSchemaType = schemaType ?? (ogType === 'article' ? 'BlogPosting' : 'WebPage');
 const schemaJSON = JSON.stringify({
   "@context": "https://schema.org",
-  "@type": schemaType,
+  "@type": resolvedSchemaType,
   "name": title,
   "description": description,
   "url": canonicalStr

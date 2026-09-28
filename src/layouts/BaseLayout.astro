@@ -3,6 +3,7 @@ import '../styles/global.css';
 import SEO from '../components/SEO.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import Footer from '../components/Footer.astro';
+import { getLanguageLinks } from '../utils/pageLocales';
 
 interface Props {
   title?: string;
@@ -12,18 +13,17 @@ interface Props {
   hrefLangAlternates?: { lang: string; url: string }[];
   ogType?: string;
   preloadHref?: string;
+  schemaType?: string;
 }
 
-const { title, description, breadcrumbs = [], lang = 'zh-TW', hrefLangAlternates = [], preloadHref } = Astro.props;
+const { title, description, breadcrumbs = [], lang = 'zh-TW', preloadHref } = Astro.props;
 const isEn = lang === 'en';
-// Build the language-switch URL
-const currentPath = Astro.url.pathname;
-const langSwitchUrl = isEn
-  ? (currentPath.replace(/^\/en/, '') || '/')
-  : '/en' + currentPath;
+// Legacy page-level alternates are superseded by verified routes in one place.
+const { switchUrl: langSwitchUrl, hasCounterpart, alternates } = getLanguageLinks(Astro.url.pathname);
 
 // blog 文章頁面自動套用 article，其餘為 website
 const isBlogPost = /\/blog\/.+/.test(Astro.url.pathname) &&
+  !Astro.url.pathname.includes('/blog/category/') &&
   Astro.url.pathname !== '/blog/' &&
   Astro.url.pathname !== '/en/blog/';
 const ogType = Astro.props.ogType ?? (isBlogPost ? 'article' : 'website');
@@ -35,8 +35,9 @@ const ogType = Astro.props.ogType ?? (isBlogPost ? 'article' : 'website');
     <SEO
       title={title || "Pet Aging Hub - 寵物年齡與健康指南"}
       description={description || "簡單的工具與實用指南，幫助你了解狗狗和貓咪的老化過程、健康變化與老年照護需求。"}
-      hrefLangAlternates={hrefLangAlternates}
+      hrefLangAlternates={alternates}
       ogType={ogType}
+      schemaType={Astro.props.schemaType}
     />
     {preloadHref && (
       <link rel="preload" as="image" href={preloadHref} fetchpriority="high" />
@@ -50,7 +51,7 @@ const ogType = Astro.props.ogType ?? (isBlogPost ? 'article' : 'website');
         href={langSwitchUrl}
         class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-full text-sm font-medium text-slate-700 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700 shadow-sm transition-all"
       >
-        🌐 {isEn ? '中文' : 'EN'}
+        🌐 {isEn ? (hasCounterpart ? '中文' : '中文部落格') : (hasCounterpart ? 'EN' : 'EN Blog')}
       </a>
     </div>
     <main class="flex-grow max-w-5xl mx-auto px-6 py-8">

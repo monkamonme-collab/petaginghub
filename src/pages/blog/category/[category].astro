@@ -1,24 +1,72 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 
-// 必須有這個函數，Astro 靜態導出才不會噴錯
 export function getStaticPaths() {
-  return [
-    { params: { category: 'health' } },
-    { params: { category: 'nutrition' } },
-    { params: { category: 'care' } },
-  ];
+  return ['care', 'health', 'nutrition'].map((category) => ({ params: { category } }));
 }
 
-const { category } = Astro.params;
+const hubs = {
+  care: {
+    title: '寵物照護',
+    description: '從日常活動到熟齡居家安排，探索狗狗與貓咪不同生命階段的照護方法。',
+    articles: [
+      { url: '/blog/pet-aging-guide/', title: '寵物老化完整指南', topic: '照護起點', description: '先理解犬貓生命階段，再找到適合的健康監測與日常照護方向。' },
+      { url: '/blog/senior-dog-care/', title: '老年狗狗完整照護指南', topic: '老犬照護', description: '認識老犬健檢、居家環境與日常陪伴的安排。' },
+      { url: '/blog/senior-cat-care/', title: '老年貓咪照護指南', topic: '老貓照護', description: '了解熟齡貓的健檢重點與更友善的居家環境。' },
+      { url: '/blog/pet-exercise-by-age/', title: '寵物各年齡階段的運動需求', topic: '日常活動', description: '依生命階段調整犬貓活動方式與運動強度。' },
+    ],
+  },
+  health: {
+    title: '寵物健康',
+    description: '閱讀犬貓老化徵兆、日常健康監測與就醫時機，幫助你整理與獸醫討論的問題。',
+    articles: [
+      { url: '/blog/senior-pet-health-guide/', title: '老年寵物健康照護指南', topic: '熟齡健康', description: '從健康監測、飲食到環境調整，建立熟齡照護概覽。' },
+      { url: '/blog/dog-aging-signs/', title: '狗狗老化徵兆', topic: '犬隻徵兆', description: '觀察狗狗身體與行為的變化，了解何時需要進一步檢查。' },
+      { url: '/blog/cat-aging-signs/', title: '貓咪老化徵兆', topic: '貓咪徵兆', description: '辨認貓咪活動、理毛與生活習慣的變化。' },
+      { url: '/blog/pet-dental-health/', title: '寵物牙齒健康指南', topic: '口腔健康', description: '了解口腔問題的徵兆與日常清潔方式。' },
+      { url: '/blog/pet-joint-health/', title: '寵物關節健康指南', topic: '行動能力', description: '認識犬貓關節不適的表現與居家調整方向。' },
+      { url: '/blog/when-to-see-vet/', title: '什麼時候該帶寵物看獸醫？', topic: '就醫時機', description: '依症狀與變化判斷何時應尋求獸醫協助。' },
+    ],
+  },
+  nutrition: {
+    title: '寵物營養',
+    description: '從生命階段與體態出發，閱讀犬貓飲食安排的現有指南；特殊疾病飲食請與獸醫討論。',
+    articles: [
+      { url: '/blog/pet-nutrition-by-age/', title: '寵物各年齡階段的營養需求', topic: '飲食起點', description: '比較幼年、成年與熟齡犬貓的飲食重點和換糧時機。' },
+      { url: '/blog/cat-aging-by-weight/', title: '貓咪體重與老化速度', topic: '體態管理', description: '了解貓咪體重、肥胖與老化之間的關係。' },
+      { url: '/blog/senior-pet-health-guide/', title: '老年寵物健康照護指南', topic: '熟齡飲食', description: '閱讀熟齡照護指南中的營養與健康監測章節。' },
+    ],
+  },
+} as const;
+
+const category = Astro.params.category as keyof typeof hubs;
+const hub = hubs[category];
 ---
 
-<BaseLayout title={`${category} 分類 - Pet Aging Hub`}>
-  <div class="max-w-3xl mx-auto py-20 text-center px-6">
-    <h1 class="text-4xl font-bold capitalize text-slate-900 mb-6">{category} 相關文章</h1>
-    <p class="text-slate-500 text-lg mb-10">內容正在準備中，請先回到首頁查看最新資訊。</p>
-    <a href="/blog/" class="bg-slate-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-slate-800 transition-colors">
-      回到部落格首頁
-    </a>
-  </div>
+<BaseLayout
+  title={`${hub.title}文章與指南 - Pet Aging Hub`}
+  description={hub.description}
+  lang="zh-TW"
+  schemaType="CollectionPage"
+  breadcrumbs={[{ label: '部落格', url: '/blog/' }, { label: hub.title, url: `/blog/category/${category}/` }]}
+>
+  <section class="max-w-4xl mx-auto py-10 px-4">
+    <header class="mb-10">
+      <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">{hub.title}</h1>
+      <p class="text-lg text-slate-600 leading-relaxed">{hub.description}</p>
+    </header>
+    <h2 class="text-2xl font-bold text-slate-900 mb-5">探索相關文章</h2>
+    <ul class="grid gap-5 md:grid-cols-2">
+      {hub.articles.map((article) => (
+        <li class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+          <span class="text-sm font-medium text-amber-700">{article.topic}</span>
+          <h3 class="text-xl font-bold text-slate-900 mt-2 mb-3">
+            <a class="hover:text-amber-700 focus-visible:outline-2 focus-visible:outline-amber-600" href={article.url}>{article.title}</a>
+          </h3>
+          <p class="text-slate-600 leading-relaxed">{article.description}</p>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-10 text-sm text-slate-600"><a class="underline hover:text-amber-700" href="/blog/">瀏覽全部部落格文章</a></p>
+  </section>
 </BaseLayout>
