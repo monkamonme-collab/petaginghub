@@ -1,380 +1,46 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-const breadcrumbs = [
-  { label: 'Home', url: '/en/' },
-  { label: 'Blog', url: '/en/blog/' },
-  { label: 'Dog Years vs Cat Years', url: '/en/blog/dog-years-vs-cat-years/' }
-];
-const siteUrl = "https://www.petaginghub.com";
+import { estimateCatHumanAge, estimateDogHumanAge } from '../../../utils/agingModel';
+const breadcrumbs = [{ label: 'Home', url: '/en/' }, { label: 'Blog', url: '/en/blog/' }, { label: 'Dog Years vs Cat Years', url: '/en/blog/dog-years-vs-cat-years/' }];
+const siteUrl = 'https://www.petaginghub.com';
 const hrefLangAlternates = [
   { lang: 'en', url: siteUrl + '/en/blog/dog-years-vs-cat-years' },
   { lang: 'x-default', url: siteUrl + '/en/blog/dog-years-vs-cat-years' },
 ];
+const comparisonAges = [1, 2, 5, 10, 15];
 ---
-<BaseLayout
-  title="Dog Years vs Cat Years: Are They the Same? | Pet Aging Hub"
-  description="Are cat years the same as dog years? No — cats and dogs age at very different rates. See the full comparison table, science of pet aging, and calculate your pet's real age."
-  lang="en"
-  breadcrumbs={breadcrumbs}
-  hrefLangAlternates={hrefLangAlternates}
->
-<article class="max-w-3xl mx-auto py-10 px-4">
-  <header class="mb-8">
-    <span class="inline-block bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full mb-4">Dogs & Cats</span>
-    <h1 class="text-4xl font-extrabold text-slate-900 mb-4">Dog Years vs Cat Years: Are They the Same?</h1>
-    <p class="text-xl text-slate-600 leading-relaxed">
-      The short answer: no. Dogs and cats age at quite different rates — and neither follows the
-      familiar "1 year = 7 human years" rule. Here's how pet aging actually works, with a
-      side-by-side comparison that tells the real story.
-    </p>
-  </header>
-
-  <div class="space-y-10">
-
-    <!-- The 7-year myth -->
+<BaseLayout title="Dog Years vs Cat Years: Are They the Same? | Pet Aging Hub" description="Are cat years the same as dog years? Compare educational age estimates, see why dog size matters, and learn what these numbers cannot tell you about health." lang="en" breadcrumbs={breadcrumbs} hrefLangAlternates={hrefLangAlternates}>
+  <article class="max-w-3xl mx-auto py-10 px-4 space-y-8">
+    <header>
+      <h1 class="text-4xl font-extrabold text-slate-900 mb-4">Dog Years vs Cat Years: Are They the Same?</h1>
+      <p class="text-xl text-slate-600 leading-relaxed">No. Dogs and cats have different life-stage patterns, and dog size also matters. A single “one pet year equals seven human years” rule cannot represent either species accurately. Human-age equivalents on this site are educational comparisons, not a measure of an individual animal's health.</p>
+    </header>
     <section>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">The "1 Year = 7 Human Years" Myth</h2>
-      <p class="text-slate-700 leading-relaxed mb-4">
-        Almost everyone has heard it: one dog year equals seven human years. It's a memorable rule
-        of thumb, but it doesn't hold up to scrutiny. The math doesn't work at either end of a
-        dog's life. A one-year-old dog is already sexually mature — roughly equivalent to a
-        14-to-15-year-old human, not a 7-year-old. And a 15-year-old dog is ancient, not the
-        equivalent of a 105-year-old human.
-      </p>
-      <p class="text-slate-700 leading-relaxed mb-4">
-        The same problem applies to cats. A two-year-old cat has reached full adult maturity,
-        equivalent to roughly 24 human years. After that, each cat year adds about 4 human years —
-        a much slower rate than the "×7" formula implies.
-      </p>
-      <div class="bg-blue-50 border border-blue-200 rounded-xl p-5">
-        <p class="font-semibold text-blue-800 mb-1">Where did 7x come from?</p>
-        <p class="text-sm text-blue-700 leading-relaxed">
-          The 7x formula appears to be a rough population-level comparison: humans often live to about
-          70, dogs to about 10 — a ratio of roughly 7:1. But this ignores how dramatically aging
-          <em>rates</em> change across a lifespan. The first two years of a dog's life see explosive
-          development; the middle years are relatively stable; the final years bring rapid decline.
-          No single multiplier captures this curve.
-        </p>
-      </div>
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">Do cats age like dogs?</h2>
+      <p class="text-slate-700 leading-relaxed">Both species mature quickly early in life, but their later-life estimates differ. Our cat estimate starts at about 15 human-equivalent years at one year and 24 at two years, then adds about four per year. Our dog estimate also accounts for adult size; it is a site-derived illustration, not an AAHA or AVMA conversion formula.</p>
+      <p class="text-slate-700 leading-relaxed mt-3">Multiplying calendar age by seven misses that early growth: a two-year-old cat is about 24 in this educational comparison, not 14. It also hides the difference between a small and a giant dog of the same calendar age. The table below shows those assumptions openly so you can compare them without treating either result as a diagnosis.</p>
     </section>
-
-    <!-- Do dogs and cats age the same? -->
     <section>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">Do Dogs Age the Same as Cats?</h2>
-      <p class="text-slate-700 leading-relaxed mb-4">
-        Dogs and cats share similar broad life-stage patterns — puppy/kitten, adult, senior — but
-        the timing differs in important ways.
-      </p>
-
-      <div class="grid md:grid-cols-2 gap-4 mb-6">
-        <div class="bg-amber-50 rounded-xl p-5 border border-amber-200">
-          <h3 class="font-bold text-amber-800 mb-3">🐶 How Dogs Age</h3>
-          <ul class="space-y-2 text-amber-700 text-sm">
-            <li><strong>0–2 years:</strong> Rapid growth phase — a 2-year-old dog equals roughly 24 human years</li>
-            <li><strong>3–6 years:</strong> Prime adult years — aging slows significantly</li>
-            <li><strong>7+ years:</strong> Senior stage begins for most breeds</li>
-            <li><strong>Key variable:</strong> Breed size dramatically affects lifespan — giant breeds age much faster than small breeds</li>
-          </ul>
-        </div>
-        <div class="bg-purple-50 rounded-xl p-5 border border-purple-200">
-          <h3 class="font-bold text-purple-800 mb-3">🐱 How Cats Age</h3>
-          <ul class="space-y-2 text-purple-700 text-sm">
-            <li><strong>0–2 years:</strong> Rapid growth — a 2-year-old cat equals roughly 24 human years</li>
-            <li><strong>3–6 years:</strong> Young adult — equivalent to human 28–40</li>
-            <li><strong>7–10 years:</strong> Mature adult — equivalent to human 44–56</li>
-            <li><strong>11+ years:</strong> Senior stage — equivalent to human 60+</li>
-            <li><strong>Key variable:</strong> Indoor vs outdoor life expectancy differs by up to 10 years</li>
-          </ul>
-        </div>
-      </div>
-
-      <p class="text-slate-700 leading-relaxed">
-        The critical difference: <strong>dog aging is heavily influenced by breed size</strong>,
-        while cat aging is more uniform across breeds. A Great Dane may be considered senior at 5,
-        while a Chihuahua stays in "adult" territory until 9 or 10. Cats don't show this same
-        size-based variation — a Maine Coon and a Siamese age at roughly similar rates.
-      </p>
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">Compare the site's estimates</h2>
+      <p class="text-slate-700 mb-4">The numbers below come from the same shared model as our calculators. They are not veterinary life-stage classifications and should not be used to diagnose aging or disease.</p>
+      <div class="overflow-x-auto"><table class="w-full text-sm border-collapse">
+        <thead><tr class="bg-slate-800 text-white"><th scope="col" class="p-3 text-left">Calendar age</th><th scope="col" class="p-3 text-left">Cat</th><th scope="col" class="p-3 text-left">Small dog</th><th scope="col" class="p-3 text-left">Medium dog</th><th scope="col" class="p-3 text-left">Large dog</th><th scope="col" class="p-3 text-left">Giant dog</th></tr></thead>
+        <tbody>{comparisonAges.map((age) => <tr class="border-b border-slate-200"><th scope="row" class="p-3 text-left">{age} years</th><td class="p-3">{estimateCatHumanAge(age)}</td><td class="p-3">{estimateDogHumanAge(age, 'small')}</td><td class="p-3">{estimateDogHumanAge(age, 'medium')}</td><td class="p-3">{estimateDogHumanAge(age, 'large')}</td><td class="p-3">{estimateDogHumanAge(age, 'giant')}</td></tr>)}</tbody>
+      </table></div>
+      <p class="text-sm text-slate-600 mt-3">Pet Aging Hub uses its own practical dog-size bands and approximate conversion. Individual breeds and animals vary. For a personalized input, use the <a href="/en/tools/compare-aging/" class="text-blue-700 underline">interactive comparison tool</a>.</p>
     </section>
-
-    <!-- Comparison table -->
     <section>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">Dog Years vs Cat Years: Side-by-Side Comparison</h2>
-      <p class="text-slate-700 leading-relaxed mb-5">
-        This table shows the approximate human-age equivalent for cats and for medium-sized dogs
-        (20–50 lbs). Small dogs age more slowly in later years; large and giant breeds age faster.
-      </p>
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm border-collapse">
-          <thead>
-            <tr class="bg-slate-800 text-white">
-              <th class="px-4 py-3 text-left font-semibold">Pet Age</th>
-              <th class="px-4 py-3 text-left font-semibold">Cat (Human Equiv.)</th>
-              <th class="px-4 py-3 text-left font-semibold">Small Dog &lt;20 lbs</th>
-              <th class="px-4 py-3 text-left font-semibold">Medium Dog 20–50 lbs</th>
-              <th class="px-4 py-3 text-left font-semibold">Large Dog 50–90 lbs</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              ["1 year",  "15",  "15",  "15",  "15"],
-              ["2 years", "24",  "24",  "24",  "24"],
-              ["3 years", "28",  "28",  "28",  "28"],
-              ["4 years", "32",  "32",  "32",  "34"],
-              ["5 years", "36",  "36",  "36",  "40"],
-              ["6 years", "40",  "40",  "42",  "45"],
-              ["7 years", "44",  "44",  "47",  "50"],
-              ["8 years", "48",  "48",  "51",  "55"],
-              ["9 years", "52",  "52",  "56",  "61"],
-              ["10 years","56",  "56",  "60",  "66"],
-              ["12 years","64",  "64",  "69",  "77"],
-              ["15 years","76",  "76",  "83",  "93"],
-              ["18 years","88",  "91",  "—",   "—"],
-              ["20 years","96",  "105", "—",   "—"],
-            ].map(([age, cat, small, med, large], i) => (
-              <tr class={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
-                <td class="px-4 py-3 border-b border-slate-200 font-semibold text-slate-800">{age}</td>
-                <td class="px-4 py-3 border-b border-slate-200 text-purple-700 font-medium">{cat}</td>
-                <td class="px-4 py-3 border-b border-slate-200 text-amber-700">{small}</td>
-                <td class="px-4 py-3 border-b border-slate-200 text-amber-800">{med}</td>
-                <td class="px-4 py-3 border-b border-slate-200 text-amber-900">{large}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p class="text-slate-500 text-xs mt-3">
-        Sources: AAHA Senior Care Guidelines; Purdue University Veterinary Teaching Hospital; American Association of Feline Practitioners.
-        Note: values are approximations — individual variation is significant.
-      </p>
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">Why does size matter for dogs?</h2>
+      <p class="text-slate-700 leading-relaxed">Dogs vary much more in adult size than domestic cats. Veterinary senior-care guidance therefore does not give every dog one fixed senior birthday: it defines the senior period relative to estimated lifespan. Cats are classified separately: <a href="https://www.aaha.org/resources/2023-aaha-senior-care-guidelines-for-dogs-and-cats/defining-the-senior-patient/" class="text-blue-700 underline">AAHA senior-care guidelines</a> describe dogs as senior during roughly the last quarter of estimated lifespan and cats as senior after age 10. These life stages are separate from the human-age numbers above.</p>
     </section>
-
-    <!-- Why the difference -->
     <section>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">Why Do Dogs and Cats Age at Different Rates?</h2>
-      <p class="text-slate-700 leading-relaxed mb-5">
-        The biology of aging in dogs and cats differs in several meaningful ways:
-      </p>
-      <div class="space-y-4">
-        <div class="bg-white rounded-xl border border-slate-200 p-5">
-          <h3 class="font-bold text-slate-900 mb-2">📏 Body Size and Metabolic Rate</h3>
-          <p class="text-slate-700 text-sm leading-relaxed">
-            In dogs, body size is the most powerful predictor of lifespan. Large breeds have faster
-            metabolisms, grow faster, and accumulate cellular damage more quickly. A Great Dane lives
-            an average of 7–8 years; a Chihuahua often reaches 15–18. This size effect is far less
-            pronounced in cats — even the largest domestic cat breeds don't show the dramatic lifespan
-            difference seen between giant and toy dog breeds.
-          </p>
-        </div>
-        <div class="bg-white rounded-xl border border-slate-200 p-5">
-          <h3 class="font-bold text-slate-900 mb-2">🧬 Telomere Shortening and DNA Repair</h3>
-          <p class="text-slate-700 text-sm leading-relaxed">
-            A 2020 study in <em>Cell Systems</em> found that dogs' epigenetic aging follows a
-            logarithmic curve — they age most rapidly in their first two years, then slow down.
-            Cats follow a similar but not identical curve. Both species accumulate DNA methylation
-            changes (epigenetic "clocks") at rates that differ from each other and from humans,
-            which is why simple multiplication formulas fail.
-          </p>
-        </div>
-        <div class="bg-white rounded-xl border border-slate-200 p-5">
-          <h3 class="font-bold text-slate-900 mb-2">🏠 Environment and Lifestyle</h3>
-          <p class="text-slate-700 text-sm leading-relaxed">
-            Indoor cats live significantly longer than outdoor cats — often 12–18 years versus
-            2–5 years for strictly outdoor cats. Dogs' lifespans are less dramatically affected
-            by indoor/outdoor status, though access to veterinary care and diet quality play major
-            roles for both species. Neutering/spaying also affects longevity, generally adding
-            1–3 years for both cats and dogs.
-          </p>
-        </div>
-        <div class="bg-white rounded-xl border border-slate-200 p-5">
-          <h3 class="font-bold text-slate-900 mb-2">🦷 Dental Disease Progression</h3>
-          <p class="text-slate-700 text-sm leading-relaxed">
-            Both species develop dental disease at similar ages (signs often start by age 3), but
-            dental disease tends to progress more aggressively in cats. Feline tooth resorption —
-            a painful condition where the tooth structure dissolves — affects 30–40% of adult cats
-            and has no direct equivalent in dogs. This is one area where cats can face health
-            complications earlier than dogs of the same chronological age.
-          </p>
-        </div>
-      </div>
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">What can't a human-age estimate tell you?</h2>
+      <p class="text-slate-700 leading-relaxed">It cannot determine biological age, predict an individual lifespan, or explain changes in appetite, weight, movement, or behavior. Discuss meaningful changes with a veterinarian rather than attributing them to a number. For broader species and care differences, read <a href="/en/blog/dog-vs-cat-aging/" class="text-blue-700 underline">how dogs and cats age differently</a>; for health monitoring, see the <a href="/en/blog/senior-pet-health-guide/" class="text-blue-700 underline">senior pet health guide</a>.</p>
+      <p class="text-slate-700 leading-relaxed mt-3">If you are checking one animal rather than comparing species, use the <a href="/en/tools/dog-age-calculator/" class="text-blue-700 underline">dog age calculator</a> or <a href="/en/tools/cat-age-calculator/" class="text-blue-700 underline">cat age calculator</a>. Changes you observe are better addressed in the <a href="/en/blog/dog-aging-signs/" class="text-blue-700 underline">dog aging signs</a> and <a href="/en/blog/cat-aging-signs/" class="text-blue-700 underline">cat aging signs</a> guides; age alone cannot tell you whether a symptom is expected.</p>
     </section>
-
-    <!-- Senior thresholds -->
-    <section>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">When Do Cats and Dogs Become "Senior"?</h2>
-      <p class="text-slate-700 leading-relaxed mb-4">
-        Veterinary organizations use specific age thresholds to guide senior care recommendations:
-      </p>
-      <div class="grid md:grid-cols-2 gap-4">
-        <div class="bg-amber-50 rounded-xl p-5 border border-amber-200">
-          <h3 class="font-bold text-amber-800 mb-3">🐶 Dogs — Senior Age by Breed Size</h3>
-          <ul class="space-y-2 text-sm text-amber-700">
-            <li><strong>Small (&lt;20 lbs):</strong> Senior at 10–11 years</li>
-            <li><strong>Medium (20–50 lbs):</strong> Senior at 8–9 years</li>
-            <li><strong>Large (50–90 lbs):</strong> Senior at 7–8 years</li>
-            <li><strong>Giant (&gt;90 lbs):</strong> Senior at 5–6 years</li>
-          </ul>
-          <p class="text-xs text-amber-600 mt-3">Source: AAHA Senior Care Guidelines 2023</p>
-        </div>
-        <div class="bg-purple-50 rounded-xl p-5 border border-purple-200">
-          <h3 class="font-bold text-purple-800 mb-3">🐱 Cats — Life Stage Definitions</h3>
-          <ul class="space-y-2 text-sm text-purple-700">
-            <li><strong>Kitten:</strong> 0–6 months</li>
-            <li><strong>Junior:</strong> 6 months – 2 years</li>
-            <li><strong>Prime:</strong> 3–6 years</li>
-            <li><strong>Mature:</strong> 7–10 years</li>
-            <li><strong>Senior:</strong> 11–14 years</li>
-            <li><strong>Geriatric:</strong> 15+ years</li>
-          </ul>
-          <p class="text-xs text-purple-600 mt-3">Source: AAFP Feline Life Stage Guidelines</p>
-        </div>
-      </div>
-      <p class="text-slate-700 leading-relaxed mt-5">
-        Want to know exactly where your pet falls on these life-stage scales? Use our calculators:
-      </p>
-      <div class="flex flex-wrap gap-3 mt-3">
-        <a href="/en/tools/dog-age-calculator/" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg text-sm">
-          Dog Age Calculator
-        </a>
-        <a href="/en/tools/cat-age-calculator/" class="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg text-sm">
-          Cat Age Calculator
-        </a>
-      </div>
+    <section class="text-sm text-slate-600 border-t pt-5">
+      <h2 class="font-semibold text-slate-800 mb-2">Source and method</h2>
+      <p>Veterinary life-stage context: <a href="https://www.aaha.org/resources/2023-aaha-senior-care-guidelines-for-dogs-and-cats/defining-the-senior-patient/" class="text-blue-700 underline">AAHA, Defining the Senior Patient</a>. Human-age table: Pet Aging Hub's educational model, not a veterinary guideline.</p>
     </section>
-
-    <!-- Aging signs comparison -->
-    <section>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">How Aging Shows Up Differently in Dogs vs Cats</h2>
-      <p class="text-slate-700 leading-relaxed mb-5">
-        Even at the same biological age, the signs of aging can look quite different between species.
-        Cats are notorious for hiding illness, which makes recognizing aging changes especially important.
-      </p>
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm border-collapse">
-          <thead>
-            <tr class="bg-slate-800 text-white">
-              <th class="px-4 py-3 text-left font-semibold">Aging Sign</th>
-              <th class="px-4 py-3 text-left font-semibold">Dogs</th>
-              <th class="px-4 py-3 text-left font-semibold">Cats</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              ["Coat/fur changes", "Graying muzzle, duller coat", "Coarser coat, reduced grooming"],
-              ["Mobility", "Stiffness, slower on stairs, reluctance to jump", "Reduced jump height, hesitation before jumping"],
-              ["Sleep", "Sleeps more, harder to rouse", "Sleeps more (cats already sleep 12–16 hrs/day)"],
-              ["Appetite", "Often decreases; weight loss is a red flag", "Hyperthyroidism can cause increased appetite with weight loss"],
-              ["Cognition", "Canine Cognitive Dysfunction (doggy dementia)", "Feline Cognitive Dysfunction — less researched but real"],
-              ["Kidney disease", "Common; often silent until late", "Extremely common; affects ~30% of cats over 12"],
-              ["Dental disease", "Progressive, causes pain and appetite changes", "Tooth resorption common; harder to detect"],
-              ["Vision/hearing", "Both decline with age", "Both decline, but cats often adapt well"],
-            ].map(([sign, dogs, cats], i) => (
-              <tr class={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
-                <td class="px-4 py-3 border-b border-slate-200 font-semibold text-slate-800">{sign}</td>
-                <td class="px-4 py-3 border-b border-slate-200 text-slate-700">{dogs}</td>
-                <td class="px-4 py-3 border-b border-slate-200 text-slate-700">{cats}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p class="text-slate-600 text-sm mt-4">
-        For a deeper look at what aging signs to watch for, see our dedicated guides:
-        <a href="/en/blog/dog-aging-signs/" class="text-blue-600 underline">signs of aging in dogs</a> and
-        <a href="/en/blog/cat-aging-signs/" class="text-blue-600 underline">signs of aging in cats</a>.
-      </p>
-    </section>
-
-    <!-- Which ages faster -->
-    <section>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">Do Dogs Age Faster Than Cats?</h2>
-      <p class="text-slate-700 leading-relaxed mb-4">
-        In most cases, yes — especially for medium, large, and giant breeds. The average dog lives
-        10–13 years; the average cat lives 12–18 years. Indoor cats regularly reach their late
-        teens and occasionally hit 20+. Dogs reaching 15+ are exceptional and generally small breeds.
-      </p>
-      <p class="text-slate-700 leading-relaxed mb-4">
-        The biological reason comes down to growth rate: dogs are engineered for a much wider range
-        of body sizes than cats. The cellular processes that drive rapid growth in large-breed puppies
-        — high IGF-1 (insulin-like growth factor) — are associated with shorter lifespans.
-        Cats, with a much narrower range of adult body sizes, don't carry the same tradeoff.
-      </p>
-      <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
-        <p class="font-semibold text-slate-800 mb-2">Bottom line on lifespan:</p>
-        <ul class="space-y-1 text-slate-700 text-sm">
-          <li>🐶 <strong>Small dogs</strong> (&lt;20 lbs): live 14–18 years — comparable to cats</li>
-          <li>🐶 <strong>Medium dogs</strong> (20–50 lbs): live 11–14 years — slightly shorter than cats</li>
-          <li>🐶 <strong>Large dogs</strong> (50–90 lbs): live 9–12 years — shorter than most cats</li>
-          <li>🐶 <strong>Giant dogs</strong> (&gt;90 lbs): live 7–9 years — significantly shorter</li>
-          <li>🐱 <strong>Indoor cats</strong>: live 12–18 years on average</li>
-          <li>🐱 <strong>Outdoor cats</strong>: live 2–8 years on average</li>
-        </ul>
-      </div>
-    </section>
-
-  </div>
-
-  <!-- CTA -->
-  <div class="mt-10 flex flex-wrap gap-4">
-    <a href="/en/tools/dog-age-calculator/" class="px-5 py-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-xl text-sm">Dog Age Calculator</a>
-    <a href="/en/tools/cat-age-calculator/" class="px-5 py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-xl text-sm">Cat Age Calculator</a>
-    <a href="/en/blog/dog-aging-signs/" class="px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold rounded-xl text-sm">Signs of Aging in Dogs</a>
-    <a href="/en/blog/cat-aging-signs/" class="px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold rounded-xl text-sm">Signs of Aging in Cats</a>
-  </div>
-</article>
-
-<script type="application/ld+json" set:html={JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Are cat years the same as dog years?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. Cats and dogs age at different rates. Both mature quickly in their first two years (a 2-year-old of either species is roughly equivalent to a 24-year-old human), but after that cats tend to age more slowly than medium and large dogs. Cats also live longer on average — indoor cats typically live 12–18 years, while medium dogs average 11–14 years."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do dogs age faster than cats?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "For most breeds, yes. Medium, large, and giant dog breeds age significantly faster than cats. A large dog may be considered senior at age 7, while a cat the same age is only in its 'mature adult' stage. Small dog breeds (under 20 lbs) are the exception — they often live as long as cats, 14–18 years."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is 1 dog year equal to 7 human years?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. The '1 dog year = 7 human years' rule is a simplification that doesn't reflect how dogs actually age. Dogs age very rapidly in their first two years (a 1-year-old dog is closer to a 15-year-old human), then slow down. The correct human-age equivalent depends on the dog's size and age — large breeds age faster than small breeds."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How old is a 10-year-old cat in human years?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A 10-year-old cat is approximately equivalent to a 56-year-old human. The calculation: the first two years = 24 human years, then each additional year adds about 4 human years. So 10 cat years = 24 + (8 × 4) = 56 human years."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How old is a 10-year-old dog in human years?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "It depends on breed size. A 10-year-old small dog (under 20 lbs) is roughly 56 human years old. A 10-year-old medium dog is about 60. A 10-year-old large dog is around 66. Giant breeds age the fastest — a 10-year-old giant breed dog may be equivalent to a 66–78-year-old human."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "At what age is a cat considered senior?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "According to the American Association of Feline Practitioners (AAFP), cats are considered 'senior' from age 11 to 14, and 'geriatric' at 15 and older. The 'mature' stage runs from 7 to 10. Unlike dogs, this doesn't vary much by breed size."
-      }
-    }
-  ]
-})} />
-
+  </article>
 </BaseLayout>

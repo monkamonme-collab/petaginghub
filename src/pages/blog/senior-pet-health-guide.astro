@@ -2,9 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdSenseAd from '../../components/AdSenseAd.astro';
 
-const title = "老年寵物健康照護全攻略：結合獸醫生物學與權威研究的長壽指南";
-const description = "當毛孩步入老年，照護核心需從疾病治療轉向預防醫學。本指南引用加州大學與 AVMA 研究，深入解析老年犬貓的健康風險與科學照護流程。";
-const date = "2026-05-12";
+const title = "老年寵物健康照護：犬貓日常監測與就醫討論指南";
+const description = "記錄熟齡犬貓的體重、行動、牙齒、飲食與行為變化，了解哪些狀況值得和獸醫討論，以及如何調整居家環境。";
+const date = "2026-09-29";
 const image = "https://images.unsplash.com/photo-1581888227599-779811939961?w=1200&q=80";
 const currentPath = Astro.url.pathname;
 
@@ -19,67 +19,66 @@ const hrefLangAlternates = [
   <article class="max-w-3xl mx-auto px-6 py-12">
     <header class="mb-12">
       <div class="flex items-center gap-3 text-sm text-slate-500 mb-4">
-        <span class="bg-indigo-600 text-white px-2 py-0.5 rounded font-bold">權威指南</span>
+        <span class="bg-indigo-600 text-white px-2 py-0.5 rounded font-bold">健康監測指南</span>
         <span>最後更新：{date}</span>
       </div>
       <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-6">{title}</h1>
       <p class="text-lg text-slate-600 leading-relaxed italic border-l-4 border-indigo-200 pl-4">
-        「老化不是一種疾病，而是一個可以被管理的生理過程。」—— 這是當代獸醫預防醫學的核心精神。
+        老化本身不是診斷。觀察並記錄新變化，與獸醫一起調整適合個別犬貓的照護方式。想先了解生命階段，可閱讀<a href="/blog/pet-aging-guide/" class="text-blue-700 underline">寵物老化總覽</a>。
       </p>
     </header>
 
     <div class="prose prose-slate max-w-none text-slate-700 leading-relaxed">
       <p>
-        隨著營養學與醫療技術的進步，現代寵物的平均壽命較三十年前延長了約 25%。然而，長壽並不直接等同於生活品質。根據 **美國獸醫師協會 (AVMA)** 的數據，七歲以上的犬隻與十歲以上的貓咪，其慢性病發病率會以指數級度增長。
+        熟齡照護的重點是及早察覺體重、活動、飲水、食慾與行為變化，並與獸醫討論檢查計畫。不能用單一年齡門檻或外觀判定是否健康。
       </p>
 
       <AdSenseAd format="in-article" />
 
-      <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">一、理解老化的生物學臨界點</h2>
+      <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">一、建立個別健康基準</h2>
       <p>
-        學界著名的 **Dog Aging Project (狗狗老化計畫)** 主持人 —— 華盛頓大學的 Daniel Promislow 博士曾指出，大型犬與小型犬的老化機制在分子層級上存在顯著差異。大型犬因為生長速度極快，細胞修復機制在高齡期會迅速崩潰，這解釋了為何大丹犬在 6 歲時就可能面臨與 12 歲吉娃娃相同的生理衰退。
+        狗狗的體型與預估壽命會影響進入老年期的時間，貓咪則有不同的生命階段分類。但生命階段不等於健康診斷；請把寵物平常的體重、活動與飲食習慣當作比較基準。
       </p>
       
       <p>
-        我們在之前的 <a href="/blog/dog-aging-by-breed/" class="text-blue-600 underline">狗狗品種與老化速度</a> 中詳細討論過體型對壽命的影響。無論體型如何，氧化壓力 (Oxidative Stress) 是所有熟齡寵物共同的敵人。當身體產生的自由基超過抗氧化防禦時，DNA 就會受損，進而引發癌症與器官衰竭。
+        進一步的體型背景見<a href="/blog/dog-aging-by-breed/" class="text-blue-600 underline">犬種與老化</a>。若出現新症狀，請重點記錄時間、頻率與程度，不要僅憑年齡推定原因。
       </p>
 
       <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">二、關鍵健康監測：超越肉眼可見的徵兆</h2>
       <p>
-        許多飼主常說：「我的貓看起來很健康，只是變懶了。」但在獸醫病理學中，「變懶」往往是疼痛或代謝異常的掩飾。
+        活動量下降可能與多種因素有關，包括疼痛。觀察行動方式及日常習慣的變化，與獸醫討論是否需要進一步評估。
       </p>
       <ul class="space-y-3 bg-slate-50 p-6 rounded-2xl border border-slate-100">
-        <li><strong>SDMA 檢測 (對稱性二甲基精氨酸)：</strong> 這是目前腎臟病篩檢的金標準。比起傳統的肌酸酐 (Creatinine)，它能在腎功能損失 25% 時就發出警訊，而傳統檢測通常要等到 75% 損害時才跳出異常。</li>
-        <li><strong>高血壓監測：</strong> 貓咪常見的慢性腎病 (CKD) 常伴隨高血壓，若未及時發現，可能導致突發性視網膜剝離。</li>
-        <li><strong>骨關節炎評估：</strong> 12 歲以上的貓咪超過 90% 患有關節炎，這在 <a href="/blog/cat-aging-signs/" class="text-blue-600 underline">貓咪老化徵兆</a> 一文中提到的「隱藏時間變長」有直接關聯。</li>
+        <li><strong>體重與身體狀態：</strong> 定期記錄增減與肌肉狀態；不明原因的變化應請獸醫評估。</li>
+        <li><strong>血液、尿液與血壓：</strong> 是否檢查及檢查頻率應依個別風險與獸醫建議決定，不存在適合所有熟齡寵物的固定檢驗套餐。</li>
+        <li><strong>活動與關節：</strong> 記錄不願跳躍、跛行或理毛減少等變化；可參考<a href="/blog/cat-aging-signs/" class="text-blue-600 underline">貓咪徵兆指南</a>，但仍需專業評估。</li>
       </ul>
 
       <AdSenseAd format="in-article" />
 
-      <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">三、精準營養：延緩老化的第一道防線</h2>
+      <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">三、營養與身體狀態</h2>
       <p>
-        賓州大學獸醫學院的營養學專家曾強調，老年寵物對蛋白質的需求不應盲目減少。相反地，除非患有嚴重的慢性腎病，否則老犬老貓需要**更高質量、高消化率**的蛋白質來維持肌肉量，預防老年性肌肉萎縮 (Sarcopenia)。
+        熟齡犬貓的熱量與營養需求會因體態、肌肉量及疾病而異；不要只因年齡就降低蛋白質，或自行使用疾病處方食品。請與獸醫討論適合的飲食。
       </p>
       <p>
-        此外，Omega-3 脂肪酸 (DHA/EPA) 被證實能顯著降低大腦與關節的發炎反應。這對延緩認知功能退化有極佳效果，相關症狀可參考 <a href="/blog/dog-aging-signs/" class="text-blue-600 underline">狗狗老化徵兆</a> 的行為分析部分。
+        補充品不應被視為延緩認知退化的保證。若注意到行為變化，先記錄並請獸醫評估；觀察方式見<a href="/blog/dog-aging-signs/" class="text-blue-600 underline">狗狗老化徵兆</a>。
       </p>
 
-      <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">四、居家環境的科學調整</h2>
+      <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">四、居家環境調整</h2>
       <p>
         為了減輕老毛孩的負擔，環境的微小改動能帶來巨大的舒適感：
       </p>
       <ol class="list-decimal pl-6 space-y-2">
-        <li><strong>關節支持：</strong> 在沙發或床邊設置防滑斜坡，避免跳躍對脊椎造成的衝擊。</li>
-        <li><strong>進食高度：</strong> 稍微墊高碗架，能減少頸椎壓力，這對患有骨刺的老年犬尤為重要。</li>
-        <li><strong>夜間照明：</strong> 針對視力衰退的寵物（特別是患有白內障的老貓），保持小夜燈開啟能減少夜間焦慮。</li>
+        <li><strong>容易到達的空間：</strong> 可嘗試防滑墊、台階或低入口貓砂盆，依寵物實際活動能力調整。</li>
+        <li><strong>穩定的環境：</strong> 保持熟悉動線；若視力或活動出現變化，請獸醫評估原因。</li>
       </ol>
     </div>
 
     <div class="mt-16 p-10 bg-indigo-900 text-white rounded-3xl shadow-2xl relative overflow-hidden">
       <div class="relative z-10">
-        <h3 class="text-2xl font-bold mb-4">專業診斷，不容延遲</h3>
+        <h3 class="text-2xl font-bold mb-4">從觀察開始，與獸醫討論</h3>
         <p class="mb-8 opacity-90 leading-relaxed">
-          科學照護的第一步是了解數據。立即使用我們的年齡計算機，獲取基於獸醫醫學演算法的生命階段報告。
+          年齡計算機只提供教育性估算，不能診斷健康狀況。若有新的健康變化，請帶著紀錄與獸醫討論。
         </p>
         <div class="flex flex-wrap gap-4">
           <a href="/tools/dog-age-calculator/" class="bg-white text-indigo-900 px-8 py-3 rounded-xl font-bold hover:bg-slate-100 transition-all">狗狗年齡計算 →</a>
@@ -89,7 +88,7 @@ const hrefLangAlternates = [
     </div>
 
     <footer class="mt-16 pt-8 border-t border-slate-200 text-sm text-slate-400">
-      <p>引用文獻：AVMA Senior Pet Care Guidelines, The Dog Aging Project (UW Medicine).</p>
+      <p>參考來源：<a href="https://www.aaha.org/resources/2023-aaha-senior-care-guidelines-for-dogs-and-cats/defining-the-senior-patient/">AAHA 熟齡照護指引</a>；<a href="https://www.aaha.org/resources/2023-aaha-senior-care-guidelines-for-dogs-and-cats/nutrition/">AAHA 熟齡營養建議</a>；<a href="https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/special-needs-senior-cat">Cornell 老年貓照護</a>。</p>
       <p class="mt-2">免責聲明：本站內容僅供參考，不取代臨床診斷。若毛孩身體不適，請立即尋求執業獸醫師協助。</p>
     </footer>
   </article>
@@ -100,7 +99,7 @@ const hrefLangAlternates = [
     "@type": "Article",
     "headline": "老年寵物健康照護全攻略",
     "author": { "@type": "Organization", "name": "Pet Aging Hub" },
-    "datePublished": "2026-05-12",
+    "dateModified": "2026-09-29",
     "image": "https://images.unsplash.com/photo-1581888227599-779811939961?w=1200&q=80"
   }
   </script>

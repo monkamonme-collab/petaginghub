@@ -4,7 +4,7 @@ import AdSenseAd from '../../components/AdSenseAd.astro';
 
 const title = "狗與貓的老化差異：從壽命、速度到徵兆的完整比較";
 const description = "狗和貓誰老化更快？全面比較狗與貓的老化歷程，幫助你用正確的方式陪伴不同寵物走過熟齡期。";
-const date = "2026-05-10";
+const date = "2026-09-29";
 const image = "https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1200&h=675&fit=crop&fm=webp";
 
 // 修正：靜態獲取路徑，避免 URL 物件在編譯時報錯
@@ -43,16 +43,16 @@ const hrefLangAlternates = [
       </div>
       <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4">{title}</h1>
       <p class="text-lg text-slate-600 leading-relaxed">
-        同樣是毛小孩，狗狗和貓咪的老化方式卻有著根本性的差異。了解兩者的生理時鐘，能讓你在照護路上少走彎路。
+        狗與貓的生命階段、體型差異及熟齡照護重點並不相同。本篇比較觀察與照護方向；若想直接對照教育性人類年齡估算，請使用<a href="/tools/compare-aging/" class="text-blue-700 underline">狗貓年齡比較工具</a>。
       </p>
     </header>
 
     <div class="bg-amber-50 border-l-4 border-amber-400 p-6 rounded-r-2xl my-8">
       <h3 class="font-bold text-amber-900 mb-3 flex items-center gap-2 text-lg">📌 本篇重點</h3>
       <ul class="text-slate-700 space-y-2 text-sm md:text-base">
-        <li>貓咪平均壽命較長，但老化徵兆比狗狗更隱晦。</li>
-        <li>大型犬 5 歲起即需注意老化，貓咪則多在 10 歲後穩定衰老。</li>
-        <li>體重變化是關鍵：老狗易胖，老貓易瘦。</li>
+        <li>犬隻體型影響預估壽命，沒有所有狗通用的「老年起始歲數」。</li>
+        <li>依 AAHA／AAFP 生命階段指引，貓咪超過 10 歲屬於老年期。</li>
+        <li>不論狗貓，體重、行動或行為的明顯改變都值得與獸醫討論。</li>
       </ul>
     </div>
 
@@ -82,9 +82,9 @@ const hrefLangAlternates = [
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-100">
-            <tr><td class="p-4 bg-slate-50/30 font-medium">進入老年</td><td class="p-4">5-8 歲</td><td class="p-4">10-12 歲</td></tr>
-            <tr><td class="p-4 bg-slate-50/30 font-medium">常見徵兆</td><td class="p-4">活動下降、跛行</td><td class="p-4">隱藏、減少跳躍</td></tr>
-            <tr><td class="p-4 bg-slate-50/30 font-medium text-red-600">體重趨勢</td><td class="p-4 text-red-600">容易變胖</td><td class="p-4 text-red-600">容易變瘦</td></tr>
+            <tr><td class="p-4 bg-slate-50/30 font-medium">進入老年</td><td class="p-4">預估壽命最後約四分之一；依體型與個體而異</td><td class="p-4">超過 10 歲</td></tr>
+            <tr><td class="p-4 bg-slate-50/30 font-medium">值得記錄的變化</td><td class="p-4">活動、上下樓梯與步態</td><td class="p-4">跳躍、理毛與貓砂盆習慣</td></tr>
+            <tr><td class="p-4 bg-slate-50/30 font-medium">體重</td><td class="p-4">增減都應查明原因</td><td class="p-4">增減都應查明原因</td></tr>
           </tbody>
         </table>
       </div>
@@ -92,7 +92,8 @@ const hrefLangAlternates = [
       <AdSenseAd format="in-article" />
 
       <h2 class="text-2xl font-bold text-slate-900 mt-12 mb-6 border-b pb-2">為什麼老化速度不同？</h2>
-      <p>科學研究顯示，大型犬的快速生長基因（IGF-1）與加速老化直接相關。貓咪體型差異小，因此老化進程相對穩定，且基因多樣性普遍高於純種犬。</p>
+      <p>狗狗的體型差異大，預估壽命與進入老年期的時間因此有所不同；貓咪則使用另一套生命階段分類。這些是照護討論的起點，不能單靠年齡判斷某隻寵物的健康狀態。</p>
+      <p>若出現跛行、食慾或飲水量變化，不要直接歸因於正常老化；可先參考<a href="/blog/dog-aging-signs/">狗狗徵兆</a>、<a href="/blog/cat-aging-signs/">貓咪徵兆</a>，並與獸醫討論。熟齡照護則見<a href="/blog/senior-pet-health-guide/">老年寵物健康監測指南</a>。</p>
     </section>
 
     <section id="faq" class="mt-16 pt-8 border-t border-slate-200">
@@ -103,7 +104,7 @@ const hrefLangAlternates = [
             狗和貓哪個活得久？
             <span class="text-blue-500 group-open:rotate-180 transition-transform">▼</span>
           </summary>
-          <p class="mt-4 text-slate-600 text-sm leading-relaxed">平均而言，室內家貓最長壽，常可達 15-20 歲；小型犬次之；大型犬壽命則最短。</p>
+          <p class="mt-4 text-slate-600 text-sm leading-relaxed">不能只憑物種預測個別壽命。犬隻體型差異很大，貓咪的生活環境與健康狀況也會影響結果；請把壽命範圍當作粗略背景，而非保證。</p>
         </details>
       </div>
     </section>
@@ -111,6 +112,7 @@ const hrefLangAlternates = [
     <footer class="mt-16 pt-8 border-t border-slate-200 text-sm text-slate-400">
       <p>最後更新：{date}</p>
       <p class="mt-2">免責聲明：本文章僅供參考。若有醫療疑問，請務必諮詢獸醫師。</p>
+      <p>來源：<a href="https://www.aaha.org/resources/2023-aaha-senior-care-guidelines-for-dogs-and-cats/defining-the-senior-patient/">AAHA 熟齡定義</a>；<a href="https://www.aaha.org/aaha-guidelines/2021-aaha-aafp-feline-life-stage-guidelines/">AAHA／AAFP 貓咪生命階段指引</a>。</p>
     </footer>
   </article>
 
@@ -120,7 +122,7 @@ const hrefLangAlternates = [
     "@type": "Article",
     "headline": "狗與貓的老化差異：從壽命、速度到徵兆的完整比較",
     "author": { "@type": "Organization", "name": "Pet Aging Hub" },
-    "datePublished": "2026-05-10"
+    "dateModified": "2026-09-29"
   }
   </script>
 </BaseLayout>
