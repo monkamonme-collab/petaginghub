@@ -5,420 +5,65 @@ const breadcrumbs = [
   { label: 'Blog', url: '/en/blog/' },
   { label: 'How Long Do Cats Live?', url: '/en/blog/how-long-do-cats-live/' }
 ];
-const siteUrl = "https://www.petaginghub.com";
+const siteUrl = 'https://www.petaginghub.com';
 const hrefLangAlternates = [
   { lang: 'en', url: siteUrl + '/en/blog/how-long-do-cats-live' },
   { lang: 'x-default', url: siteUrl + '/en/blog/how-long-do-cats-live' },
 ];
+const faqs = [
+  ['What is the average lifespan of a cat?', 'There is no universal average for every cat. A 2024 RVC study of UK companion cats reported life expectancy at birth of 11.7 years for that population. This is a population statistic, not a forecast for an individual cat or an older cat’s remaining years.'],
+  ['Do indoor and outdoor cats have different lifespans?', 'Environment changes exposure and care context, but housing alone cannot establish a particular cat’s lifespan. Indoor/outdoor labels oversimplify different circumstances, including controlled outdoor access and free roaming.'],
+  ['Does breed tell me how long my cat will live?', 'Breed may be relevant to a veterinary history and population research. It does not provide an individual death date, and a breed-range table cannot account for a particular cat’s health and circumstances.'],
+  ['Can weight tell me how many years my cat has left?', 'No. Body condition, weight trend, and muscle condition are health context. They do not translate into an exact number of remaining years or years lost.'],
+  ['Is cat age in human years the same as lifespan?', 'No. A human-equivalent estimate is an educational age comparison. It is not biological age, health status, or a forecast of how long a cat will live.'],
+  ['How should I care for an older cat?', 'Keep a record of new changes and discuss individual care with your veterinarian. Accessible essentials, suitable activity, and predictable routines may help daily comfort, but they cannot guarantee longevity.'],
+];
 ---
-<BaseLayout
-  title="How Long Do Cats Live? Average Lifespan by Breed, Lifestyle & More - Pet Aging Hub"
-  description="Average cat lifespan is 12–18 years, but many factors change that number dramatically. Learn how breed, diet, indoor vs. outdoor lifestyle, and healthcare affect how long your cat lives."
-  lang="en"
-  breadcrumbs={breadcrumbs}
-  hrefLangAlternates={hrefLangAlternates}
->
+<BaseLayout title="How Long Do Cats Live? Lifespan Context and Individual Variation"
+  description="Understand cat lifespan statistics, indoor/outdoor context, breed differences, and the limits of general ranges. No individual lifespan prediction."
+  lang="en" breadcrumbs={breadcrumbs} hrefLangAlternates={hrefLangAlternates}>
 <article class="max-w-3xl mx-auto py-10 px-4">
   <header class="mb-8">
-    <span class="inline-block bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded-full mb-4">Cats</span>
+    <p class="text-sm text-purple-700 mb-3">Cats · Updated October 1, 2026</p>
     <h1 class="text-4xl font-extrabold text-slate-900 mb-4">How Long Do Cats Live?</h1>
-    <p class="text-xl text-slate-600 leading-relaxed">
-      The average domestic cat lives 12–18 years. But the gap between a 9-year life and a 25-year life
-      comes down to choices you make every day — lifestyle, diet, veterinary care, and genetics.
-      Here's what the science says.
-    </p>
+    <p class="text-xl text-slate-600 leading-relaxed">Cat lifespan varies across populations and individuals. A general range can provide background, but it cannot tell you when your cat will die or how many years it has left. This guide separates lifespan context from age conversion and day-to-day care.</p>
   </header>
-
-  <div class="space-y-10">
-
-    <!-- Average Lifespan -->
+  <div class="space-y-8 text-slate-700 leading-relaxed">
     <section>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">Average Cat Lifespan: The Numbers</h2>
-      <p class="text-slate-700 leading-relaxed mb-5">
-        The median lifespan for domestic cats in North America and Europe is roughly 12–15 years,
-        with indoor cats living significantly longer than outdoor cats. Cats receiving consistent
-        veterinary care, quality nutrition, and an indoor-only lifestyle regularly reach 18–20 years.
-        Exceptional cats — like Creme Puff, the record holder who lived to 38 — are rare but
-        demonstrate the biological upper limit.
-      </p>
-
-      <div class="overflow-x-auto mb-6">
-        <table class="w-full text-sm border-collapse">
-          <thead>
-            <tr class="bg-slate-800 text-white">
-              <th class="px-4 py-3 text-left font-semibold">Cat Type</th>
-              <th class="px-4 py-3 text-left font-semibold">Average Lifespan</th>
-              <th class="px-4 py-3 text-left font-semibold">Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              ["Indoor-only cat", "12–18 years", "Protected from outdoor hazards; longest lifespan"],
-              ["Outdoor-only cat", "2–5 years", "Exposed to cars, predators, disease, and fighting"],
-              ["Indoor/outdoor cat", "7–12 years", "Mixed risk profile"],
-              ["Feral cat", "2–5 years", "Harsh conditions; disease exposure; no veterinary care"],
-              ["Spayed/neutered indoor", "15–20+ years", "Best combination for longevity"],
-            ].map(([type, life, notes], i) => (
-              <tr class={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
-                <td class="px-4 py-3 border-b border-slate-200 font-medium text-slate-800">{type}</td>
-                <td class="px-4 py-3 border-b border-slate-200 font-mono font-semibold text-purple-700">{life}</td>
-                <td class="px-4 py-3 border-b border-slate-200 text-slate-600 text-xs">{notes}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <div class="bg-purple-50 border border-purple-200 rounded-xl p-5">
-        <p class="font-semibold text-purple-800 mb-2">🐱 Cat Age in Human Years</p>
-        <p class="text-sm text-purple-700 leading-relaxed">
-          Cats age rapidly in their first two years (reaching human adulthood by age 2) then more
-          slowly after that. A 10-year-old cat is approximately 56 in human years. Use our
-          <a href="/en/tools/cat-age-calculator/" class="text-purple-600 underline font-medium">Cat Age Calculator</a>
-          to see exactly where your cat falls on the human age scale.
-        </p>
-      </div>
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">What does an average actually mean?</h2>
+      <p>A <a class="text-blue-700 underline" href="https://www.rvc.ac.uk/vetcompass/news/new-research-from-the-rvc-predicts-the-future-life-expectancy-for-companion-cats?page=177">2024 Royal Veterinary College study of UK companion cats</a> reported life expectancy at birth of 11.7 years for its study population. Geography, records, sampling, and the statistical measure matter when comparing figures.</p>
+      <p class="mt-3">Life expectancy at birth is not an expiry age. Subtracting your older cat’s age from that number does not estimate its remaining life. A cat already aged 12, 15, or 20 is not “overdue,” and a population average is not a biological maximum. Unusually old cats also do not establish a realistic expectation for every pet.</p>
     </section>
-
-    <!-- Lifespan by Breed -->
     <section>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">Cat Lifespan by Breed</h2>
-      <p class="text-slate-700 leading-relaxed mb-5">
-        Breed has a meaningful but often overstated effect on cat lifespan. Mixed-breed cats
-        (moggies) actually tend to live longer than purebreds because they benefit from
-        <em>hybrid vigor</em> — a broader gene pool that reduces expression of recessive genetic
-        diseases. Among purebreds, lifespan varies by about 3–5 years depending on the breed.
-      </p>
-
-      <div class="overflow-x-auto mb-5">
-        <table class="w-full text-sm border-collapse">
-          <thead>
-            <tr class="bg-slate-800 text-white">
-              <th class="px-4 py-3 text-left font-semibold">Breed</th>
-              <th class="px-4 py-3 text-left font-semibold">Average Lifespan</th>
-              <th class="px-4 py-3 text-left font-semibold">Notable Health Concern</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              ["Mixed Breed (Moggy)", "14–20 years", "Generally fewer genetic issues"],
-              ["Siamese", "15–20 years", "Amyloidosis, dental disease"],
-              ["Russian Blue", "15–20 years", "Generally healthy; bladder stones possible"],
-              ["Burmese", "16–18 years", "Cranial deformities in some lines"],
-              ["Maine Coon", "12–15 years", "HCM (hypertrophic cardiomyopathy)"],
-              ["Ragdoll", "12–17 years", "HCM; urinary tract issues"],
-              ["Bengal", "12–16 years", "PK deficiency; HCM"],
-              ["Persian", "10–15 years", "Brachycephalic (flat face) issues; PKD"],
-              ["British Shorthair", "12–16 years", "HCM; PKD"],
-              ["Scottish Fold", "11–14 years", "Osteochondrodysplasia (severe joint disease)"],
-              ["Sphynx", "9–15 years", "HCM; skin infections"],
-              ["Abyssinian", "9–13 years", "Amyloidosis; PRA (progressive retinal atrophy)"],
-            ].map(([breed, life, health], i) => (
-              <tr class={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
-                <td class="px-4 py-3 border-b border-slate-200 font-medium text-slate-800">{breed}</td>
-                <td class="px-4 py-3 border-b border-slate-200 font-mono font-semibold text-purple-700">{life}</td>
-                <td class="px-4 py-3 border-b border-slate-200 text-slate-600 text-xs">{health}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p class="text-slate-500 text-xs">HCM = Hypertrophic Cardiomyopathy · PKD = Polycystic Kidney Disease · PK = Pyruvate Kinase</p>
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">Indoor and outdoor context—not an individual forecast</h2>
+      <p>Where a cat lives changes its surroundings and possible exposures. Discuss safe access, identification, prevention, and enrichment with your veterinary team rather than using lifestyle as a death-date calculation. Indoor living does not eliminate illness; outdoor access does not assign a fixed short lifespan.</p>
+      <p class="mt-3">Indoor/outdoor is an oversimplified classification: controlled access to an enclosed outdoor space and free roaming are not the same circumstances. Housing alone cannot account for an individual cat’s health, care, or exposures, or establish its lifespan.</p>
+      <p class="mt-3">Lifestyle and breed categories can also overlap: a large-breed cat may live indoors. The <a class="text-blue-700 underline" href="/en/tools/lifespan-calculator/">lifespan reference tool</a> retains existing site assumptions that still require a separate evidence review. Its disclaimers do not validate those assumptions, and it cannot predict individual survival.</p>
     </section>
-
-    <!-- Factors That Affect Lifespan -->
     <section>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">7 Factors That Determine How Long Your Cat Lives</h2>
-
-      <div class="space-y-4">
-        <div class="bg-white rounded-xl border border-slate-200 p-5">
-          <h3 class="font-bold text-slate-900 mb-2">1. Indoor vs. Outdoor Lifestyle</h3>
-          <p class="text-slate-700 text-sm leading-relaxed">
-            This is the single largest modifiable factor. Outdoor cats face cars, predators (coyotes,
-            dogs, hawks), cat fights that spread FIV and FeLV, toxic substances, and infectious
-            diseases. Keeping your cat indoors exclusively can effectively double their life
-            expectancy. Indoor cats also maintain consistent weight more easily, reducing
-            obesity-related disease.
-          </p>
-        </div>
-
-        <div class="bg-white rounded-xl border border-slate-200 p-5">
-          <h3 class="font-bold text-slate-900 mb-2">2. Spaying or Neutering</h3>
-          <p class="text-slate-700 text-sm leading-relaxed">
-            Spayed female cats live about 62% longer than intact females, and neutered males live
-            about 74% longer than intact males, according to research by Banfield Pet Hospital.
-            Spaying eliminates uterine infection (pyometra) and dramatically reduces mammary cancer
-            risk. Neutering eliminates testicular cancer and reduces roaming behavior (and therefore
-            fight injuries and road accidents in outdoor cats).
-          </p>
-        </div>
-
-        <div class="bg-white rounded-xl border border-slate-200 p-5">
-          <h3 class="font-bold text-slate-900 mb-2">3. Diet Quality and Weight Control</h3>
-          <p class="text-slate-700 text-sm leading-relaxed">
-            Cats are obligate carnivores — they require animal protein and cannot synthesize certain
-            amino acids (taurine, arginine) from plant sources. High-quality, protein-rich diets
-            support lean muscle mass and organ health throughout life. Obesity is rampant in
-            domestic cats and dramatically raises the risk of diabetes, arthritis, hepatic lipidosis,
-            and urinary disease. A cat at ideal body weight lives 1.8 years longer on average than
-            an obese cat. For nutritional detail, see our
-            <a href="/en/blog/pet-nutrition-by-age/" class="text-blue-600 underline">pet nutrition by life stage guide</a>.
-          </p>
-        </div>
-
-        <div class="bg-white rounded-xl border border-slate-200 p-5">
-          <h3 class="font-bold text-slate-900 mb-2">4. Preventive Veterinary Care</h3>
-          <p class="text-slate-700 text-sm leading-relaxed">
-            Annual or biannual wellness visits catch kidney disease, hyperthyroidism, diabetes,
-            and heart disease before they become crises. Bloodwork abnormalities often appear 6–18
-            months before clinical symptoms. Dental care is equally important: periodontal disease
-            in cats causes bacteria to enter the bloodstream, damaging the kidneys, heart, and liver.
-            Knowing <a href="/en/blog/when-to-see-vet/" class="text-blue-600 underline">when to see the vet for warning signs</a>
-            is a core longevity skill.
-          </p>
-        </div>
-
-        <div class="bg-white rounded-xl border border-slate-200 p-5">
-          <h3 class="font-bold text-slate-900 mb-2">5. Vaccination and Parasite Control</h3>
-          <p class="text-slate-700 text-sm leading-relaxed">
-            Core vaccines (rabies, FVRCP) protect against fatal or seriously life-shortening
-            diseases. FeLV (feline leukemia) vaccine matters especially for cats with outdoor
-            access. Year-round flea, tick, and heartworm prevention (in heartworm-endemic areas)
-            prevents parasitic disease that can chronically damage organ systems.
-          </p>
-        </div>
-
-        <div class="bg-white rounded-xl border border-slate-200 p-5">
-          <h3 class="font-bold text-slate-900 mb-2">6. Stress and Environmental Enrichment</h3>
-          <p class="text-slate-700 text-sm leading-relaxed">
-            Chronic stress in cats manifests as idiopathic cystitis (bladder inflammation), upper
-            respiratory infections, over-grooming, and reduced immune function. Multi-cat households,
-            litter box conflicts, inadequate vertical space, and lack of stimulation all contribute.
-            Environmental enrichment — climbing structures, puzzle feeders, window perches, and
-            interactive play — meaningfully improves wellbeing and may reduce stress-driven illness.
-          </p>
-        </div>
-
-        <div class="bg-white rounded-xl border border-slate-200 p-5">
-          <h3 class="font-bold text-slate-900 mb-2">7. Genetics and Breed-Specific Disease</h3>
-          <p class="text-slate-700 text-sm leading-relaxed">
-            Some cats carry genetic predispositions that limit lifespan regardless of care.
-            Maine Coons and Ragdolls are prone to HCM (the most common cause of sudden cardiac
-            death in cats). Persians and British Shorthairs have elevated PKD rates. Burmese and
-            Siamese face amyloidosis risk. Knowing your breed's vulnerabilities allows targeted
-            screening (cardiac ultrasound, genetic testing) to catch problems early.
-          </p>
-        </div>
-      </div>
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">Breed, body condition, and individual variation</h2>
+      <p>Breed information can be useful when discussing family history and care. Population comparisons do not mean every cat of a breed will follow the same course. This guide does not assign breed-specific death ages or claim that crossbred cats automatically gain a set number of years.</p>
+      <p class="mt-3">The RVC study examined population differences by breed and sex and reported associations involving non-ideal bodyweight. These findings describe the studied population, not a causal formula or a fixed lifespan adjustment for your cat. Bodyweight is also not interchangeable with a clinical body-condition assessment; health and individual circumstances still require veterinary evaluation.</p>
+      <p class="mt-3">Weight is another context, not an aging clock. Follow <a class="text-blue-700 underline" href="/en/blog/cat-aging-by-weight/">weight changes and body condition</a> separately from age. Do not convert obesity into “years lost” or assume weight loss is inevitable in a senior cat.</p>
     </section>
-
-    <!-- Common Causes of Death -->
     <section>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">Most Common Causes of Death in Senior Cats</h2>
-      <p class="text-slate-700 leading-relaxed mb-5">
-        Understanding what typically ends cats' lives helps you focus preventive care where it
-        matters most. The three leading causes of death in senior cats are:
-      </p>
-
-      <div class="overflow-x-auto mb-6">
-        <table class="w-full text-sm border-collapse">
-          <thead>
-            <tr class="bg-slate-800 text-white">
-              <th class="px-4 py-3 text-left font-semibold">Cause</th>
-              <th class="px-4 py-3 text-left font-semibold">Age Typically Affects</th>
-              <th class="px-4 py-3 text-left font-semibold">Early Warning Signs</th>
-              <th class="px-4 py-3 text-left font-semibold">Prevention Focus</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              ["Chronic Kidney Disease (CKD)", "10+ years", "Increased thirst/urination, weight loss, vomiting", "Annual bloodwork; wet food diet"],
-              ["Cancer", "10–15+ years", "Lumps, unexplained weight loss, lethargy", "Regular vet exams; early detection"],
-              ["Hyperthyroidism", "8–15 years", "Weight loss despite eating, hyperactivity, vomiting", "Annual thyroid level testing after age 7"],
-              ["Heart Disease (HCM)", "5–15 years", "Open-mouth breathing, rapid breathing, lethargy", "Annual cardiac auscultation; echo for at-risk breeds"],
-              ["Diabetes Mellitus", "8–13 years", "Excess drinking/urinating, weight loss, weakness", "Weight management; limiting carbohydrate intake"],
-              ["Dental Disease", "8+ years", "Bad breath, drooling, pawing at mouth", "Annual dental cleanings; home brushing"],
-            ].map(([cause, age, signs, prevention], i) => (
-              <tr class={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
-                <td class="px-4 py-3 border-b border-slate-200 font-medium text-slate-800">{cause}</td>
-                <td class="px-4 py-3 border-b border-slate-200 text-purple-700 font-mono text-xs">{age}</td>
-                <td class="px-4 py-3 border-b border-slate-200 text-slate-600 text-xs">{signs}</td>
-                <td class="px-4 py-3 border-b border-slate-200 text-slate-600 text-xs">{prevention}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">Care decisions without longevity promises</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Keep dated observations of appetite, thirst, litter-box habits, movement, and grooming.</li>
+        <li>Ask which examination and prevention schedule fits your cat’s history and environment.</li>
+        <li>Discuss diet or body-condition concerns before starting a restriction, supplement, or disease-specific food.</li>
+        <li>Offer accessible resting areas and essentials, familiar routines, and activity suited to comfort.</li>
+      </ul>
+      <p class="mt-3">New or persistent changes should not be dismissed as normal old age. Our <a class="text-blue-700 underline" href="/en/blog/cat-aging-signs/">cat change-observation guide</a> and <a class="text-blue-700 underline" href="/en/blog/senior-cat-care/">senior cat care guide</a> answer observation and care questions. Neither can diagnose illness or promise extra years.</p>
     </section>
-
-    <!-- Signs of Aging -->
     <section>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">When Is a Cat Considered Senior or Geriatric?</h2>
-      <p class="text-slate-700 leading-relaxed mb-4">
-        Veterinary consensus classifies cats into life stages with different care protocols:
-      </p>
-      <div class="overflow-x-auto mb-5">
-        <table class="w-full text-sm border-collapse">
-          <thead>
-            <tr class="bg-slate-800 text-white">
-              <th class="px-4 py-3 text-left font-semibold">Life Stage</th>
-              <th class="px-4 py-3 text-left font-semibold">Age Range</th>
-              <th class="px-4 py-3 text-left font-semibold">Human Equivalent</th>
-              <th class="px-4 py-3 text-left font-semibold">Recommended Vet Visits</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              ["Kitten", "0–6 months", "0–10 years", "Monthly (vaccines, spay/neuter)"],
-              ["Junior", "7 months – 2 years", "12–24 years", "Annually"],
-              ["Prime Adult", "3–6 years", "28–40 years", "Annually"],
-              ["Mature Adult", "7–10 years", "44–56 years", "Annually; baseline bloodwork"],
-              ["Senior", "11–14 years", "60–72 years", "Every 6 months"],
-              ["Geriatric (Super Senior)", "15+ years", "76+ years", "Every 6 months or more"],
-            ].map(([stage, age, human, vet], i) => (
-              <tr class={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
-                <td class="px-4 py-3 border-b border-slate-200 font-medium text-slate-800">{stage}</td>
-                <td class="px-4 py-3 border-b border-slate-200 text-purple-700 font-mono">{age}</td>
-                <td class="px-4 py-3 border-b border-slate-200 text-slate-600">{human}</td>
-                <td class="px-4 py-3 border-b border-slate-200 text-slate-600 text-xs">{vet}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p class="text-slate-700 text-sm leading-relaxed">
-        Keep an eye out for the
-        <a href="/en/blog/cat-aging-signs/" class="text-blue-600 underline">signs your cat is entering the senior transition</a>
-        — many changes are subtle and easy to miss until a condition is advanced.
-      </p>
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">Age comparison answers a different question</h2>
+      <p>If you want an educational comparison with human years, use the <a class="text-blue-700 underline" href="/en/tools/cat-age-calculator/">Cat Age Calculator</a>. It uses chronological age, not breed, weight, or lifestyle, and provides a general age-stage reference. This article does not maintain a second conversion table.</p>
+      <p class="mt-3">The <a class="text-blue-700 underline" href="https://www.aaha.org/resources/2021-aaha-aafp-feline-life-stage-guidelines/feline-life-stage-definitions/">AAHA/AAFP age-related framework</a> describes kitten, young adult, mature adult, and senior stages, with senior over 10. Aging is gradual and individual care can differ; a category is not a health verdict or lifespan forecast.</p>
     </section>
-
-    <!-- Extending Lifespan -->
-    <section>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">Practical Steps to Help Your Cat Live Longer</h2>
-      <p class="text-slate-700 leading-relaxed mb-4">
-        The good news: the factors most associated with long cat lives are largely within your control.
-      </p>
-      <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200">
-        <ul class="space-y-4 text-slate-700">
-          {[
-            ["Keep cats indoors", "The single most impactful change you can make. Eliminates the biggest sources of early death: cars, predators, fighting, and infectious disease."],
-            ["Spay or neuter", "Schedule before 6 months. Dramatically reduces cancer risk and eliminates uterine and testicular disease."],
-            ["Feed a high-protein, age-appropriate diet", "Choose foods with named meat as the first ingredient. Avoid diets high in corn or wheat. Wet food improves hydration and reduces kidney stress. See our senior cat care guide for specific recommendations."],
-            ["Maintain a healthy weight", "Use a body condition scoring chart at home monthly. Obesity is reversible and prevention is far easier than treatment."],
-            ["Biannual vet visits from age 7+", "Bloodwork, blood pressure, thyroid check, and urinalysis each visit. Kidney disease and hyperthyroidism are both highly treatable when caught early."],
-            ["Annual dental care", "Professional dental cleaning under anesthesia at least every 1–2 years. Dental disease causes systemic organ damage."],
-            ["Reduce stress", "Provide adequate vertical space, scratch posts, litter boxes (one per cat + one extra), and regular interactive play. Stable routines matter enormously for cats."],
-            ["Keep vaccinations and parasite prevention current", "Core vaccines every 1–3 years depending on risk. Monthly flea/tick prevention year-round even for indoor cats."],
-          ].map(([title, body]) => (
-            <li class="flex gap-3">
-              <span class="mt-1 flex-shrink-0 text-purple-500 font-bold">✓</span>
-              <span><strong class="text-slate-900">{title}:</strong> {body}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-
-    <!-- Oldest Cats -->
-    <section>
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">The Oldest Cats Ever Recorded</h2>
-      <p class="text-slate-700 leading-relaxed mb-4">
-        While exceptional, these cats demonstrate how far lifespan can extend with ideal conditions.
-      </p>
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm border-collapse">
-          <thead>
-            <tr class="bg-slate-800 text-white">
-              <th class="px-4 py-3 text-left font-semibold">Cat</th>
-              <th class="px-4 py-3 text-left font-semibold">Age</th>
-              <th class="px-4 py-3 text-left font-semibold">Location</th>
-              <th class="px-4 py-3 text-left font-semibold">Notable</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              ["Creme Puff", "38 years, 3 days", "Austin, Texas, USA", "Guinness World Record holder"],
-              ["Rubble", "31 years", "Exeter, UK", "British record holder"],
-              ["Baby", "38 years (unverified)", "Louisiana, USA", "Lived 1970–2008"],
-              ["Grandpa Rexs Allen", "34 years, 2 months", "Austin, Texas, USA", "Same owner as Creme Puff"],
-            ].map(([name, age, loc, note], i) => (
-              <tr class={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
-                <td class="px-4 py-3 border-b border-slate-200 font-bold text-slate-900">{name}</td>
-                <td class="px-4 py-3 border-b border-slate-200 font-mono font-semibold text-purple-700">{age}</td>
-                <td class="px-4 py-3 border-b border-slate-200 text-slate-600">{loc}</td>
-                <td class="px-4 py-3 border-b border-slate-200 text-slate-500 text-xs">{note}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p class="text-slate-500 text-xs mt-2">Note: Creme Puff's owner reportedly fed her an unusual diet including bacon and eggs — not a recommendation to follow.</p>
-    </section>
-
+    <section><h2 class="text-2xl font-bold text-slate-900 mb-3">Frequently asked questions</h2>{faqs.map(([q,a]) => <details class="border-b py-3"><summary class="cursor-pointer font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600">{q}</summary><p class="mt-3">{a}</p></details>)}</section>
   </div>
-
-  <!-- CTA -->
-  <div class="mt-10 flex flex-wrap gap-4">
-    <a href="/en/tools/cat-age-calculator/" class="px-5 py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-xl text-sm">Cat Age Calculator</a>
-    <a href="/en/blog/cat-aging-signs/" class="px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold rounded-xl text-sm">Signs Your Cat Is Aging</a>
-    <a href="/en/blog/senior-cat-care/" class="px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold rounded-xl text-sm">Senior Cat Care Guide</a>
-  </div>
+  <footer class="text-sm text-slate-600 border-t pt-5 mt-8"><h2 class="font-bold text-slate-900 mb-2">Sources and limits</h2><p>Population statistics and breed, sex, and bodyweight context: RVC study linked above. Age-stage definitions: AAHA/AAFP linked above. Care and change-observation context: <a class="text-blue-700 underline" href="https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/special-needs-senior-cat">Cornell Feline Health Center</a>. Existing tool ranges remain unvalidated site assumptions and are not attributed to these sources. General information cannot replace veterinary assessment.</p></footer>
 </article>
-
-<script type="application/ld+json" set:html={JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is the average lifespan of a domestic cat?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The average domestic cat lives 12–18 years. Indoor cats typically live 12–18 years, while outdoor cats average only 2–5 years due to hazards like traffic, predators, fighting, and infectious disease. Indoor spayed or neutered cats receiving regular veterinary care often reach 15–20 years."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What breed of cat lives the longest?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Mixed-breed cats (moggies) tend to live the longest — averaging 14–20 years — because they benefit from hybrid vigor and a broader gene pool that reduces genetic disease. Among purebreds, Siamese (15–20 years) and Russian Blue (15–20 years) are known for long lifespans. Breeds like Scottish Fold (11–14 years) and Sphynx (9–15 years) tend toward shorter lifespans due to breed-specific health issues."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is the most important factor in how long a cat lives?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The single biggest factor affecting cat lifespan is indoor vs. outdoor lifestyle. Outdoor cats face dramatically elevated risk from cars, predators, fighting injuries, and infectious diseases like FIV and FeLV. Keeping cats indoors can effectively double their life expectancy. Spaying or neutering is the second most impactful factor, extending lifespan by 62% in females and 74% in males on average."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What age is a cat considered senior?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Cats are generally considered senior from age 11–14 and geriatric (super senior) from age 15 onwards. Many vets recommend biannual wellness visits from age 7 (mature adult stage) because that's when age-related bloodwork changes and conditions like hyperthyroidism and kidney disease typically begin to appear."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What are the most common causes of death in senior cats?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The most common causes of death in senior cats are chronic kidney disease (CKD), cancer, and hyperthyroidism. CKD affects an estimated 30–40% of cats over age 10. Hyperthyroidism is the most common hormonal disorder in senior cats. Heart disease (HCM) causes sudden cardiac death, particularly in certain breeds like Maine Coon and Ragdoll. All three conditions benefit greatly from early detection through routine bloodwork and vet visits."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How can I help my cat live longer?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The most impactful steps are: keep your cat indoors, spay or neuter early, feed a high-quality protein-rich diet (wet food preferred for hydration), maintain a healthy weight, schedule biannual vet visits from age 7 with bloodwork, provide annual dental care, and reduce chronic stress through environmental enrichment. These evidence-based steps address the most common causes of shortened feline lifespan."
-      }
-    }
-  ]
-})} />
-
+<script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([name,text])=>({ '@type':'Question', name, acceptedAnswer:{ '@type':'Answer', text } })) })} />
 </BaseLayout>

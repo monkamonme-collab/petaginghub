@@ -54,11 +54,12 @@ const hrefLangAlternates = [
         <div id="catOptions" class="hidden">
           <label class="block text-sm font-semibold text-slate-700 mb-2">Cat Type</label>
           <select id="catTypeSelect" class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-400">
-            <option value="indoor" selected>Indoor cat — avg. 12–18 yrs</option>
-            <option value="outdoor">Outdoor / free-roaming — avg. 5–7 yrs</option>
-            <option value="indoor_outdoor">Indoor-outdoor — avg. 10–15 yrs</option>
-            <option value="large_breed">Large breed (Maine Coon, Ragdoll) — avg. 12–15 yrs</option>
+            <option value="indoor" selected>Indoor cat — site reference: {lifespanRanges.cat.indoor.join('–')} yrs</option>
+            <option value="outdoor">Outdoor / free-roaming — site reference: {lifespanRanges.cat.outdoor.join('–')} yrs</option>
+            <option value="indoor_outdoor">Indoor-outdoor — site reference: {lifespanRanges.cat.indoor_outdoor.join('–')} yrs</option>
+            <option value="large_breed">Large breed — site reference: {lifespanRanges.cat.large_breed.join('–')} yrs</option>
           </select>
+          <p class="text-sm text-slate-600 mt-2">These are site assumptions, not official population statistics or an individual forecast. Lifestyle and breed categories can overlap. For an educational age comparison, use the <a href="/en/tools/cat-age-calculator/" class="text-blue-700 underline">Cat Age Calculator</a>; for background, read <a href="/en/blog/how-long-do-cats-live/" class="text-blue-700 underline">how long cats live</a>.</p>
         </div>
 
         <div>
@@ -106,7 +107,7 @@ const hrefLangAlternates = [
       <div class="grid grid-cols-2 gap-4 mb-6">
         <div class="bg-white rounded-xl p-4 text-center border border-slate-100">
           <div class="text-3xl font-extrabold text-blue-600" id="lifespanRange">—</div>
-          <div class="text-sm text-slate-600 mt-1">Estimated lifespan</div>
+          <div id="range-label" class="text-sm text-slate-600 mt-1">Estimated lifespan</div>
         </div>
         <div class="bg-white rounded-xl p-4 text-center border border-slate-100">
           <div class="text-3xl font-extrabold text-emerald-600" id="yearsRemaining">—</div>
@@ -139,9 +140,7 @@ const hrefLangAlternates = [
           </thead>
           <tbody class="divide-y divide-slate-100">
             {dogSizeBands.map(({ size }) => <tr><td class="py-2 pr-4 text-slate-700">🐶 {getDogSizeLabel(size, 'en')}</td><td class="py-2 pr-4 font-medium">{lifespanRanges.dog[size].join('–')} years</td><td class="py-2 text-slate-500">Size-based educational reference</td></tr>)}
-            <tr><td class="py-2 pr-4 text-slate-700">🐱 Indoor Cat</td><td class="py-2 pr-4 font-medium">12–18 years</td><td class="py-2 text-slate-500">Domestic shorthair, Persian, Siamese</td></tr>
-            <tr><td class="py-2 pr-4 text-slate-700">🐱 Outdoor Cat</td><td class="py-2 pr-4 font-medium">5–7 years</td><td class="py-2 text-slate-500">Free-roaming cats</td></tr>
-            <tr><td class="py-2 pr-4 text-slate-700">🐱 Large Breed Cat</td><td class="py-2 pr-4 font-medium">12–15 years</td><td class="py-2 text-slate-500">Maine Coon, Ragdoll, Norwegian Forest</td></tr>
+            {(['indoor', 'outdoor', 'large_breed'] as const).map(key => <tr><td class="py-2 pr-4 text-slate-700">🐱 {key.replaceAll('_', ' ')}</td><td class="py-2 pr-4 font-medium">{lifespanRanges.cat[key].join('–')} years</td><td class="py-2 text-slate-500">Site assumption; not an individual forecast</td></tr>)}
           </tbody>
         </table>
       </div>
@@ -167,6 +166,7 @@ const hrefLangAlternates = [
     document.getElementById('calcBtn').addEventListener('click', function() {
       const species = document.querySelector('input[name="species"]:checked').value as 'dog' | 'cat';
       const currentAge = parseFloat(document.getElementById('currentAge').value);
+      document.getElementById('range-label').textContent = species === 'cat' ? 'Site reference range, not an individual forecast' : 'Estimated lifespan';
       const neutered = document.getElementById('neutered').checked;
       const regularVet = document.getElementById('regularVet').checked;
       const overweight = document.getElementById('overweight').checked;

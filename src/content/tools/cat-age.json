@@ -1,6 +1,6 @@
 {
   "title": "貓咪年齡計算機",
-  "description": "採用 AAHA 及 AVMA 標準，精準計算愛貓對應人類年齡。",
+  "description": "輸入貓咪年齡，查看本站的人類年齡教育性估算與一般年齡階段參考。",
   "icon": "🐱",
   "image": "/assets/tools/cat-age.webp",
   "category": "calculator",

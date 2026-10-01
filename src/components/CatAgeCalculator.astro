@@ -1,0 +1,102 @@
+---
+import AdSenseAd from './AdSenseAd.astro';
+import { estimateCatHumanAge, getCatLifeStage } from '../utils/agingModel';
+interface Props { lang: 'zh-TW' | 'en' }
+const { lang } = Astro.props;
+const en = lang === 'en';
+const prefix = en ? '/en' : '';
+const labels = en ? { kitten: 'Kitten', youngAdult: 'Young adult', matureAdult: 'Mature adult', senior: 'Senior' } : { kitten: '幼貓期', youngAdult: '青年成貓期', matureAdult: '成熟成貓期', senior: '老年期' };
+const faqs = en ? [
+  ['How do cat years work?', 'This site uses an educational comparison: 1 year ≈ 15 human-equivalent years, 2 years ≈ 24, then ≈ +4 per year. Decimal ages interpolate within those segments and the final estimate is rounded to a whole year.'],
+  ['Is one cat year equal to seven human years?', 'Not in this model. Early development and later years use different increments. This is a comparison for learning, not a measurement of biological age.'],
+  ['When is a cat considered senior?', 'This tool draws on the AAHA/AAFP age-related framework: kitten under 1, young adult 1 to under 7, mature adult 7 through 10 inclusive, and senior over 10 years. Aging is gradual; health does not switch on a birthday, and care depends on the individual cat.'],
+  ['Does indoor or outdoor lifestyle change the age conversion?', 'No. Lifestyle does not change this site’s conversion or general age-stage reference. Environment can matter to care and exposure, but this result cannot assess those risks.'],
+  ['Can this calculator predict lifespan?', 'No. Human-equivalent age is not a lifespan forecast, remaining-life estimate, health score, or disease prediction.'],
+  ['Does weight change a cat’s human-equivalent age?', 'No. Weight does not change this model. Body condition, weight trends, and muscle condition provide separate health context to discuss with your veterinarian.'],
+] : [
+  ['貓咪年齡如何換算？', '本站使用教育性對照：1 歲 ≈ 人類 15 歲、2 歲 ≈ 24 歲，其後每年約加 4 歲。小數輸入在各區段換算，最後四捨五入至整歲。'],
+  ['貓咪 1 年等於人類 7 年嗎？', '本站模型不是固定乘以 7；早期成長與後續年份使用不同增量。這是方便理解的對照，不是生理年齡測量。'],
+  ['貓咪幾歲算老年？', '本工具參考 AAHA／AAFP 年齡相關框架：幼貓未滿 1 歲、青年成貓 1 至未滿 7 歲、成熟成貓 7 至 10 歲（含）、老年超過 10 歲。老化是漸進過程，不會在生日當天切換健康狀態；照護仍需考量個體差異。'],
+  ['室內或室外生活會改變年齡換算嗎？', '不會。生活環境不改變本站的換算或一般年齡階段參考。環境可能影響照護與風險暴露，但本結果不能評估這些風險。'],
+  ['計算機可以預測壽命嗎？', '不可以。人類年齡對照不是壽命、剩餘年數、健康分數或疾病預測。'],
+  ['體重會改變貓咪的人類年齡嗎？', '不會。體重不改變本站模型。體態、體重趨勢與肌肉狀態是另一種健康背景，應與獸醫討論。'],
+];
+const related = [
+  ['cat-aging-signs', en ? 'Changes to watch in an older cat' : '觀察貓咪的新變化'],
+  ['cat-aging-by-weight', en ? 'Cat weight changes and body condition' : '貓咪體重變化與體態'],
+  ['senior-cat-care', en ? 'Everyday senior cat care' : '熟齡貓日常照護'],
+  ['pet-aging-guide', en ? 'Pet aging overview' : '寵物老化總覽'],
+  ['senior-pet-health-guide', en ? 'Senior pet health monitoring' : '熟齡寵物健康監測'],
+  ...(en ? [['how-long-do-cats-live', 'How long cats live: lifespan context']] : []),
+];
+const schema = [
+  { '@context': 'https://schema.org', '@type': 'WebApplication', name: en ? 'Cat Age Calculator' : '貓咪年齡計算機', url: `https://www.petaginghub.com${prefix}/tools/cat-age-calculator/`, applicationCategory: 'EducationalApplication', operatingSystem: 'Any', inLanguage: lang },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) },
+];
+---
+<div class="max-w-4xl mx-auto px-6 py-10" id="cat-calculator" data-lang={lang}>
+  <header class="mb-8">
+    <p class="text-sm text-blue-700 mb-3">🐱 {en ? 'Educational age comparison' : '教育性年齡對照'}</p>
+    <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">{en ? 'Cat Age Calculator' : '貓咪年齡計算機'}</h1>
+    <p class="text-lg text-slate-600">{en ? 'Enter your cat’s age to estimate cat years in human years and see a general age-stage reference. This is an educational comparison, not a veterinary assessment.' : '輸入貓咪的實際年齡，查看人類年齡教育性對照與一般年齡階段參考。這不是獸醫評估。'}</p>
+  </header>
+  <section class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 mb-8" aria-labelledby="input-heading">
+    <h2 id="input-heading" class="text-xl font-bold text-slate-900 mb-4">{en ? 'Estimate your cat’s age' : '估算貓咪的人類年齡對照'}</h2>
+    <form id="cat-age-form" novalidate>
+      <label for="catAge" class="block font-semibold text-slate-700 mb-2">{en ? 'Cat’s actual age (years)' : '貓咪實際年齡（歲）'}</label>
+      <input id="catAge" name="catAge" type="number" value="3" min="0" max="50" step="any" required aria-describedby="age-help age-error" class="w-full max-w-sm px-4 py-3 rounded-xl border border-slate-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600" />
+      <p id="age-help" class="text-sm text-slate-600 mt-2">{en ? 'Decimals are welcome: 6 months = 0.5 years. The 0–50 input limit is a tool limit, not a biological maximum or lifespan range.' : '可以輸入小數：6 個月 = 0.5 歲。0–50 歲是工具輸入範圍，不是生物年齡上限或壽命範圍。'}</p>
+      <p id="age-error" role="alert" class="text-red-700 font-medium mt-2"></p>
+      <button type="submit" class="mt-4 px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-700">{en ? 'Calculate age estimate' : '查看年齡估算'}</button>
+    </form>
+    <div id="cat-age-result" aria-live="polite" aria-atomic="true" role="status" class="mt-6 bg-blue-50 rounded-xl p-5">
+      <dl class="grid sm:grid-cols-3 gap-5">
+        <div><dt class="text-sm text-slate-600">{en ? 'Actual cat age (years)' : '貓咪實際年齡（歲）'}</dt><dd id="actual-age" class="text-2xl font-bold text-slate-900">3</dd></div>
+        <div><dt class="text-sm text-slate-600">{en ? 'Estimated human-equivalent (years)' : '估算人類年齡（歲）'}</dt><dd id="result" class="text-3xl font-extrabold text-blue-700">{estimateCatHumanAge(3)}</dd></div>
+        <div><dt class="text-sm text-slate-600">{en ? 'General age-stage reference' : '一般年齡階段參考'}</dt><dd id="lifeStageText" class="text-xl font-bold text-slate-900">{labels[getCatLifeStage(3)]}</dd></div>
+      </dl>
+      <p class="text-sm text-slate-700 mt-4">{en ? 'These numbers describe the site’s educational model, not your cat’s biological age or health. Aging is gradual and individual cats differ.' : '這些數字是本站教育性模型的對照，不代表愛貓的生理年齡或健康狀態。老化是漸進過程，每隻貓也有差異。'}</p>
+    </div>
+  </section>
+  <section class="mb-8" aria-labelledby="method-heading">
+    <h2 id="method-heading" class="text-2xl font-bold text-slate-900 mb-3">{en ? 'How this estimate works' : '估算方法與限制'}</h2>
+    <p class="text-slate-700 mb-3">{en ? 'The early years use a faster educational comparison: 1 year ≈ 15, 2 years ≈ 24, then ≈ +4 human-equivalent years per cat year. Decimal inputs interpolate within those segments and the shared model rounds the result. This is Pet Aging Hub’s educational convention, not an AAHA, AAFP, or AVMA conversion formula.' : '早期年份使用較快的教育性對照：1 歲 ≈ 15、2 歲 ≈ 24，之後每年約加 4 人類歲數。小數輸入在各區段換算，由共用模型四捨五入。這是 Pet Aging Hub 的教育性慣例，不是 AAHA、AAFP 或 AVMA 的換算公式。'}</p>
+    <p class="text-slate-700 mb-3">{en ? 'Age stage is separate from human-equivalent age. This tool uses kitten (<1), young adult (1–<7), mature adult (7–10 inclusive), and senior (>10), drawing on the AAHA/AAFP age-related framework. These are references along a gradual process, not precise physiological cutoffs. The guidelines also discuss end-of-life care at any age; this calculator does not assess it.' : '年齡階段與人類年齡對照是不同概念。本工具參考 AAHA／AAFP 年齡相關框架，使用幼貓（<1）、青年成貓（1–<7）、成熟成貓（7–10，含）、老年（>10）。這些是漸進過程中的參考，不是精確生理切換點。指引也討論任何年齡可能需要的生命末期照護，本工具不評估此項。'}</p>
+    <a class="text-sm text-blue-700 underline" href="https://www.aaha.org/resources/2021-aaha-aafp-feline-life-stage-guidelines/feline-life-stage-definitions/">{en ? 'Source: AAHA/AAFP feline life-stage definitions (stages, not this conversion)' : '來源：AAHA／AAFP 貓咪生命階段定義（支持階段分類，不支持本站換算公式）'}</a>
+  </section>
+  {en && <AdSenseAd format="in-article" />}
+  <section class="mb-8" aria-labelledby="table-heading">
+    <h2 id="table-heading" class="text-2xl font-bold text-slate-900 mb-3">{en ? 'A short cat-age reference' : '簡明貓咪年齡對照'}</h2>
+    <div class="overflow-x-auto rounded-xl border border-slate-200" tabindex="0" role="region" aria-label={en ? 'Scrollable cat-age reference table' : '可捲動的貓咪年齡對照表'}>
+      <table class="w-full text-sm text-left"><caption class="p-3 text-slate-600">{en ? 'Generated from the same model as the calculator. Not a health or lifespan chart.' : '與計算機使用相同模型產生；不是健康或壽命表。'}</caption><thead class="bg-slate-100"><tr><th scope="col" class="p-3">{en ? 'Cat age' : '貓咪歲數'}</th><th scope="col" class="p-3">{en ? 'Human-equivalent estimate' : '人類年齡估算'}</th><th scope="col" class="p-3">{en ? 'General age stage' : '一般年齡階段'}</th></tr></thead><tbody>{[1, 2, 5, 10, 15, 20].map(age => <tr class="border-t border-slate-200"><th scope="row" class="p-3">{age}</th><td class="p-3">{estimateCatHumanAge(age)}</td><td class="p-3">{labels[getCatLifeStage(age)]}</td></tr>)}</tbody></table>
+    </div>
+  </section>
+  <section class="mb-8" aria-labelledby="faq-heading"><h2 id="faq-heading" class="text-2xl font-bold text-slate-900 mb-3">{en ? 'Frequently asked questions' : '常見問題'}</h2>{faqs.map(([q, a]) => <details class="border-b border-slate-200 py-3"><summary class="cursor-pointer font-semibold text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600">{q}</summary><p class="text-slate-700 mt-3">{a}</p></details>)}</section>
+  <section aria-labelledby="related-heading"><h2 id="related-heading" class="text-2xl font-bold text-slate-900 mb-3">{en ? 'Choose your next question' : '依需要延伸閱讀'}</h2><div class="grid sm:grid-cols-2 gap-3">{related.map(([slug, label]) => <a class="bg-white p-4 rounded-xl border border-slate-200 text-blue-700 hover:border-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600" href={`${prefix}/blog/${slug}/`}>{label}</a>)}</div><p class="text-slate-600 mt-4">{en ? 'Age conversion is not lifespan prediction. The ' : '年齡換算不能預測壽命；'}<a class="text-blue-700 underline" href={`${prefix}/tools/lifespan-calculator/`}>{en ? 'lifespan reference tool' : '壽命參考工具'}</a>{en ? ' uses separate site assumptions, not a forecast for an individual cat.' : '使用另一套本站假設，不是個別貓咪的未來預測。'}</p></section>
+</div>
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+<script>
+  import { estimateCatHumanAge, getCatLifeStage } from '../utils/agingModel';
+  const root = document.getElementById('cat-calculator');
+  if (root) {
+    const en = root.dataset.lang === 'en';
+    const input = root.querySelector<HTMLInputElement>('#catAge')!;
+    const form = root.querySelector<HTMLFormElement>('#cat-age-form')!;
+    const result = root.querySelector<HTMLElement>('#cat-age-result')!;
+    const error = root.querySelector<HTMLElement>('#age-error')!;
+    const labels = en ? { kitten: 'Kitten', youngAdult: 'Young adult', matureAdult: 'Mature adult', senior: 'Senior' } : { kitten: '幼貓期', youngAdult: '青年成貓期', matureAdult: '成熟成貓期', senior: '老年期' };
+    function calculate() {
+      const age = Number(input.value);
+      const valid = input.value.trim() !== '' && !input.validity.badInput && Number.isFinite(age) && age >= 0 && age <= 50;
+      input.setAttribute('aria-invalid', String(!valid));
+      error.textContent = valid ? '' : en ? 'Enter a valid age from 0 to 50 years. Decimals are allowed.' : '請輸入 0–50 歲之間的有效年齡，可以使用小數。';
+      result.hidden = !valid;
+      if (!valid) return;
+      root!.querySelector<HTMLElement>('#actual-age')!.textContent = String(age);
+      root!.querySelector<HTMLElement>('#result')!.textContent = String(estimateCatHumanAge(age));
+      root!.querySelector<HTMLElement>('#lifeStageText')!.textContent = labels[getCatLifeStage(age)];
+    }
+    input.addEventListener('input', calculate);
+    form.addEventListener('submit', event => { event.preventDefault(); calculate(); if (input.getAttribute('aria-invalid') === 'true') input.focus(); });
+  }
+</script>

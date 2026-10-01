@@ -152,8 +152,8 @@ const hrefLangAlternates = [
             <span class="font-medium text-indigo-700" id="cat-checkup">請與獸醫討論</span>
           </div>
           <div class="flex justify-between text-sm">
-            <span class="text-slate-600">距離老年還需</span>
-            <span class="font-medium text-indigo-700" id="cat-years-left">計算後顯示</span>
+            <span class="text-slate-600">一般老年分類參考</span>
+            <span class="font-medium text-indigo-700" id="cat-years-left">超過 10 歲；老化是漸進過程</span>
           </div>
         </div>
         <a
@@ -333,7 +333,7 @@ const hrefLangAlternates = [
       document.getElementById('cat-life-stage').textContent = catStageLabels[catStage];
       document.getElementById('cat-stage-label').textContent = `貓咪 · ${catStageLabels[catStage]}`;
       document.getElementById('cat-checkup').textContent = '請與獸醫討論';
-      document.getElementById('cat-years-left').textContent = getYearsToSenior(catAge, true);
+      document.getElementById('cat-years-left').textContent = '超過 10 歲；不是生理切換點';
 
       // Summary text
       let summary = '';

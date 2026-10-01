@@ -13,6 +13,11 @@ const hrefLangAlternates = [
   { lang: 'en', url: siteUrl + '/en/blog/senior-cat-care' },
   { lang: 'x-default', url: siteUrl + '/blog/senior-cat-care' },
 ];
+const faqs = [
+  ['When is a cat considered senior?', 'The AAHA/AAFP age-related framework describes cats over 10 as senior. Aging is gradual, and individual health and care needs vary.'],
+  ['What changes should I discuss with my veterinarian as my cat ages?', 'Discuss meaningful changes in appetite, weight, thirst, litter-box habits, movement, grooming, sleep, behavior, hearing, or vision. Sudden or severe changes warrant prompt professional advice.'],
+  ['How can I make my home easier for an older cat?', 'Helpful adjustments may include accessible food, water, litter boxes, and resting areas; warm quiet sleeping spots; and gradual, predictable routines.'],
+];
 ---
 
 <BaseLayout
@@ -88,37 +93,13 @@ const hrefLangAlternates = [
       <a href="/en/blog/senior-pet-health-guide/" class="px-5 py-3 bg-purple-100 hover:bg-purple-200 text-purple-800 font-semibold rounded-xl text-sm">Senior Pet Health Guide</a>
     </div>
 
+    <section class="mt-8"><h2 class="text-2xl font-bold text-slate-900 mb-3">Frequently asked questions</h2>{faqs.map(([q,a]) => <details class="py-3 border-b"><summary class="font-semibold cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600">{q}</summary><p class="mt-3 text-slate-700">{a}</p></details>)}</section>
+    <p class="mt-8 text-sm text-slate-600">Sources: <a class="text-blue-700 underline" href="https://www.aaha.org/resources/2021-aaha-aafp-feline-life-stage-guidelines/feline-life-stage-definitions/">AAHA/AAFP life-stage definitions</a>; <a class="text-blue-700 underline" href="https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/special-needs-senior-cat">Cornell senior cat care</a>. The age estimate cannot assess health.</p>
     <p class="mt-10 text-xs text-slate-500 leading-relaxed"><strong>Educational note:</strong> This page provides general information only. It does not diagnose illness or replace an examination or advice from a veterinarian. Contact a veterinary professional promptly for sudden, severe, or concerning changes.</p>
   </article>
 
   <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "When is a cat considered senior?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Veterinary life-stage guidance commonly describes cats over 10 years old as senior, although individual health and needs vary."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What changes should I discuss with my veterinarian as my cat ages?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Discuss meaningful changes in appetite, weight, thirst, litter-box habits, movement, grooming, sleep, behavior, hearing, or vision. Sudden or severe changes warrant prompt professional advice."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How can I make my home easier for an older cat?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Helpful adjustments may include accessible food, water, litter boxes, and resting areas; warm quiet sleeping spots; and gradual, predictable routines."
-        }
-      }
-    ]
+    '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: faqs.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } }))
   })} />
 </BaseLayout>

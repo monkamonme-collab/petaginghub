@@ -97,6 +97,7 @@ const hrefLangAlternates = [
             <option value="indoor_outdoor">室內外活動貓</option>
             <option value="large_breed">大型品種（例如緬因、布偶）</option>
           </select>
+          <p class="text-sm text-slate-600 mt-2">這些分類與範圍是本站教育性假設，不是官方統計或個別壽命預測；生活環境與品種類別也可能重疊。想看人類年齡對照，請用<a href="/tools/cat-age-calculator/" class="text-blue-700 underline">貓咪年齡計算機</a>。</p>
         </div>
 
         <!-- Age -->
@@ -179,7 +180,7 @@ const hrefLangAlternates = [
 
       <!-- Life Progress Bar -->
       <div class="bg-white rounded-2xl p-6 border border-slate-200 mb-8">
-        <h3 class="font-bold text-slate-900 mb-4">生命進度</h3>
+        <h3 id="range-progress-heading" class="font-bold text-slate-900 mb-4">生命進度</h3>
         <div class="relative">
           <div class="h-4 bg-slate-100 rounded-full overflow-hidden">
             <div id="progress-bar" class="h-full bg-gradient-to-r from-emerald-400 to-teal-500 transition-all duration-1000" style="width: 0%"></div>
@@ -187,7 +188,7 @@ const hrefLangAlternates = [
           <div class="flex justify-between text-xs text-slate-500 mt-2">
             <span>出生</span>
             <span id="current-age-marker">0歲</span>
-            <span>預估終點</span>
+            <span id="range-end-label">預估終點</span>
           </div>
         </div>
       </div>
@@ -242,7 +243,7 @@ const hrefLangAlternates = [
       </a>
       <a href="/blog/cat-aging-by-weight/" class="group bg-white rounded-2xl p-5 border border-slate-200 hover:border-teal-300 hover:shadow-lg transition-all">
         <h3 class="font-bold text-slate-900 mb-2 group-hover:text-teal-700">🐱 貓咪體重與老化</h3>
-        <p class="text-sm text-slate-600">根據體重和品種了解貓咪的老年時間表</p>
+        <p class="text-sm text-slate-600">觀察貓咪體態、體重趨勢與肌肉狀態，不用體重推算老年歲數</p>
       </a>
       <a href="/blog/dog-vs-cat-aging/" class="group bg-white rounded-2xl p-5 border border-slate-200 hover:border-amber-300 hover:shadow-lg transition-all">
         <h3 class="font-bold text-slate-900 mb-2 group-hover:text-amber-700">📊 狗與貓老化比較</h3>
@@ -306,6 +307,8 @@ const hrefLangAlternates = [
       document.getElementById('human-age').textContent = humanAge;
       document.getElementById('life-stage').textContent = lifeStage.stage;
       document.getElementById('life-stage-sub').textContent = lifeStage.sub;
+      document.getElementById('range-progress-heading').textContent = petType === 'dog' ? '生命進度' : '年齡相對於本站參考中點（不是生命進度）';
+      document.getElementById('range-end-label').textContent = petType === 'dog' ? '預估終點' : '參考中點，不是壽命終點';
       document.getElementById('total-age').textContent = `${low}–${high}`;
       document.getElementById('life-expectancy').textContent = `生命階段：${lifeStage.stage}（${lifeStage.sub}）`;
       document.getElementById('current-age-marker').textContent = `${petAge}歲`;
