@@ -41,6 +41,7 @@ const resources = en ? [
   ['dog-aging-by-breed', '體型與品種如何影響老化'], ['dog-aging-signs', '狗狗老化徵兆'],
   ['senior-dog-care', '老年狗狗照護原則'], ['pet-aging-guide', '寵物老化完整指南'],
 ];
+const destinations = { 'dog-human-years': 'dog_human_years', 'dog-aging-by-breed': 'aging_by_size', 'dog-aging-signs': 'aging_signs', 'senior-dog-care': 'senior_care', 'pet-aging-guide': 'pet_aging_guide' };
 ---
 <div data-dog-calculator data-lang={lang} class="w-[calc(100vw-4rem)] max-w-4xl mx-auto sm:px-6 pb-12 min-w-0">
   <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 md:p-8" aria-label={en ? 'Dog age calculator' : '狗狗年齡計算機'}>
@@ -67,7 +68,7 @@ const resources = en ? [
         {[['actual', text.actual], ['human', text.human], ['stage', text.stage], ['senior', text.senior], ['size', text.category]].map(([key, label]) => <div><dt class="text-sm text-slate-600">{label}</dt><dd data-field={key} class="font-bold text-slate-900 text-lg"></dd></div>)}
       </dl>
       <p data-interpretation class="mt-4 text-slate-700"></p>
-      <a data-senior-link href={`${prefix}/blog/senior-dog-care/`} hidden class="inline-block mt-3 text-blue-700 underline">{text.seniorLink} →</a>
+      <a data-senior-link data-destination="senior_care" href={`${prefix}/blog/senior-dog-care/`} hidden class="inline-block mt-3 text-blue-700 underline">{text.seniorLink} →</a>
       <p class="text-sm text-slate-600 mt-4">{text.note}</p>
     </section>
     <p data-announcement role="status" aria-live="polite" aria-atomic="true" class="sr-only"></p>
@@ -77,7 +78,7 @@ const resources = en ? [
     <h2 id="dog-method" class="text-2xl font-bold text-slate-900 mb-3">{text.works}</h2>
     <p class="text-slate-700 leading-relaxed">{text.method}</p>
     <p class="mt-3 text-slate-700">{en ? 'Puppy, adult and senior are Pet Aging Hub’s simplified age-stage estimates, not the complete official AAHA Canine Life Stage framework.' : '幼犬、成犬與老年犬是 Pet Aging Hub 的簡化年齡階段估算，不等同於 AAHA 官方完整的犬隻生命階段架構。'}</p>
-    {en && <a href="/en/blog/dog-human-years/" class="inline-block mt-3 text-blue-700 underline">Read the model explanation and limitations →</a>}
+    {en && <a data-destination="dog_human_years" href="/en/blog/dog-human-years/" class="inline-block mt-3 text-blue-700 underline">Read the model explanation and limitations →</a>}
   </section>
   <section class="mt-10" aria-labelledby="dog-table-title">
     <h2 id="dog-table-title" class="text-2xl font-bold text-slate-900 mb-3">{text.table}</h2>
@@ -102,13 +103,14 @@ const resources = en ? [
   </section>
   <nav class="mt-10" aria-labelledby="dog-resources">
     <h2 id="dog-resources" class="text-2xl font-bold text-slate-900 mb-4">{text.resources}</h2>
-    <ul class="grid sm:grid-cols-2 gap-3">{resources.map(([slug, label]) => <li><a class="block rounded-xl border border-slate-200 px-4 py-3 text-blue-700 hover:bg-blue-50 underline" href={`${prefix}/blog/${slug}/`}>{label} →</a></li>)}</ul>
+    <ul class="grid sm:grid-cols-2 gap-3">{resources.map(([slug, label]) => <li><a data-destination={destinations[slug as keyof typeof destinations]} class="block rounded-xl border border-slate-200 px-4 py-3 text-blue-700 hover:bg-blue-50 underline" href={`${prefix}/blog/${slug}/`}>{label} →</a></li>)}</ul>
   </nav>
 </div>
 <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) })} />
 <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebApplication', name: en ? 'Dog Age Calculator' : '狗狗年齡計算機', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Web browser', url: `https://www.petaginghub.com${prefix}/tools/dog-age-calculator/`, description: text.note })} />
 <script>
   import { dogSizeBands, estimateDogHumanAge, getDogLifeStage, getDogSizeLabel, type DogSize } from '../utils/agingModel';
+  import { trackEvent, bindRelatedLinks, classifyValidationError } from '../utils/analytics';
   document.querySelectorAll<HTMLElement>('[data-dog-calculator]').forEach(root => {
     const lang = root.dataset.lang === 'en' ? 'en' : 'zh';
     const en = lang === 'en';
@@ -144,7 +146,15 @@ const resources = en ? [
       root.querySelector<HTMLElement>('[data-senior-link]')!.hidden = !senior;
       announcement.textContent = `${fields.actual}; ${fields.human}; ${fields.stage}; ${seniorText}; ${fields.size}`;
     }
-    form.addEventListener('submit', event => { event.preventDefault(); update(); if (!error.hidden) (!Number.isFinite(ageInput.valueAsNumber) || ageInput.getAttribute('aria-invalid') === 'true' ? ageInput : sizeInput).focus(); });
+    const context = { calculator: 'dog_age' as const, language: en ? 'en' as const : 'zh-TW' as const };
+    bindRelatedLinks(root, context);
+    form.addEventListener('submit', event => {
+      event.preventDefault(); update();
+      if (!error.hidden) {
+        (!Number.isFinite(ageInput.valueAsNumber) || ageInput.getAttribute('aria-invalid') === 'true' ? ageInput : sizeInput).focus();
+        trackEvent('calculator_validation_error', { ...context, error_type: ageInput.getAttribute('aria-invalid') === 'true' ? classifyValidationError(ageInput) : sizeInput.value === '' ? 'blank' : 'invalid' });
+      } else trackEvent('calculator_result_generated', { ...context, interaction: 'submit' });
+    });
     ageInput.addEventListener('input', update);
     sizeInput.addEventListener('change', update);
     update();

@@ -33,6 +33,7 @@ const schema = [
   { '@context': 'https://schema.org', '@type': 'WebApplication', name: en ? 'Cat Age Calculator' : '貓咪年齡計算機', url: `https://www.petaginghub.com${prefix}/tools/cat-age-calculator/`, applicationCategory: 'EducationalApplication', operatingSystem: 'Any', inLanguage: lang },
   { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([name, text]) => ({ '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text } })) },
 ];
+const destinations = { 'cat-aging-signs': 'aging_signs', 'cat-aging-by-weight': 'aging_by_weight', 'senior-cat-care': 'senior_care', 'pet-aging-guide': 'pet_aging_guide', 'senior-pet-health-guide': 'senior_health_guide', 'how-long-do-cats-live': 'cat_lifespan_context' };
 ---
 <div class="max-w-4xl mx-auto px-6 py-10" id="cat-calculator" data-lang={lang}>
   <header class="mb-8">
@@ -72,11 +73,12 @@ const schema = [
     </div>
   </section>
   <section class="mb-8" aria-labelledby="faq-heading"><h2 id="faq-heading" class="text-2xl font-bold text-slate-900 mb-3">{en ? 'Frequently asked questions' : '常見問題'}</h2>{faqs.map(([q, a]) => <details class="border-b border-slate-200 py-3"><summary class="cursor-pointer font-semibold text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600">{q}</summary><p class="text-slate-700 mt-3">{a}</p></details>)}</section>
-  <section aria-labelledby="related-heading"><h2 id="related-heading" class="text-2xl font-bold text-slate-900 mb-3">{en ? 'Choose your next question' : '依需要延伸閱讀'}</h2><div class="grid sm:grid-cols-2 gap-3">{related.map(([slug, label]) => <a class="bg-white p-4 rounded-xl border border-slate-200 text-blue-700 hover:border-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600" href={`${prefix}/blog/${slug}/`}>{label}</a>)}</div><p class="text-slate-600 mt-4">{en ? 'Age conversion is not lifespan prediction. The ' : '年齡換算不能預測壽命；'}<a class="text-blue-700 underline" href={`${prefix}/tools/lifespan-calculator/`}>{en ? 'lifespan reference tool' : '壽命參考工具'}</a>{en ? ' uses separate site assumptions, not a forecast for an individual cat.' : '使用另一套本站假設，不是個別貓咪的未來預測。'}</p></section>
+  <section aria-labelledby="related-heading"><h2 id="related-heading" class="text-2xl font-bold text-slate-900 mb-3">{en ? 'Choose your next question' : '依需要延伸閱讀'}</h2><div class="grid sm:grid-cols-2 gap-3">{related.map(([slug, label]) => <a data-destination={destinations[slug as keyof typeof destinations]} class="bg-white p-4 rounded-xl border border-slate-200 text-blue-700 hover:border-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600" href={`${prefix}/blog/${slug}/`}>{label}</a>)}</div><p class="text-slate-600 mt-4">{en ? 'Age conversion is not lifespan prediction. The ' : '年齡換算不能預測壽命；'}<a data-destination="lifespan_tool" class="text-blue-700 underline" href={`${prefix}/tools/lifespan-calculator/`}>{en ? 'lifespan reference tool' : '壽命參考工具'}</a>{en ? ' uses separate site assumptions, not a forecast for an individual cat.' : '使用另一套本站假設，不是個別貓咪的未來預測。'}</p></section>
 </div>
 <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 <script>
   import { estimateCatHumanAge, getCatLifeStage } from '../utils/agingModel';
+  import { trackEvent, bindRelatedLinks, classifyValidationError } from '../utils/analytics';
   const root = document.getElementById('cat-calculator');
   if (root) {
     const en = root.dataset.lang === 'en';
@@ -97,6 +99,14 @@ const schema = [
       root!.querySelector<HTMLElement>('#lifeStageText')!.textContent = labels[getCatLifeStage(age)];
     }
     input.addEventListener('input', calculate);
-    form.addEventListener('submit', event => { event.preventDefault(); calculate(); if (input.getAttribute('aria-invalid') === 'true') input.focus(); });
+    const context = { calculator: 'cat_age' as const, language: en ? 'en' as const : 'zh-TW' as const };
+    bindRelatedLinks(root, context);
+    form.addEventListener('submit', event => {
+      event.preventDefault(); calculate();
+      if (input.getAttribute('aria-invalid') === 'true') {
+        input.focus();
+        trackEvent('calculator_validation_error', { ...context, error_type: classifyValidationError(input) });
+      } else trackEvent('calculator_result_generated', { ...context, interaction: 'submit' });
+    });
   }
 </script>
