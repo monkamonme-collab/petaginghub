@@ -1,6 +1,6 @@
 {
   "title": "狗狗人類年齡換算計算機",
-  "description": "採用 AVMA 獸醫標準，一鍵計算愛犬生命階段。",
+  "description": "依狗狗年齡與成年體型，提供教育性人類年齡估算與一般生命階段參考。",
   "icon": "🐶",
   "image": "/assets/tools/dog-age.webp",
   "category": "calculator",

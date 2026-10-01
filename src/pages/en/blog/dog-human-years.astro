@@ -1,208 +1,68 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-
-const title = "How Old Is My 10-Year-Old Dog in Human Years? (Full Age Chart)";
-const description = "A 10-year-old dog isn't simply 70 in human years. Learn the real science behind dog-to-human age conversion, breed size differences, and see the full dog age chart.";
-const date = "2026-06-25";
-const siteUrl = "https://www.petaginghub.com";
-const canonicalPath = "/en/blog/dog-human-years/";
-const canonicalURL = new URL(canonicalPath, siteUrl);
-
-const hrefLangAlternates = [
-{ lang: 'en', url: siteUrl + '/en/blog/dog-human-years/' },
-{ lang: 'x-default', url: siteUrl + '/en/blog/dog-human-years/' },
+import { dogSizeBands, estimateDogHumanAge, getDogSizeLabel, getDogLifeStage, getDogSeniorAge, lifespanRanges } from '../../../utils/agingModel';
+const title = 'Dog Years to Human Years: How Age Estimates Work';
+const description = 'Understand size-aware dog-to-human age estimates, why ×7 is too simple, what a 10-year-old dog’s estimate means, and how life stages differ from human years.';
+const faqs = [
+  { q: 'How old is a 10-year-old dog in human years?', a: `In this site’s educational model: ${dogSizeBands.map(b => `${b.en}: about ${estimateDogHumanAge(10, b.size)}`).join('; ')} human-equivalent years. These rounded comparisons are not a medical age or a remaining-lifespan prediction.` },
+  { q: 'Why not multiply dog age by seven?', a: 'A fixed multiplier cannot represent faster early development and size differences in later years. Our model uses separate first-year, second-year and later-year comparisons.' },
+  { q: 'Does a high human-age estimate mean my dog is senior?', a: 'Not by itself. Human-equivalent age is a separate output. Our senior-stage reference uses the midpoint of a size-based lifespan assumption and the final approximately 25% concept described by AAHA.' },
+  { q: 'Can this estimate tell me how healthy my dog is?', a: 'No. Dogs of the same age and size can have different health and needs. Discuss symptoms or changes with a veterinarian rather than relying on a human-age number.' },
 ];
 ---
-
-<BaseLayout
-title={title}
-description={description}
-breadcrumbs={[
-{ label: 'Blog', url: '/en/blog/' },
-{ label: 'Dog Human Years', url: canonicalURL.pathname }
-]}
-lang="en"
-hrefLangAlternates={hrefLangAlternates}>
-
-<article class="max-w-3xl mx-auto py-10 px-4">
-<header class="mb-8">
-<span class="inline-block bg-amber-100 text-amber-700 text-xs font-bold px-3 py-1 rounded-full mb-4">Dogs</span>
-<h1 class="text-4xl font-extrabold text-slate-900 mb-4">{title}</h1>
-<p class="text-xl text-slate-600 leading-relaxed">The old "multiply by 7" rule is a myth. Here's what the science actually says about your dog's age in human years — and why size matters more than you think.</p>
-</header>
-
-<div class="space-y-10">
-
-<section>
-<h2>The "Multiply by 7" Rule Is Wrong</h2>
-<p>The popular rule of thumb — multiply your dog's age by 7 — has no scientific basis. It was likely popularized as a simple way to remind people that dogs age faster than humans. The reality is more nuanced.</p>
-<p>Dogs age rapidly in their first two years of life, then slow down considerably. A 1-year-old dog is roughly equivalent to a 15-year-old human. A 2-year-old dog is closer to a 24-year-old. After that, each human year equals roughly 4–7 dog years depending on breed size.</p>
-<div class="bg-amber-50 rounded-2xl p-5 border border-amber-100 mt-4">
-<p class="font-semibold text-slate-800 text-sm mb-2">🔬 The Epigenetic Clock Study</p>
-<p class="text-slate-700 text-sm">A 2020 study published in <em>Cell Systems</em> used DNA methylation markers (epigenetic clocks) to map dog age to human age. Their formula: <strong>Human age ≈ 16 × ln(dog age) + 31</strong>. It's more accurate than the ×7 rule but still an average across breeds.</p>
-</div>
-</section>
-
-<section>
-<h2>How Old Is a 10-Year-Old Dog in Human Years?</h2>
-<p>Using the epigenetic formula: 16 × ln(10) + 31 ≈ 16 × 2.30 + 31 ≈ <strong>68 human years</strong>. That's close to 70, but the bigger factor is your dog's size:</p>
-<div class="overflow-x-auto mt-4">
-<table class="w-full text-sm border-collapse">
-<thead>
-<tr class="bg-slate-100">
-<th class="text-left px-4 py-3 font-bold text-slate-700">Dog Age</th>
-<th class="px-4 py-3 font-bold text-slate-700 text-center">Small (&lt;20 lbs)</th>
-<th class="px-4 py-3 font-bold text-slate-700 text-center">Medium (20–50 lbs)</th>
-<th class="px-4 py-3 font-bold text-slate-700 text-center">Large (50–90 lbs)</th>
-<th class="px-4 py-3 font-bold text-slate-700 text-center">Giant (&gt;90 lbs)</th>
-</tr>
-</thead>
-<tbody>
-{[
-["1 year", "15", "15", "15", "15"],
-["2 years", "24", "24", "24", "22"],
-["5 years", "36", "37", "40", "42"],
-["7 years", "44", "47", "51", "56"],
-["10 years", "56", "60", "66", "78"],
-["12 years", "64", "69", "77", "93"],
-["15 years", "76", "83", "93", "—"],
-].map(([age, sm, md, lg, xl], i) => (
-<tr class={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
-<td class="px-4 py-3 font-semibold text-slate-800">{age}</td>
-<td class="px-4 py-3 text-center text-slate-700">{sm}</td>
-<td class="px-4 py-3 text-center text-slate-700">{md}</td>
-<td class="px-4 py-3 text-center text-slate-700">{lg}</td>
-<td class="px-4 py-3 text-center text-slate-700">{xl}</td>
-</tr>
-))}
-</tbody>
-</table>
-</div>
-<p class="text-xs text-slate-500 mt-2">Source: American Kennel Club senior life stage guidelines; values are approximations.</p>
-</section>
-
-<section>
-<h2>Why Larger Dogs Age Faster</h2>
-<p>Large and giant breeds age more rapidly than small dogs — and have significantly shorter lifespans. A Great Dane is considered "senior" at 5–6 years; a Chihuahua not until 10–11 years. Scientists believe this is because larger dogs grow faster, putting more metabolic stress on their cells and organs over time. For a detailed breakdown, our guide on <a href="/en/blog/dog-aging-by-breed/" class="text-blue-600 underline">dog aging by breed and size</a> explains what these differences mean for your specific dog.</p>
-<div class="grid md:grid-cols-2 gap-4 mt-4">
-<div class="bg-white rounded-xl p-4 border border-slate-200">
-<p class="font-bold text-slate-800 text-sm mb-2">Small Breeds (e.g., Dachshund, Shih Tzu)</p>
-<ul class="text-slate-700 text-sm space-y-1 list-disc pl-4">
-<li>Senior stage: ~10–11 years</li>
-<li>Average lifespan: 12–16 years</li>
-<li>10 years ≈ 56 human years</li>
-</ul>
-</div>
-<div class="bg-white rounded-xl p-4 border border-slate-200">
-<p class="font-bold text-slate-800 text-sm mb-2">Giant Breeds (e.g., Great Dane, Mastiff)</p>
-<ul class="text-slate-700 text-sm space-y-1 list-disc pl-4">
-<li>Senior stage: ~5–6 years</li>
-<li>Average lifespan: 7–10 years</li>
-<li>10 years ≈ 78 human years</li>
-</ul>
-</div>
-</div>
-</section>
-
-<section>
-<h2>What Does "Senior" Mean for Your Dog?</h2>
-<p>Knowing your dog's equivalent human age helps you anticipate what health changes to expect. A 10-year-old medium dog at ~60 human years is entering late middle age — still active, but benefiting from more frequent vet visits and some joint support. As your dog enters the senior years, learn to recognize <a href="/en/blog/dog-aging-signs/" class="text-blue-600 underline">the early signs of aging in dogs</a> so you can respond before problems escalate. See our <a href="/en/blog/senior-dog-care/" class="text-blue-600 underline">senior dog care guide</a> for a full breakdown of what changes to make and when.</p>
-<div class="space-y-3 mt-4">
-<div class="flex items-start gap-3 bg-white rounded-xl p-4 border border-slate-200">
-<div><p class="font-semibold text-slate-900 text-sm">Vet visits: every 6 months</p><p class="text-slate-600 text-xs">Senior bloodwork panels can catch kidney disease, thyroid issues, and diabetes before symptoms appear.</p></div>
-</div>
-<div class="flex items-start gap-3 bg-white rounded-xl p-4 border border-slate-200">
-<div><p class="font-semibold text-slate-900 text-sm">Watch for cognitive changes</p><p class="text-slate-600 text-xs">Canine Cognitive Dysfunction (doggy dementia) can begin around age 9–10. Signs: disorientation, sleep disruption, forgetting commands.</p></div>
-</div>
-<div class="flex items-start gap-3 bg-white rounded-xl p-4 border border-slate-200">
-<div><p class="font-semibold text-slate-900 text-sm">Joint health matters more now</p><p class="text-slate-600 text-xs">Over 65% of dogs over age 7 show some degree of arthritis on X-ray. Daily omega-3s and glucosamine can help.</p></div>
-</div>
-<div class="flex items-start gap-3 bg-white rounded-xl p-4 border border-slate-200">
-<div><p class="font-semibold text-slate-900 text-sm">Adjust exercise expectations</p><p class="text-slate-600 text-xs">Shorter, more frequent walks are better than one long one. Let your dog set the pace.</p></div>
-</div>
-</div>
-</section>
-
-<section>
-<h2>Frequently Asked Questions</h2>
-<div class="space-y-4">
-{[
-{ q: "Is a 10-year-old dog considered old?", a: "Yes — most dogs of medium size are considered senior at age 7–8. A 10-year-old medium dog is the rough equivalent of a 60-year-old human. Small breeds may still be fairly active at 10, while giant breeds are quite elderly." },
-{ q: "How do I calculate my dog's age in human years?", a: "The most accurate method is: Human age ≈ 16 × natural log(dog age) + 31. For a quick estimate, use the size-based chart above. The old '×7' rule is not accurate, especially for young dogs." },
-{ q: "What is the oldest a dog can live?", a: "The oldest verified dog on record was Bobi, a Portuguese dog who lived to 31 years and 165 days (though this record has been disputed). Most dogs live 10–15 years, with small breeds reaching up to 16–18 years." },
-{ q: "At what age do dogs start slowing down?", a: "Most dogs show noticeable slowing around age 7–9, though giant breeds may slow as early as 5. Signs include reduced enthusiasm for walks, more sleep, and slower recovery after exercise." },
-].map(({ q, a }) => (
-<details class="group border border-slate-200 rounded-xl overflow-hidden">
-<summary class="flex justify-between items-center cursor-pointer px-5 py-4 bg-white hover:bg-slate-50 font-medium text-slate-800">
-{q}
-<span class="ml-4 text-slate-400 group-open:rotate-180 transition-transform">▼</span>
-</summary>
-<div class="px-5 py-4 text-slate-600 text-sm bg-slate-50 border-t border-slate-100">{a}</div>
-</details>
-))}
-</div>
-</section>
-
-</div>
-
-<div class="mt-8 bg-amber-50 rounded-2xl p-5 border border-amber-100 text-center">
-<p class="text-slate-700 text-sm mb-3">Get your dog's exact age in human years — tailored to breed size.</p>
-<a href="/en/tools/dog-age-calculator/" class="inline-block px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-xl text-sm">Try our Dog Age Calculator →</a>
-</div>
-<div class="mt-4 flex flex-wrap gap-4">
-<a href="/en/tools/dog-age-calculator/" class="px-5 py-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-xl text-sm">Dog Age Calculator</a>
-<a href="/en/blog/senior-dog-care-checklist/" class="px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold rounded-xl text-sm">Senior Dog Care Checklist →</a>
-</div>
-
-<footer class="mt-12 pt-6 border-t border-slate-200 text-sm text-slate-400">
-<p>Last updated: {date}</p>
-<p class="mt-2">Disclaimer: This content is for general informational purposes only and does not constitute veterinary advice. Consult your veterinarian for guidance specific to your pet.</p>
-</footer>
-</article>
-
-<script type="application/ld+json" is:inline>
-{
-"@context": "https://schema.org",
-"@type": "Article",
-"headline": "How Old Is My 10-Year-Old Dog in Human Years? (Full Age Chart)",
-"datePublished": "2026-06-25",
-"author": { "@type": "Organization", "name": "Pet Aging Hub" },
-"mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.petaginghub.com/en/blog/dog-human-years/" }
-}
-</script>
-
-<script type="application/ld+json" is:inline>
-{
-"@context": "https://schema.org",
-"@type": "FAQPage",
-"mainEntity": [
-{
-"@type": "Question",
-"name": "Is a 10-year-old dog considered old?",
-"acceptedAnswer": { "@type": "Answer", "text": "Yes — most dogs of medium size are considered senior at age 7–8. A 10-year-old medium dog is the rough equivalent of a 60-year-old human. Small breeds may still be fairly active at 10, while giant breeds are quite elderly." }
-},
-{
-"@type": "Question",
-"name": "How do I calculate my dog's age in human years?",
-"acceptedAnswer": { "@type": "Answer", "text": "The most accurate method is: Human age ≈ 16 × natural log(dog age) + 31. For a quick estimate, use a size-based chart. The old '×7' rule is not accurate, especially for young dogs." }
-},
-{
-"@type": "Question",
-"name": "What is the oldest a dog can live?",
-"acceptedAnswer": { "@type": "Answer", "text": "The oldest verified dog on record was Bobi, a Portuguese dog who lived to 31 years and 165 days (though this record has been disputed). Most dogs live 10–15 years, with small breeds reaching up to 16–18 years." }
-},
-{
-"@type": "Question",
-"name": "At what age do dogs start slowing down?",
-"acceptedAnswer": { "@type": "Answer", "text": "Most dogs show noticeable slowing around age 7–9, though giant breeds may slow as early as 5. Signs include reduced enthusiasm for walks, more sleep, and slower recovery after exercise." }
-}
-]
-}
-</script>
+<BaseLayout title={title} description={description} lang="en" breadcrumbs={[{ label: 'Blog', url: '/en/blog/' }, { label: 'Dog Years Explained', url: '/en/blog/dog-human-years/' }]}>
+  <article class="w-[calc(100vw-4rem)] max-w-3xl mx-auto sm:px-6 py-10 text-slate-700 leading-relaxed">
+    <header class="mb-8">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">{title}</h1>
+      <p class="text-lg">Dog-to-human age numbers are comparisons, not measurements of biological age. A 10-year-old dog does not have one universal human age: this site’s estimate varies by adult size. Here is how to interpret the model and its limits.</p>
+      <p class="mt-4">Want a result for your dog now? <a href="/en/tools/dog-age-calculator/" class="text-blue-700 underline">Enter age and adult size in the Dog Age Calculator</a>. This article explains the result rather than providing a second calculator.</p>
+    </header>
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">Why the “multiply by 7” shortcut is too simple</h2>
+      <p>A single multiplier treats every year and every size alike. Pet Aging Hub instead uses a segmented, size-aware educational comparison. This is a consistent site convention, not a scientifically exact conversion or a veterinary formula.</p>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">How the site’s estimate is calculated</h2>
+      <p>Up to age 1, the estimate scales toward the first-year value. Between ages 1 and 2, it interpolates between the first- and second-year values. After age 2, it adds the later-year increment for each additional calendar year. Decimal inputs use the same segments; only the final human-equivalent result is rounded.</p>
+      <div class="max-w-full overflow-x-auto mt-4 border border-slate-200 rounded-xl" tabindex="0" role="region" aria-label="Model values by dog size">
+        <table class="w-full min-w-[570px] text-sm text-left">
+          <caption class="p-3 text-left">Model values generated from the shared calculator functions</caption>
+          <thead class="bg-slate-100"><tr><th scope="col" class="p-3">Adult size</th><th scope="col" class="p-3">At 1 year</th><th scope="col" class="p-3">At 2 years</th><th scope="col" class="p-3">Added per later year</th></tr></thead>
+          <tbody>{dogSizeBands.map(({ size }) => <tr class="border-t"><th scope="row" class="p-3">{getDogSizeLabel(size, 'en')}</th><td class="p-3">{estimateDogHumanAge(1, size)}</td><td class="p-3">{estimateDogHumanAge(2, size)}</td><td class="p-3">{estimateDogHumanAge(3, size) - estimateDogHumanAge(2, size)}</td></tr>)}</tbody>
+        </table>
+      </div>
+      <p class="mt-4">For age a after 2 years: second-year value + (a − 2) × later-year increment. Earlier ages are interpolated as described above. These coefficients are Pet Aging Hub approximations; institutions cited for life stages do not supply or endorse them.</p>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">How old is a 10-year-old dog in human years?</h2>
+      <p>{dogSizeBands.map(b => `${b.en}: about ${estimateDogHumanAge(10, b.size)} human-equivalent years`).join('; ')}. These are different educational comparisons for the same calendar age, not different diagnoses.</p>
+      <div class="max-w-full overflow-x-auto mt-4 border border-slate-200 rounded-xl" tabindex="0" role="region" aria-label="Dog age reference chart">
+        <table class="w-full min-w-[540px] text-sm text-left"><caption class="p-3 text-left">Selected ages in the same model</caption>
+          <thead class="bg-slate-100"><tr><th scope="col" class="p-3">Dog age</th>{dogSizeBands.map(b => <th scope="col" class="p-3">{b.en}</th>)}</tr></thead>
+          <tbody>{[1, 2, 5, 10, 15].map(age => <tr class="border-t"><th scope="row" class="p-3">{age}</th>{dogSizeBands.map(b => <td class="p-3">{estimateDogHumanAge(age, b.size)}</td>)}</tr>)}</tbody>
+        </table>
+      </div>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">Why adult size matters—and what breed adds</h2>
+      <p>Size is useful context, not a complete explanation of aging. Breed, genetics, health and care introduce individual differences. Use expected adult weight for a puppy or mixed-breed dog rather than selecting from an assumed breed stereotype. See <a class="text-blue-700 underline" href="/en/blog/dog-aging-by-breed/">how dog aging varies by size and breed</a>.</p>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">Human-equivalent age is not the senior-stage definition</h2>
+      <p>AAHA describes dog senior status in terms of the final approximately 25% of estimated lifespan. The site uses 75% of the midpoint of its general size-based lifespan assumptions as a separate stage reference; it does not classify senior status from the human-age output.</p>
+      <ul class="list-disc pl-5 mt-3">{dogSizeBands.map(({ size, en: label }) => <li>{label}: site lifespan assumption {lifespanRanges.dog[size].join('–')} years; senior reference around {Math.round(getDogSeniorAge(size))} years. At age 10, the model label is {getDogLifeStage(10, size)}.</li>)}</ul>
+      <p class="mt-3">The rounded ages above are approximate descriptions, not exact clinical cutoffs. A dog’s needs can change before or after them. Learn about <a href="/en/blog/dog-aging-signs/" class="text-blue-700 underline">signs of aging in dogs</a> and <a href="/en/blog/senior-dog-care/" class="text-blue-700 underline">senior dog care principles</a>.</p>
+    </section>
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">Frequently asked questions</h2>
+      {faqs.map(({ q, a }) => <details class="border border-slate-200 rounded-xl p-4 mb-3"><summary class="font-semibold cursor-pointer">{q}</summary><p class="mt-3">{a}</p></details>)}
+    </section>
+    <section>
+      <h2 class="text-2xl font-bold text-slate-900 mb-3">Source and model limitations</h2>
+      <p><a href="https://www.aaha.org/resources/2023-aaha-senior-care-guidelines-for-dogs-and-cats/defining-the-senior-patient/" class="text-blue-700 underline">AAHA: Defining the Senior Patient</a> supports life-stage context only. The human-age equation, weight bands and numerical lifespan assumptions are this site’s educational model, not an AAHA or AVMA formula.</p>
+      <p class="mt-3">This article is educational and does not provide veterinary advice. Age estimates cannot diagnose illness or predict how long a particular dog will live. For the wider context, read the <a href="/en/blog/pet-aging-guide/" class="text-blue-700 underline">pet aging guide</a>.</p>
+    </section>
+    <footer class="mt-8 border-t border-slate-200 pt-4 text-sm text-slate-600">Published June 25, 2026. Model explanation updated September 30, 2026.</footer>
+  </article>
+  <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) })} />
 </BaseLayout>
-
-<style>
-article h2 { font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
-article h3 { font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-top: 1.5rem; margin-bottom: 0.75rem; }
-article p { color: #334155; line-height: 1.75; margin-bottom: 1rem; }
-</style>

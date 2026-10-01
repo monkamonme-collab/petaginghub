@@ -1,0 +1,152 @@
+---
+import { dogSizeBands, estimateDogHumanAge, getDogSizeLabel } from '../utils/agingModel';
+interface Props { lang: 'zh' | 'en' }
+const { lang } = Astro.props;
+const en = lang === 'en';
+const prefix = en ? '/en' : '';
+const text = en ? {
+  age: "Dog's age (years)", size: 'Adult size category', help: 'Decimals are welcome: 0.5 = six months. Birth age (0) is supported.',
+  sizeHelp: 'Use expected adult weight for a puppy, not current puppy weight.', button: 'Calculate age estimate', result: 'Your educational age estimate',
+  actual: 'Actual dog age', human: 'Estimated human-equivalent age', stage: 'Estimated age stage', senior: 'Senior-age reference', category: 'Adult size',
+  note: 'An educational comparison, not a medical assessment or a prediction of remaining lifespan.', seniorLink: 'Explore senior dog care',
+  works: 'How this estimate works', method: 'The first two years use faster age comparisons; later estimates vary by adult size. Human-equivalent age and life stage are separate outputs. Breed, genetics, health and care can make an individual dog different from this general reference.',
+  table: 'Dog age quick reference', caption: 'Estimated human-equivalent years, generated from the same model as the calculator', tableHelp: 'On a small screen, scroll the table horizontally. Values are rounded educational estimates.',
+  faq: 'Frequently asked questions', sources: 'Sources and methodology', resources: 'Explore dog aging',
+} : {
+  age: '狗狗目前歲數（年）', size: '成年體型類別', help: '可輸入小數：0.5 表示六個月。也支援出生年齡（0）。',
+  sizeHelp: '幼犬請依預期成年體重選擇，而不是目前體重。', button: '計算年齡參考', result: '您的教育性年齡估算',
+  actual: '狗狗實際年齡', human: '估計人類對應年齡', stage: '估算年齡階段', senior: '老年年齡參考', category: '成年體型',
+  note: '這是教育性比較，不是醫療評估，也不是剩餘壽命預測。', seniorLink: '了解老年狗狗照護',
+  works: '這個估算如何運作？', method: '前兩年使用較快的年齡對照，之後依成年體型採用不同估算。人類對應年齡與生命階段是兩種獨立結果；品種、遺傳、健康與照護都可能使個別狗狗與一般參考不同。',
+  table: '狗狗年齡快速對照表', caption: '估計人類對應歲數：直接由計算機使用的同一模型產生', tableHelp: '小螢幕可左右捲動表格。數字是四捨五入後的教育性估算。',
+  faq: '常見問題', sources: '來源與方法', resources: '延伸了解狗狗老化',
+};
+const faqs = en ? [
+  { q: 'How do dog years work?', a: 'This site compares calendar age with human years using a size-aware educational model. Growth is represented differently in the first two years and later years; the result is rounded to whole human-equivalent years.' },
+  { q: 'Is one dog year equal to seven human years?', a: 'Not consistently. A fixed ×7 rule ignores early growth and differences between adult sizes. This calculator uses the same segmented model across Pet Aging Hub tools, not a universal biological conversion.' },
+  { q: 'Why does dog size matter?', a: 'Adult size provides useful context because aging patterns differ across dogs. The four weight bands are Pet Aging Hub categories, not veterinary diagnoses; choose the band matching expected adult weight.' },
+  { q: 'When is a dog considered senior?', a: 'Smaller dogs generally reach senior age ranges later than larger dogs, but breed, health and individual variation matter. This calculator offers a general educational reference, not a fixed official age or a clinical cutoff for your dog.' },
+  { q: 'Is this a medical assessment?', a: 'No. Neither the age estimate nor the life-stage label can diagnose illness, assess fitness or predict remaining lifespan. Discuss changes in your dog with a veterinarian regardless of the result.' },
+] : [
+  { q: '狗狗年齡如何換算？', a: '本站依實際歲數與成年體型提供人類年齡的教育性比較。前兩年與之後採用不同的分段估算，結果四捨五入至整數人類對應歲數。' },
+  { q: '狗狗一歲等於人類七歲嗎？', a: '並非一律如此。固定乘以七忽略了早期成長與成年體型差異。本站工具共用同一套分段模型，並不代表通用的生物年齡換算。' },
+  { q: '為什麼需要選擇體型？', a: '不同體型狗狗的老化模式可能不同，因此成年體型可提供參考。這四個體重區間是 Pet Aging Hub 的分類，不是獸醫診斷；請依預期成年體重選擇。' },
+  { q: '狗狗幾歲算老年？', a: '小型犬通常比大型犬較晚進入老年年齡範圍，但品種、健康與個體差異也很重要。計算機只提供一般教育性參考，不是固定的官方歲數，也不是您家狗狗的臨床分界。' },
+  { q: '結果可以當成醫療評估嗎？', a: '不可以。年齡估算及生命階段標籤無法診斷疾病、評估健康或預測剩餘壽命。無論結果如何，狗狗出現變化都應與獸醫討論。' },
+];
+const resources = en ? [
+  ['dog-human-years', 'How dog-to-human age estimates work'], ['dog-aging-by-breed', 'How dog aging varies by size'],
+  ['dog-aging-signs', 'Signs your dog is aging'], ['senior-dog-care', 'Senior dog care principles'], ['pet-aging-guide', 'The complete pet aging guide'],
+] : [
+  ['dog-aging-by-breed', '體型與品種如何影響老化'], ['dog-aging-signs', '狗狗老化徵兆'],
+  ['senior-dog-care', '老年狗狗照護原則'], ['pet-aging-guide', '寵物老化完整指南'],
+];
+---
+<div data-dog-calculator data-lang={lang} class="w-[calc(100vw-4rem)] max-w-4xl mx-auto sm:px-6 pb-12 min-w-0">
+  <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 md:p-8" aria-label={en ? 'Dog age calculator' : '狗狗年齡計算機'}>
+    <form novalidate class="grid md:grid-cols-2 gap-5 items-start">
+      <div>
+        <label for="dogAge" class="block font-semibold text-slate-800 mb-2">{text.age}</label>
+        <input id="dogAge" name="age" type="number" min="0" max="50" step="any" value="3" required aria-describedby="dog-age-help dog-age-error" class="w-full min-w-0 border border-slate-300 bg-slate-50 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500" />
+        <p id="dog-age-help" class="text-sm text-slate-600 mt-2">{text.help} {en ? 'Input range: 0–50 years, a tool limit rather than a lifespan maximum.' : '輸入範圍為 0–50 歲；這是工具限制，不是壽命上限。'}</p>
+      </div>
+      <div>
+        <label for="dogSize" class="block font-semibold text-slate-800 mb-2">{text.size}</label>
+        <select id="dogSize" name="size" required aria-describedby="dog-size-help dog-age-error" class="w-full min-w-0 border border-slate-300 bg-slate-50 rounded-xl px-3 py-3 focus:ring-2 focus:ring-blue-500">
+          <option value="">{en ? 'Choose adult size' : '請選擇成年體型'}</option>
+          {dogSizeBands.map(({ size }) => <option value={size} selected={size === 'small'}>{getDogSizeLabel(size, lang)}</option>)}
+        </select>
+        <p id="dog-size-help" class="text-sm text-slate-600 mt-2">{text.sizeHelp} {en ? 'Lower boundaries belong to the next band:' : '區間下界屬於該類別：'} {dogSizeBands.slice(1).map(b => `${b.minKg} kg → ${en ? b.en : b.zh}`).join(en ? '; ' : '；')}{en ? '.' : '。'}</p>
+      </div>
+      <button type="submit" class="md:col-span-2 justify-self-start bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">{text.button}</button>
+    </form>
+    <p id="dog-age-error" role="alert" class="text-red-700 font-medium mt-4" hidden></p>
+    <section data-result class="mt-6 bg-blue-50 rounded-xl p-5" aria-labelledby="dog-result-heading">
+      <h2 id="dog-result-heading" class="text-xl font-bold text-slate-900 mb-4">{text.result}</h2>
+      <dl class="grid sm:grid-cols-2 gap-4">
+        {[['actual', text.actual], ['human', text.human], ['stage', text.stage], ['senior', text.senior], ['size', text.category]].map(([key, label]) => <div><dt class="text-sm text-slate-600">{label}</dt><dd data-field={key} class="font-bold text-slate-900 text-lg"></dd></div>)}
+      </dl>
+      <p data-interpretation class="mt-4 text-slate-700"></p>
+      <a data-senior-link href={`${prefix}/blog/senior-dog-care/`} hidden class="inline-block mt-3 text-blue-700 underline">{text.seniorLink} →</a>
+      <p class="text-sm text-slate-600 mt-4">{text.note}</p>
+    </section>
+    <p data-announcement role="status" aria-live="polite" aria-atomic="true" class="sr-only"></p>
+    <noscript><p class="mt-4">{en ? 'Enable JavaScript for interactive results, or use the reference table below.' : '互動計算需要 JavaScript；也可使用下方對照表。'}</p></noscript>
+  </section>
+  <section class="mt-10" aria-labelledby="dog-method">
+    <h2 id="dog-method" class="text-2xl font-bold text-slate-900 mb-3">{text.works}</h2>
+    <p class="text-slate-700 leading-relaxed">{text.method}</p>
+    <p class="mt-3 text-slate-700">{en ? 'Puppy, adult and senior are Pet Aging Hub’s simplified age-stage estimates, not the complete official AAHA Canine Life Stage framework.' : '幼犬、成犬與老年犬是 Pet Aging Hub 的簡化年齡階段估算，不等同於 AAHA 官方完整的犬隻生命階段架構。'}</p>
+    {en && <a href="/en/blog/dog-human-years/" class="inline-block mt-3 text-blue-700 underline">Read the model explanation and limitations →</a>}
+  </section>
+  <section class="mt-10" aria-labelledby="dog-table-title">
+    <h2 id="dog-table-title" class="text-2xl font-bold text-slate-900 mb-3">{text.table}</h2>
+    <p id="dog-table-help" class="text-sm text-slate-600 mb-3">{text.tableHelp}</p>
+    <div class="max-w-full overflow-x-auto rounded-xl border border-slate-200 focus-visible:outline-2 focus-visible:outline-blue-600" tabindex="0" role="region" aria-labelledby="dog-table-title" aria-describedby="dog-table-help">
+      <table class="w-full min-w-[540px] text-sm text-left">
+        <caption class="text-left p-3 text-slate-600">{text.caption}</caption>
+        <thead class="bg-slate-100"><tr><th scope="col" class="p-3">{en ? 'Dog age' : '狗狗歲數'}</th>{dogSizeBands.map(b => <th scope="col" class="p-3">{en ? b.en : b.zh}</th>)}</tr></thead>
+        <tbody>{[1, 2, 5, 10, 15].map(age => <tr class="border-t border-slate-200"><th scope="row" class="p-3">{age}</th>{dogSizeBands.map(({ size }) => <td class="p-3">{estimateDogHumanAge(age, size)}</td>)}</tr>)}</tbody>
+      </table>
+    </div>
+  </section>
+  <section class="mt-10" aria-labelledby="dog-faq">
+    <h2 id="dog-faq" class="text-2xl font-bold text-slate-900 mb-4">{text.faq}</h2>
+    <div class="space-y-3">{faqs.map(({ q, a }) => <details class="border border-slate-200 rounded-xl p-4"><summary class="font-semibold cursor-pointer focus-visible:outline-2 focus-visible:outline-blue-600">{q}</summary><p class="mt-3 text-slate-700 leading-relaxed">{a}</p></details>)}</div>
+  </section>
+  <section class="mt-10 text-slate-700" aria-labelledby="dog-sources">
+    <h2 id="dog-sources" class="text-2xl font-bold text-slate-900 mb-3">{text.sources}</h2>
+    <p>{en ? "Human-age numbers, weight bands and lifespan assumptions are Pet Aging Hub's educational approximations. They are not an AAHA or AVMA formula or endorsement." : '人類年齡數字、體重區間與壽命假設是 Pet Aging Hub 的教育性近似值，不是 AAHA 或 AVMA 的公式或認證。'}</p>
+    <p class="mt-3"><a href="https://www.aaha.org/resources/2023-aaha-senior-care-guidelines-for-dogs-and-cats/defining-the-senior-patient/" class="text-blue-700 underline">AAHA: Defining the Senior Patient</a> — {en ? 'supports the general senior-stage concept, not our conversion equation or numerical lifespan assumptions.' : '支持一般老年階段的概念，不提供本站換算方程式或壽命假設數字。'}</p>
+    <p class="mt-3">{en ? 'AAHA describes the senior period as roughly the final 25% of estimated lifespan. Our size bands, lifespan ranges, human-age conversion and programmed senior threshold are site-derived educational approximations, not official veterinary cutoffs. The senior reference is separate from human-equivalent age and does not estimate years left to live.' : 'AAHA 將老年期描述為估計壽命最後約 25%。本站體型區間、壽命範圍、人類年齡換算及程式化老年門檻都是本站的教育性近似值，不是官方獸醫分界。老年參考與人類對應年齡分開計算，並不推算還能活多久。'}</p>
+  </section>
+  <nav class="mt-10" aria-labelledby="dog-resources">
+    <h2 id="dog-resources" class="text-2xl font-bold text-slate-900 mb-4">{text.resources}</h2>
+    <ul class="grid sm:grid-cols-2 gap-3">{resources.map(([slug, label]) => <li><a class="block rounded-xl border border-slate-200 px-4 py-3 text-blue-700 hover:bg-blue-50 underline" href={`${prefix}/blog/${slug}/`}>{label} →</a></li>)}</ul>
+  </nav>
+</div>
+<script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) })} />
+<script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebApplication', name: en ? 'Dog Age Calculator' : '狗狗年齡計算機', applicationCategory: 'UtilitiesApplication', operatingSystem: 'Web browser', url: `https://www.petaginghub.com${prefix}/tools/dog-age-calculator/`, description: text.note })} />
+<script>
+  import { dogSizeBands, estimateDogHumanAge, getDogLifeStage, getDogSizeLabel, type DogSize } from '../utils/agingModel';
+  document.querySelectorAll<HTMLElement>('[data-dog-calculator]').forEach(root => {
+    const lang = root.dataset.lang === 'en' ? 'en' : 'zh';
+    const en = lang === 'en';
+    const form = root.querySelector<HTMLFormElement>('form')!;
+    const ageInput = root.querySelector<HTMLInputElement>('#dogAge')!;
+    const sizeInput = root.querySelector<HTMLSelectElement>('#dogSize')!;
+    const error = root.querySelector<HTMLElement>('#dog-age-error')!;
+    const result = root.querySelector<HTMLElement>('[data-result]')!;
+    const announcement = root.querySelector<HTMLElement>('[data-announcement]')!;
+    const stages = en ? { puppy: 'Puppy', adult: 'Adult', senior: 'Senior' } : { puppy: '幼犬', adult: '成犬', senior: '老年犬' };
+    function update() {
+      const age = ageInput.valueAsNumber;
+      const ageValid = ageInput.value.trim() !== '' && Number.isFinite(age) && age >= 0 && age <= 50;
+      const sizeValid = dogSizeBands.some(b => b.size === sizeInput.value);
+      ageInput.setAttribute('aria-invalid', String(!ageValid));
+      sizeInput.setAttribute('aria-invalid', String(!sizeValid));
+      error.hidden = ageValid && sizeValid;
+      result.hidden = !error.hidden;
+      if (!error.hidden) {
+        error.textContent = !ageValid ? (en ? 'Enter a number from 0 to 50 years. Decimals are allowed.' : '請輸入 0 到 50 歲的有效數字，可以使用小數。') : (en ? 'Choose an adult size category.' : '請選擇成年體型類別。');
+        announcement.textContent = '';
+        return;
+      }
+      error.textContent = '';
+      const size = sizeInput.value as DogSize;
+      const human = estimateDogHumanAge(age, size);
+      const stage = getDogLifeStage(age, size);
+      const senior = stage === 'senior';
+      const seniorText = senior ? (en ? 'Within the approximate senior-stage reference' : '位於大約的老年階段參考內') : (en ? 'Before the approximate senior-stage reference' : '尚未進入大約的老年階段參考');
+      const fields = { actual: `${age} ${en ? (age === 1 ? 'year' : 'years') : '歲'}`, human: `${human} ${en ? 'years (estimated)' : '歲（估計）'}`, stage: stages[stage], senior: seniorText, size: getDogSizeLabel(size, lang) };
+      for (const [key, value] of Object.entries(fields)) root.querySelector<HTMLElement>(`[data-field="${key}"]`)!.textContent = value;
+      root.querySelector<HTMLElement>('[data-interpretation]')!.textContent = senior ? (en ? 'Based on this site’s general size-aware reference, your dog may be within the senior age range. Use the care guide for context, not a diagnosis.' : '依本站考量體型的一般參考，狗狗可能位於老年年齡範圍。照護指南可提供背景資訊，但不是診斷。') : (en ? 'This is Pet Aging Hub’s simplified age-stage estimate. A younger stage does not mean your dog is free of health problems.' : '這是 Pet Aging Hub 的簡化年齡階段估算。較年輕的階段不代表狗狗沒有健康問題。');
+      root.querySelector<HTMLElement>('[data-senior-link]')!.hidden = !senior;
+      announcement.textContent = `${fields.actual}; ${fields.human}; ${fields.stage}; ${seniorText}; ${fields.size}`;
+    }
+    form.addEventListener('submit', event => { event.preventDefault(); update(); if (!error.hidden) (!Number.isFinite(ageInput.valueAsNumber) || ageInput.getAttribute('aria-invalid') === 'true' ? ageInput : sizeInput).focus(); });
+    ageInput.addEventListener('input', update);
+    sizeInput.addEventListener('change', update);
+    update();
+  });
+</script>

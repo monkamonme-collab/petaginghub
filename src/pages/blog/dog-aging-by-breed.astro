@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { dogSizeBands, getDogSizeLabel, getDogSeniorAge, lifespanRanges } from '../../utils/agingModel';
 import AdSenseAd from '../../components/AdSenseAd.astro';
 
-const title = "狗狗品種與老化速度：從吉娃娃到拉布拉多，各體型與品種的老年時程";
-const description = "不同品種的狗狗老化速度差異極大。本指南整理常見品種的老化時間表，幫助主人提前根據體型準備老年照護。";
-const date = "2026-05-12";
+const title = "狗狗品種與老化速度：理解體型差異與一般生命階段";
+const description = "了解成年體型與品種如何影響狗狗老化，以及本站年齡工具的體型分類與一般老年參考；不是個別狗狗的精確時程。";
+const date = "2026-09-30";
 const image = "https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1200&q=80";
 
 const siteUrl = "https://www.petaginghub.com";
@@ -25,19 +26,19 @@ const hrefLangAlternates = [
         <span class="text-slate-400">狗狗品種與老化速度</span>
       </nav>
       <div class="inline-flex items-center gap-2 bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1.5 rounded-full mb-4">
-        🐕 品種健康研究
+        🐕 體型與老化參考
       </div>
       <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
         狗狗品種與老化速度：<br class="hidden md:block" />
-        各體型與品種的老年時程
+        理解體型差異與一般生命階段
       </h1>
       <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-        為什麼大丹犬 6 歲就算老？而吉娃娃 12 歲還像青少年？了解品種背後的生理時鐘，才能給予最精準的照護。
+        成年體型可提供老化背景，但同品種也有個體差異。這篇文章解釋體型分類與一般生命階段，不以品種名稱決定精確老年年齡。
       </p>
       <div class="flex items-center justify-center gap-4 mt-8 text-sm text-slate-500 font-medium">
         <span>更新時間：{date}</span>
         <span>·</span>
-        <span>閱讀時間：約 12 分鐘</span>
+        <span>體型與生命階段說明</span>
       </div>
     </div>
   </div>
@@ -45,14 +46,14 @@ const hrefLangAlternates = [
   <div class="max-w-4xl mx-auto px-6 mt-[-2rem] md:mt-0 md:px-6">
     <img
       src={image}
-      alt="不同體型狗狗的生命階段對比圖"
+      alt="不同體型的狗狗"
       class="w-full aspect-video object-cover rounded-3xl shadow-2xl border-4 border-white"
     />
   </div>
 
   <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-inner">
     <div class="max-w-4xl mx-auto px-6 py-8 text-center">
-      <p class="text-base mb-4 opacity-95 font-medium">想知道你家狗狗對應的人類年齡嗎？</p>
+      <p class="text-base mb-4 opacity-95 font-medium">想取得依年齡與成年體型產生的教育性參考嗎？</p>
       <a
         href="/tools/dog-age-calculator/"
         class="inline-flex items-center gap-2 bg-white text-blue-700 font-bold px-8 py-3.5 rounded-2xl hover:bg-blue-50 transition-all shadow-lg hover:scale-105"
@@ -62,56 +63,42 @@ const hrefLangAlternates = [
     </div>
   </div>
 
-  <article class="max-w-3xl mx-auto px-6 py-12">
+  <article class="w-[calc(100vw-4rem)] max-w-3xl mx-auto px-6 py-12">
     <div class="bg-amber-50 border-l-4 border-amber-400 p-6 rounded-r-2xl my-8 shadow-sm">
       <h3 class="font-bold text-amber-900 mb-4 flex items-center gap-2 text-lg">
         <span>📌</span> 本篇重點
       </h3>
       <ul class="space-y-2 text-slate-700 text-base leading-relaxed">
-        <li class="flex gap-2"><strong>·</strong> 大型犬老化速度極快，6 歲即進入老年階段。</li>
-        <li class="flex gap-2"><strong>·</strong> 小型犬與玩具犬平均壽命最長，照護重點在於心臟與牙齒。</li>
-        <li class="flex gap-2"><strong>·</strong> 體重每增加 2kg，預期壽命可能減少約一個月。</li>
+        <li class="flex gap-2"><strong>·</strong> 較大的犬種通常有不同的老化與壽命模式，但不能用體型診斷健康。</li>
+        <li class="flex gap-2"><strong>·</strong> 依實際或預期成年體重選擇分類，不依品種名稱一概判定。</li>
+        <li class="flex gap-2"><strong>·</strong> 老年階段與人類年齡估算分開計算，都是一般參考。</li>
       </ul>
     </div>
 
     <section id="size-differences" class="prose prose-slate max-w-none">
       <h2 class="text-2xl font-bold text-slate-900 mb-6 border-b pb-2">為什麼大型犬老得快？</h2>
-      <p>根據「Gompertz-Makeham 老化法則」，大型犬的細胞分裂頻率更高、氧化壓力更大。這意味著牠們的身體器官在更短的時間內承受了更多的消耗。</p>
-      
-      [Image of aging correlation with dog size]
+      <p>犬種研究觀察到體型與壽命、老化模式的關聯，但不能據此替個別狗狗指定精確生理年齡。遺傳、品種、健康與照護也會造成差異；本站四類體型只是工具使用的分類。</p>
 
       <AdSenseAd format="in-article" />
 
       <h2 id="size-chart" class="text-2xl font-bold text-slate-900 mt-12 mb-6 border-b pb-2">體型分類與老化分水嶺</h2>
-      <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm mb-8">
-        <table class="w-full text-sm">
-          <thead class="bg-slate-50 text-slate-700 border-b">
-            <tr>
-              <th class="p-4 text-left">體型類別</th>
-              <th class="p-4 text-left">老化開始時間</th>
-              <th class="p-4 text-left">主要關注點</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-100">
-            <tr class="hover:bg-slate-50 transition-colors">
-              <td class="p-4 font-bold text-red-700">巨型犬 (>50kg)</td>
-              <td class="p-4">5-6 歲</td>
-              <td class="p-4">關節、骨肉瘤、心臟</td>
-            </tr>
-            <tr class="hover:bg-slate-50 transition-colors">
-              <td class="p-4 font-bold text-orange-700">大型犬 (25-50kg)</td>
-              <td class="p-4">6-7 歲</td>
-              <td class="p-4">癌症、髖關節退化</td>
-            </tr>
-            <tr class="hover:bg-slate-50 transition-colors">
-              <td class="p-4 font-bold text-green-700">小型犬 (<10kg)</td>
-              <td class="p-4">9-11 歲</td>
-              <td class="p-4">牙周病、二尖瓣心臟病</td>
-            </tr>
-          </tbody>
+      <div class="max-w-full overflow-x-auto rounded-2xl border border-slate-200 shadow-sm mb-8" tabindex="0" role="region" aria-label="體型與老年參考表">
+        <table class="w-full min-w-[520px] text-sm">
+          <caption class="p-3 text-left">本站共用模型的假設，不是品種專屬預測</caption>
+          <thead class="bg-slate-50"><tr><th scope="col" class="p-4 text-left">成年體型</th><th scope="col" class="p-4 text-left">一般壽命假設</th><th scope="col" class="p-4 text-left">老年階段大約參考</th></tr></thead>
+          <tbody>{dogSizeBands.map(({ size }) => <tr class="border-t"><th scope="row" class="p-4 text-left">{getDogSizeLabel(size, 'zh')}</th><td class="p-4">{lifespanRanges.dog[size].join('–')} 歲</td><td class="p-4">約 {Math.round(getDogSeniorAge(size))} 歲</td></tr>)}</tbody>
         </table>
       </div>
+      <p>老年參考依壽命範圍中點的 75% 計算，與人類對應歲數無關。以上四捨五入的年齡不是臨床分界。區間下界屬於該類別：{dogSizeBands.slice(1).map(b => `${b.minKg} kg → ${b.zh}`).join('；')}。</p>
 
       <AdSenseAd format="in-article" />
 
-      <h2 id="care-strategies" class="text-2xl font-bold text-slate-900 mt-12 mb
+      <h2 id="care-strategies" class="text-2xl font-bold text-slate-900 mt-12 mb-6">如何使用體型參考</h2>
+      <p>幼犬請依預期成年體重選擇；混種犬也依體重而不是固定品種標籤分類。狗狗出現變化時，不應只歸因於年紀，請參考<a href="/blog/dog-aging-signs/" class="text-blue-700 underline">狗狗老化徵兆</a>，並與獸醫討論。</p>
+      <p>照護原則請閱讀<a href="/blog/senior-dog-care/" class="text-blue-700 underline">老年狗狗照護指南</a>；更完整的背景可從<a href="/blog/pet-aging-guide/" class="text-blue-700 underline">寵物老化指南</a>開始。這些內容不能取代獸醫評估。</p>
+      <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">來源與限制</h2>
+      <p><a href="https://pubmed.ncbi.nlm.nih.gov/23535614/" class="text-blue-700 underline">Kraus 等人（2013）：犬種體型與壽命研究</a>提供體型與老化關聯的研究背景，不直接支持本站體重區間與數值。</p>
+      <p><a href="https://www.aaha.org/resources/2023-aaha-senior-care-guidelines-for-dogs-and-cats/defining-the-senior-patient/" class="text-blue-700 underline">AAHA 老年階段說明</a>提供一般概念；本站壽命範圍與分類為教育性近似值，不是官方公式。</p>
+    </section>
+  </article>
+</BaseLayout>
