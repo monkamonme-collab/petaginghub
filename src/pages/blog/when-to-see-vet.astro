@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const title = "寵物什麼時候該看獸醫？緊急症狀vs.一般觀察";
-const description = "寵物出現哪些症狀需要立刻急診？哪些可以等到明天？哪些只需要觀察？這份指南幫你做出正確判斷。";
+const description = "辨識需立即求助的急症警訊、記錄新變化並聯絡獸醫確認合適時機；本文不提供安全等待門檻。";
 const date = "2026-05-10";
 const siteUrl = "https://www.petaginghub.com";
 const canonicalPath = "/blog/when-to-see-vet/";
@@ -29,7 +29,7 @@ const hrefLangAlternates = [
   <header class="mb-8">
     <span class="inline-block bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full mb-4">緊急指南</span>
     <h1 class="text-4xl font-extrabold text-slate-900 mb-4">{title}</h1>
-    <p class="text-xl text-slate-600 leading-relaxed">不是每個症狀都是緊急情況——但有些確實是。這份指南幫你判斷「現在就去」、「明天打電話」還是「觀察等待」。</p>
+    <p class="text-xl text-slate-600 leading-relaxed">記錄症狀開始時間、程度、持續情形及與平常狀態的差異，盡快聯絡獸醫確認合適的評估時機；不要使用症狀次數或固定等待天數判斷。貓咪不吃東西應盡快求助。</p>
   </header>
 
   <div class="space-y-8">
@@ -38,10 +38,10 @@ const hrefLangAlternates = [
       <p class="text-slate-700 text-sm mb-4">以下症狀需要立即急診處理。不要等到天亮。最好提前打電話讓診所準備。</p>
       <div class="grid md:grid-cols-2 gap-3">
         <ul class="space-y-2 text-sm text-slate-700">
-          <li>呼吸困難、喘氣、牙齦發藍</li>
+          <li>呼吸困難、喘不過氣、牙齦發藍／發紫或非常蒼白</li>
           <li>突然倒下或無法站立</li>
           <li>疑似中毒或誤食有毒物質</li>
-          <li>癲癇發作（首次或 24 小時內多次）</li>
+          <li>正在抽搐或失去反應</li>
           <li>腹部膨脹且堅硬（狗狗——可能是胃扭轉）</li>
         </ul>
         <ul class="space-y-2 text-sm text-slate-700">
@@ -50,17 +50,18 @@ const hrefLangAlternates = [
           <li>尿道阻塞（貓咪——用力但排不出尿）</li>
           <li>嚴重外傷（被車撞、從高處墜落）</li>
           <li>突然失明</li>
+<li>嚴重或持續嘔吐</li><li>嚴重腹瀉伴紅色血液或黑色柏油樣便</li>
         </ul>
       </div>
     </div>
 
     <div class="bg-amber-50 rounded-2xl p-6 border-2 border-amber-200">
-      <h2 class="text-2xl font-bold text-amber-800 mb-4">緊迫：今天內聯絡獸醫</h2>
-      <p class="text-slate-700 text-sm mb-4">這些症狀需要在 24 小時內就醫。如果聯絡不到固定獸醫，可考慮急診診所。</p>
+      <h2 class="text-2xl font-bold text-amber-800 mb-4">緊迫：盡快聯絡獸醫確認評估時機</h2>
+      <p class="text-slate-700 text-sm mb-4">記錄症狀開始時間、程度、持續情形及與平常狀態的差異，盡快聯絡獸醫確認合適的評估時機；不要使用症狀次數或固定等待天數判斷。貓咪不吃東西應盡快求助。</p>
       <div class="grid md:grid-cols-2 gap-3">
         <ul class="space-y-2 text-sm text-slate-700">
-          <li>持續嘔吐或腹瀉（3 次以上）</li>
-          <li>完全不吃東西超過 24–48 小時</li>
+          <li>嘔吐或腹瀉；嚴重或持續嘔吐、嚴重血性腹瀉請立即求助</li>
+          <li>不吃東西或食量明顯改變：盡快聯絡獸醫，尤其是貓咪</li>
           <li>跛行休息後沒有改善</li>
           <li>眼睛混濁、有分泌物或明顯疼痛</li>
         </ul>
@@ -74,12 +75,12 @@ const hrefLangAlternates = [
     </div>
 
     <div class="bg-green-50 rounded-2xl p-6 border-2 border-green-200">
-      <h2 class="text-2xl font-bold text-green-800 mb-4">預約就診：1–2 週內安排常規門診</h2>
+      <h2 class="text-2xl font-bold text-green-800 mb-4">記錄變化並詢問合適評估時機</h2>
       <ul class="grid md:grid-cols-2 gap-2 text-sm text-slate-700">
         <li>體重緩慢變化</li>
         <li>毛髮變化（光澤減退、稀疏、打結）</li>
         <li>間歇性輕微跛行</li>
-        <li>緩慢生長的腫塊（數月而非數日）</li>
+        <li>新出現或有變化的腫塊</li>
         <li>口臭或牙石明顯</li>
         <li>活動力比以前下降</li>
         <li>老年寵物出現行為改變</li>
@@ -89,7 +90,7 @@ const hrefLangAlternates = [
 
     <section>
       <h2>老年寵物的特別提醒</h2>
-      <p class="text-slate-700 leading-relaxed mb-3">10 歲以上的寵物，建議「寧可早點打電話」的原則。與年齡相關的疾病可能進展很快，看起來只是「慢下來了」的問題，有可能是一個早期發現就能有效治療的狀況。</p>
+      <p class="text-slate-700 leading-relaxed mb-3">記錄症狀開始時間、程度、持續情形及與平常狀態的差異，盡快聯絡獸醫確認合適的評估時機；不要使用症狀次數或固定等待天數判斷。貓咪不吃東西應盡快求助。</p>
       <p class="text-slate-700 leading-relaxed">有疑問時，直接打電話給你的獸醫描述症狀。大多數診所很樂意幫你判斷是否需要緊急處理。</p>
     </section>
   </div>
@@ -105,6 +106,7 @@ const hrefLangAlternates = [
   </footer>
 </article>
 
+<p class="mt-6 text-sm text-slate-600">來源：<a href="https://www.vet.cornell.edu/hospitals/services/emergency-and-critical-care-0">Cornell 急症警訊</a>；<a href="https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/anorexia">Cornell 貓咪不食資訊</a>。來源不提供本站分數或固定安全等待期。</p>
 <script type="application/ld+json" is:inline>
 {
   "@context": "https://schema.org",

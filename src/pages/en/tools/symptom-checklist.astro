@@ -24,7 +24,7 @@ const hrefLangAlternates = [
   <div class="max-w-3xl mx-auto py-8 px-4">
     <header class="mb-8">
       <h1 class="text-3xl font-extrabold text-slate-900 mb-3">📋 Senior Pet Symptom Checklist</h1>
-      <p class="text-slate-600 text-lg">Check any symptoms your pet is showing. This tool helps you decide whether a vet visit is needed — it is not a diagnosis.</p>
+      <p class="text-slate-600 text-lg">Check any symptoms your pet is showing. This tool organizes observations; it does not diagnose illness, calculate a risk score, or rule out disease. Do not wait to finish it if emergency signs are present.</p>
     </header>
 
     <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6">
@@ -48,94 +48,96 @@ const hrefLangAlternates = [
     <form id="checklistForm" class="space-y-6">
 
       <div class="bg-white rounded-2xl border border-slate-200 p-5">
-        <h2 class="font-bold text-slate-900 mb-4 flex items-center gap-2"><span class="text-red-500">🔴</span> Urgent — See a vet today or go to emergency care</h2>
+        <h2 class="font-bold text-slate-900 mb-4 flex items-center gap-2"><span class="text-red-500">🔴</span> Emergency warning signs — seek help immediately</h2>
         <div class="space-y-3" id="urgentSymptoms">
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-red-50 transition">
-            <input type="checkbox" name="symptom" value="5" data-urgency="urgent" class="mt-1 accent-red-500 w-4 h-4 flex-shrink-0" />
+            <input type="checkbox" name="symptom" data-urgency="urgent" class="mt-1 accent-red-500 w-4 h-4 flex-shrink-0" />
             <div><p class="font-medium text-slate-800">Difficulty breathing / labored breathing</p><p class="text-xs text-slate-500">Open-mouth breathing in cats, rapid shallow breathing, blue-tinged gums</p></div>
           </label>
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-red-50 transition">
-            <input type="checkbox" name="symptom" value="5" data-urgency="urgent" class="mt-1 accent-red-500 w-4 h-4 flex-shrink-0" />
+            <input type="checkbox" name="symptom" data-urgency="urgent" class="mt-1 accent-red-500 w-4 h-4 flex-shrink-0" />
             <div><p class="font-medium text-slate-800">Collapse or inability to stand / walk</p><p class="text-xs text-slate-500">Sudden weakness, hind-end paralysis, inability to rise</p></div>
           </label>
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-red-50 transition">
-            <input type="checkbox" name="symptom" value="5" data-urgency="urgent" class="mt-1 accent-red-500 w-4 h-4 flex-shrink-0" />
+            <input type="checkbox" name="symptom" data-urgency="urgent" class="mt-1 accent-red-500 w-4 h-4 flex-shrink-0" />
             <div><p class="font-medium text-slate-800">Seizures or sudden loss of consciousness</p><p class="text-xs text-slate-500">Convulsions, unresponsiveness, paddling limbs</p></div>
           </label>
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-red-50 transition">
-            <input type="checkbox" name="symptom" value="5" data-urgency="urgent" class="mt-1 accent-red-500 w-4 h-4 flex-shrink-0" />
+            <input type="checkbox" name="symptom" data-urgency="urgent" class="mt-1 accent-red-500 w-4 h-4 flex-shrink-0" />
             <div><p class="font-medium text-slate-800">Bloated / distended abdomen (especially dogs)</p><p class="text-xs text-slate-500">Rapid swelling of the belly, retching without vomiting — possible GDV emergency</p></div>
           </label>
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-red-50 transition">
-            <input type="checkbox" name="symptom" value="5" data-urgency="urgent" class="mt-1 accent-red-500 w-4 h-4 flex-shrink-0" />
-            <div><p class="font-medium text-slate-800">Blood in vomit, stool, or urine</p><p class="text-xs text-slate-500">Bright red blood or dark tarry stools</p></div>
+            <input type="checkbox" name="symptom" data-urgency="urgent" class="mt-1 accent-red-500 w-4 h-4 flex-shrink-0" />
+            <div><p class="font-medium text-slate-800">Severe diarrhea with red blood or black, tarry stool</p><p class="text-xs text-slate-500">Severe bloody diarrhea is an emergency warning sign</p></div>
           </label>
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-red-50 transition">
-            <input type="checkbox" name="symptom" value="5" data-urgency="urgent" class="mt-1 accent-red-500 w-4 h-4 flex-shrink-0" />
+            <input type="checkbox" name="symptom" data-urgency="urgent" class="mt-1 accent-red-500 w-4 h-4 flex-shrink-0" />
             <div><p class="font-medium text-slate-800">Suspected poisoning or ingestion of toxin</p><p class="text-xs text-slate-500">Known or suspected exposure to toxic plants, foods, or chemicals</p></div>
           </label>
+          <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-red-50 transition"><input type="checkbox" name="symptom" data-urgency="urgent" class="mt-1 accent-red-500 w-4 h-4 flex-shrink-0" /><div><p class="font-medium text-slate-800">Blue, purple, or very pale gums</p><p class="text-xs text-slate-500">Seek emergency veterinary help immediately</p></div></label>
+          <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-red-50 transition"><input type="checkbox" name="symptom" data-urgency="urgent" class="mt-1 accent-red-500 w-4 h-4 flex-shrink-0" /><div><p class="font-medium text-slate-800">Severe or protracted vomiting</p><p class="text-xs text-slate-500">Seek emergency veterinary help immediately</p></div></label>
         </div>
       </div>
 
       <div class="bg-white rounded-2xl border border-slate-200 p-5">
-        <h2 class="font-bold text-slate-900 mb-4 flex items-center gap-2"><span class="text-orange-500">🟠</span> Schedule a vet visit this week</h2>
+        <h2 class="font-bold text-slate-900 mb-4 flex items-center gap-2"><span class="text-orange-500">🟠</span> Changes to discuss promptly with a veterinarian</h2>
         <div class="space-y-3">
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-orange-50 transition">
-            <input type="checkbox" name="symptom" value="3" data-urgency="soon" class="mt-1 accent-orange-500 w-4 h-4 flex-shrink-0" />
-            <div><p class="font-medium text-slate-800">Significant weight loss or gain (past 1–2 months)</p><p class="text-xs text-slate-500">More than 10% change without diet change</p></div>
+            <input type="checkbox" name="symptom" data-urgency="soon" class="mt-1 accent-orange-500 w-4 h-4 flex-shrink-0" />
+            <div><p class="font-medium text-slate-800">Unexplained weight loss or gain</p><p class="text-xs text-slate-500">Record the trend and any changes in appetite or activity</p></div>
           </label>
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-orange-50 transition">
-            <input type="checkbox" name="symptom" value="3" data-urgency="soon" class="mt-1 accent-orange-500 w-4 h-4 flex-shrink-0" />
+            <input type="checkbox" name="symptom" data-urgency="soon" class="mt-1 accent-orange-500 w-4 h-4 flex-shrink-0" />
             <div><p class="font-medium text-slate-800">Dramatically increased or decreased thirst / urination</p><p class="text-xs text-slate-500">May indicate diabetes, kidney disease, or Cushing's</p></div>
           </label>
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-orange-50 transition">
-            <input type="checkbox" name="symptom" value="3" data-urgency="soon" class="mt-1 accent-orange-500 w-4 h-4 flex-shrink-0" />
-            <div><p class="font-medium text-slate-800">Loss of appetite for more than 2 days</p><p class="text-xs text-slate-500">Especially serious in cats (hepatic lipidosis risk)</p></div>
+            <input type="checkbox" name="symptom" data-urgency="soon" class="mt-1 accent-orange-500 w-4 h-4 flex-shrink-0" />
+            <div><p class="font-medium text-slate-800">Not eating or a marked appetite change</p><p class="text-xs text-slate-500">Contact a veterinarian promptly, especially for a cat that is not eating; do not wait for a fixed number of days</p></div>
           </label>
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-orange-50 transition">
-            <input type="checkbox" name="symptom" value="3" data-urgency="soon" class="mt-1 accent-orange-500 w-4 h-4 flex-shrink-0" />
+            <input type="checkbox" name="symptom" data-urgency="soon" class="mt-1 accent-orange-500 w-4 h-4 flex-shrink-0" />
             <div><p class="font-medium text-slate-800">Noticeable limping or reluctance to move</p><p class="text-xs text-slate-500">Joint pain, arthritis, or possible injury</p></div>
           </label>
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-orange-50 transition">
-            <input type="checkbox" name="symptom" value="3" data-urgency="soon" class="mt-1 accent-orange-500 w-4 h-4 flex-shrink-0" />
-            <div><p class="font-medium text-slate-800">Persistent vomiting or diarrhea (more than 24 hours)</p><p class="text-xs text-slate-500">Risk of dehydration, especially in senior pets</p></div>
+            <input type="checkbox" name="symptom" data-urgency="soon" class="mt-1 accent-orange-500 w-4 h-4 flex-shrink-0" />
+            <div><p class="font-medium text-slate-800">Vomiting or diarrhea</p><p class="text-xs text-slate-500">Seek immediate help for severe or protracted vomiting or severe bloody diarrhea; contact your vet for other new or persistent changes</p></div>
           </label>
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-orange-50 transition">
-            <input type="checkbox" name="symptom" value="3" data-urgency="soon" class="mt-1 accent-orange-500 w-4 h-4 flex-shrink-0" />
+            <input type="checkbox" name="symptom" data-urgency="soon" class="mt-1 accent-orange-500 w-4 h-4 flex-shrink-0" />
             <div><p class="font-medium text-slate-800">New lumps, bumps, or skin changes</p><p class="text-xs text-slate-500">Any fast-growing, ulcerated, or painful mass</p></div>
           </label>
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-orange-50 transition">
-            <input type="checkbox" name="symptom" value="3" data-urgency="soon" class="mt-1 accent-orange-500 w-4 h-4 flex-shrink-0" />
-            <div><p class="font-medium text-slate-800">Coughing or gagging that persists more than a few days</p><p class="text-xs text-slate-500">Could indicate heart disease, respiratory infection, or tracheal issues</p></div>
+            <input type="checkbox" name="symptom" data-urgency="soon" class="mt-1 accent-orange-500 w-4 h-4 flex-shrink-0" />
+            <div><p class="font-medium text-slate-800">New, persistent, or worsening coughing or gagging</p><p class="text-xs text-slate-500">Could indicate heart disease, respiratory infection, or tracheal issues</p></div>
           </label>
         </div>
       </div>
 
       <div class="bg-white rounded-2xl border border-slate-200 p-5">
-        <h2 class="font-bold text-slate-900 mb-4 flex items-center gap-2"><span class="text-yellow-500">🟡</span> Monitor closely — mention at next checkup</h2>
+        <h2 class="font-bold text-slate-900 mb-4 flex items-center gap-2"><span class="text-yellow-500">🟡</span> Other changes to record and discuss</h2>
         <div class="space-y-3">
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-yellow-50 transition">
-            <input type="checkbox" name="symptom" value="1" data-urgency="monitor" class="mt-1 accent-yellow-500 w-4 h-4 flex-shrink-0" />
+            <input type="checkbox" name="symptom" data-urgency="monitor" class="mt-1 accent-yellow-500 w-4 h-4 flex-shrink-0" />
             <div><p class="font-medium text-slate-800">Reduced activity or energy levels</p><p class="text-xs text-slate-500">Less interested in play, shorter walks, sleeping more than usual</p></div>
           </label>
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-yellow-50 transition">
-            <input type="checkbox" name="symptom" value="1" data-urgency="monitor" class="mt-1 accent-yellow-500 w-4 h-4 flex-shrink-0" />
+            <input type="checkbox" name="symptom" data-urgency="monitor" class="mt-1 accent-yellow-500 w-4 h-4 flex-shrink-0" />
             <div><p class="font-medium text-slate-800">Bad breath or drooling more than usual</p><p class="text-xs text-slate-500">Dental disease is very common and painful in senior pets</p></div>
           </label>
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-yellow-50 transition">
-            <input type="checkbox" name="symptom" value="1" data-urgency="monitor" class="mt-1 accent-yellow-500 w-4 h-4 flex-shrink-0" />
+            <input type="checkbox" name="symptom" data-urgency="monitor" class="mt-1 accent-yellow-500 w-4 h-4 flex-shrink-0" />
             <div><p class="font-medium text-slate-800">Cloudy eyes or apparent vision changes</p><p class="text-xs text-slate-500">Cataracts, nuclear sclerosis, or glaucoma in aging pets</p></div>
           </label>
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-yellow-50 transition">
-            <input type="checkbox" name="symptom" value="1" data-urgency="monitor" class="mt-1 accent-yellow-500 w-4 h-4 flex-shrink-0" />
-            <div><p class="font-medium text-slate-800">Confusion, disorientation, or unusual behavior changes</p><p class="text-xs text-slate-500">Cognitive dysfunction syndrome (pet dementia) becomes more common after age 9–10</p></div>
+            <input type="checkbox" name="symptom" data-urgency="monitor" class="mt-1 accent-yellow-500 w-4 h-4 flex-shrink-0" />
+            <div><p class="font-medium text-slate-800">Confusion, disorientation, or unusual behavior changes</p><p class="text-xs text-slate-500">Behavior changes can have different causes; record when they started and discuss them with your veterinarian</p></div>
           </label>
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-yellow-50 transition">
-            <input type="checkbox" name="symptom" value="1" data-urgency="monitor" class="mt-1 accent-yellow-500 w-4 h-4 flex-shrink-0" />
+            <input type="checkbox" name="symptom" data-urgency="monitor" class="mt-1 accent-yellow-500 w-4 h-4 flex-shrink-0" />
             <div><p class="font-medium text-slate-800">Coat changes — dullness, thinning, or excessive shedding</p><p class="text-xs text-slate-500">May indicate nutritional deficiency, hormonal change, or skin condition</p></div>
           </label>
           <label class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-yellow-50 transition">
-            <input type="checkbox" name="symptom" value="1" data-urgency="monitor" class="mt-1 accent-yellow-500 w-4 h-4 flex-shrink-0" />
+            <input type="checkbox" name="symptom" data-urgency="monitor" class="mt-1 accent-yellow-500 w-4 h-4 flex-shrink-0" />
             <div><p class="font-medium text-slate-800">Reduced grooming (cats) or excessive grooming / licking one area</p><p class="text-xs text-slate-500">Both can signal pain, anxiety, or skin problems</p></div>
           </label>
         </div>
@@ -147,18 +149,18 @@ const hrefLangAlternates = [
       </button>
     </form>
 
-    <div id="results" class="hidden mt-8">
+    <div id="results" class="hidden mt-8 scroll-mt-20" aria-live="polite" aria-atomic="true" role="status">
       <div id="urgentAlert" class="hidden bg-red-50 border-2 border-red-400 rounded-2xl p-5 mb-4">
         <h2 class="text-xl font-bold text-red-800 mb-2">🚨 Seek Emergency Care Now</h2>
         <p class="text-red-700">Your pet is showing one or more urgent symptoms. Please contact your veterinarian or an emergency animal hospital immediately — do not wait.</p>
       </div>
       <div id="soonAlert" class="hidden bg-orange-50 border-2 border-orange-400 rounded-2xl p-5 mb-4">
-        <h2 class="text-xl font-bold text-orange-800 mb-2">📅 Schedule a Vet Visit This Week</h2>
-        <p class="text-orange-700">Your pet has symptoms that warrant professional evaluation soon. These are not necessarily emergencies but should not be left unaddressed for long.</p>
+        <h2 class="text-xl font-bold text-orange-800 mb-2">📅 Contact a Veterinarian for Appropriate Timing</h2>
+        <p class="text-orange-700">Record the selected changes and contact a veterinarian for appropriate timing based on severity, persistence, rapid worsening, concurrent signs, and your pet’s baseline. A cat that is not eating needs prompt veterinary contact; do not wait for a fixed number of days.</p>
       </div>
       <div id="monitorAlert" class="hidden bg-yellow-50 border-2 border-yellow-400 rounded-2xl p-5 mb-4">
-        <h2 class="text-xl font-bold text-yellow-800 mb-2">👁️ Monitor and Mention at Next Checkup</h2>
-        <p class="text-yellow-700">Your pet has some mild symptoms worth keeping an eye on. Document when they started and any changes. Bring this up at your next scheduled vet visit.</p>
+        <h2 class="text-xl font-bold text-yellow-800 mb-2">👁️ Record Changes and Contact a Veterinarian</h2>
+        <p class="text-yellow-700">These observations do not establish low risk or a diagnosis. Contact your veterinarian about new or persistent changes and appropriate timing. If a change is sudden, severe, or rapidly worsening, seek help promptly.</p>
       </div>
       <div id="allClearAlert" class="hidden bg-green-50 border-2 border-green-400 rounded-2xl p-5 mb-4">
         <h2 class="text-xl font-bold text-green-800 mb-2">✅ No Listed Symptoms Selected</h2>
@@ -173,6 +175,7 @@ const hrefLangAlternates = [
     </div>
   </div>
 
+  <p class="mt-6 text-sm text-slate-600">Sources: <a href="https://www.vet.cornell.edu/hospitals/services/emergency-and-critical-care-0" class="underline">Cornell emergency warning signs</a>; <a href="https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/anorexia" class="underline">Cornell: a cat that is not eating</a>. These sources support the warnings, not a symptom-count score.</p>
   <script>
     document.getElementById('assessBtn').addEventListener('click', function() {
       const checked = Array.from(document.querySelectorAll('input[name="symptom"]:checked'));
@@ -181,8 +184,8 @@ const hrefLangAlternates = [
       const hasMonitor = checked.some(c => c.dataset.urgency === 'monitor');
 
       document.getElementById('urgentAlert').classList.toggle('hidden', !hasUrgent);
-      document.getElementById('soonAlert').classList.toggle('hidden', !hasSoon);
-      document.getElementById('monitorAlert').classList.toggle('hidden', !hasMonitor);
+      document.getElementById('soonAlert').classList.toggle('hidden', !hasSoon || hasUrgent);
+      document.getElementById('monitorAlert').classList.toggle('hidden', !hasMonitor || hasUrgent || hasSoon);
       document.getElementById('allClearAlert').classList.toggle('hidden', checked.length > 0);
       document.getElementById('results').classList.remove('hidden');
       document.getElementById('results').scrollIntoView({ behavior: 'smooth' });

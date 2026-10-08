@@ -2,8 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdSenseAd from '../../components/AdSenseAd.astro';
 
-const title = "寵物各年齡階段的營養需求完整指南：幼年、成年到老年的科學餵養";
-const description = "狗狗幾歲該換飼料？貓咪不同年齡該怎麼吃？本指南依據 AAFCO 營養標準與 AVMA、WSAVA 獸醫指引，完整解析幼年、成年與老年寵物的營養需求差異，並提供換糧時機與常見飲食迷思的科學解答。";
+const title = "寵物各年齡階段的營養需求指南：依個別體態與健康調整";
+const description = "以生命階段、體態、肌肉狀態及病史為背景，與獸醫規劃犬貓的均衡飲食；不提供所有老年寵物通用的營養處方。";
 const date = "2026-06-14";
 const image = "https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=1200&q=80";
 const currentPath = Astro.url.pathname;
@@ -19,49 +19,49 @@ const hrefLangAlternates = [
   <article class="max-w-3xl mx-auto px-6 py-12">
     <header class="mb-12">
       <div class="flex items-center gap-3 text-sm text-slate-500 mb-4">
-        <span class="bg-indigo-600 text-white px-2 py-0.5 rounded font-bold">權威指南</span>
+        <span class="bg-indigo-600 text-white px-2 py-0.5 rounded font-bold">營養參考</span>
         <span>最後更新：{date}</span>
       </div>
       <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-6">{title}</h1>
       <p class="text-lg text-slate-600 leading-relaxed italic border-l-4 border-indigo-200 pl-4">
-        「飼料袋上的『全齡配方』，不代表適合所有年齡。」—— 營養是寵物生命階段管理中，最容易被忽略，卻影響最深遠的一環。
+        食品標示只是起點；還需確認營養完整性與個別寵物的實際需求。
       </p>
     </header>
 
     <div class="prose prose-slate max-w-none text-slate-700 leading-relaxed">
       <p>
-        許多飼主在寵物的飲食上，往往只在「換飼料品牌」時才會多想一下，卻很少意識到：<strong>年齡，才是決定寵物該吃什麼的最關鍵變數</strong>。根據美國飼料管制協會 (AAFCO) 的營養標準，犬貓的營養需求至少可分為「生長期（幼年）」與「維持期（成年）」兩大類別，而熟齡與老年寵物則需要額外的代謝與器官保健考量。一隻 8 個月大的幼犬若長期食用成犬飼料，可能因蛋白質與鈣磷比不足而影響骨骼發育；反之，一隻 10 歲的老犬若仍食用高熱量的幼犬飼料，則容易加速肥胖與腎臟負擔。
+        選擇適合物種及生長或成年維持需求、營養完整均衡的食品。與獸醫一起評估體態、肌肉狀態、體重趨勢、食慾、活動及病史；年齡本身不能決定固定熱量減幅、蛋白質比例或低磷飲食。
       </p>
       <p>
-        本篇文章將以「生命階段」為主軸，依據 AAFCO、美國獸醫師協會 (AVMA) 與世界小動物獸醫師協會 (WSAVA) 的營養指引，完整說明狗狗與貓咪在幼年、成年、熟齡與老年期的飲食重點，並提供換糧時機的判斷方式，幫助您用科學的方式規劃毛孩一生的餐桌。
+        選擇適合物種及生長或成年維持需求、營養完整均衡的食品。與獸醫一起評估體態、肌肉狀態、體重趨勢、食慾、活動及病史；年齡本身不能決定固定熱量減幅、蛋白質比例或低磷飲食。
       </p>
 
       <AdSenseAd format="in-article" />
 
-      <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">一、為什麼「年齡」是寵物飲食規劃的核心指標</h2>
+      <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">一、生命階段與個別營養評估</h2>
       <p>
-        寵物的代謝率、生長速度與器官功能會隨著年齡產生劇烈變化。以狗狗為例，幼犬在出生後的前 12 個月內，體重可能成長至成犬體重的 75% 以上，這段期間對熱量、蛋白質、鈣、磷等營養素的需求遠高於成犬。而貓咪雖然體型變化較不明顯，但幼貓在 6 個月齡前的能量需求約為成貓的 2 至 2.5 倍。
+        生長期與成年維持期的需求不同。換糧及份量應依成長、體態與健康調整，而不是以固定生長比例或單一年齡推算。
       </p>
       <p>
-        若想更精確掌握毛孩目前所處的生命階段，可以先使用我們的
+        若想查看教育性年齡階段參考，可以先使用我們的
         <a href="/tools/dog-age-calculator/" class="text-blue-600 underline">狗狗年齡計算機</a> 或
         <a href="/tools/cat-age-calculator/" class="text-blue-600 underline">貓咪年齡計算機</a>，
-        輸入實際年齡後，系統會依據 AAHA 的生命階段分類，告訴您毛孩目前屬於幼年、成年、熟齡還是老年——這正是本篇所有飲食建議的基礎分類依據。
+        本站計算機提供教育性年齡對照，不是獸醫營養評估，也不會決定飲食處方。
       </p>
 
       <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">二、幼年期營養需求：打底的關鍵階段</h2>
       <p>
-        幼年期（狗約 0-1 歲，依品種體型略有差異；貓約 0-1 歲）是骨骼、肌肉、免疫系統與大腦發育最快速的時期，營養攝取的品質與比例會直接影響成年後的健康基礎。
+        幼年期應使用符合生長需求的完整均衡飲食；成長速度及適合轉成年配方的時機因個體而異。
       </p>
       <h3 class="text-xl font-bold text-slate-900 mt-6 mb-3">幼犬：蛋白質與鈣磷比是關鍵</h3>
       <ul class="space-y-3 bg-slate-50 p-6 rounded-2xl border border-slate-100">
-        <li><strong>高蛋白質：</strong> AAFCO 建議幼犬飼料的乾物質蛋白質含量至少為 22.5%，以支撐肌肉與組織的快速生長。</li>
-        <li><strong>鈣磷比例控制：</strong> 大型犬幼犬若鈣質攝取過量，反而可能導致生長板異常與骨骼疾病，因此「大型犬專用幼犬配方」通常會將鈣含量控制在較低範圍。</li>
-        <li><strong>DHA 與腦部發育：</strong> 富含 DHA 的配方有助於幼犬的視力與認知發展，許多研究顯示這對日後的學習能力有正向影響。</li>
+        <li><strong>營養完整性：</strong>確認食品適合生長期，並就大型犬生長需求與獸醫討論；本文不提供未核實的固定蛋白質比例。</li>
+        <li><strong>礦物質：</strong>選擇適合生長需求的完整配方，不自行添加鈣或其他礦物質。</li>
+        <li><strong>補充品：</strong>完整均衡飲食以外的添加物，應先討論是否需要及是否適合。</li>
       </ul>
       <h3 class="text-xl font-bold text-slate-900 mt-6 mb-3">幼貓：高熱量、高蛋白的肉食動物需求</h3>
       <p>
-        貓咪是真正的肉食動物 (obligate carnivore)，幼貓對蛋白質與動物性脂肪的需求比例遠高於狗。幼貓飼料的蛋白質含量通常需達到乾物質的 30% 以上，並搭配充足的牛磺酸 (Taurine)，這是貓咪心臟與視網膜健康不可或缺的胺基酸，且貓咪體內無法自行合成，必須完全依賴飲食攝取。
+        幼貓應使用適合貓咪生長需求的完整均衡食品，不將犬用或不完整自製食物當主食。份量及餐次應依成長、食慾與體態調整。
       </p>
 
       <AdSenseAd format="in-article" />
@@ -74,27 +74,27 @@ const hrefLangAlternates = [
         成年期建議重點：
       </p>
       <ol class="list-decimal pl-6 space-y-2">
-        <li><strong>依活動量調整熱量：</strong> 工作犬、運動量大的犬種與居家陪伴犬的熱量需求可相差 30% 以上，應依實際生活型態調整餵食量，而非僅依包裝建議量。</li>
+        <li><strong>依個別需求調整熱量：</strong>記錄活動、食慾及體重趨勢，與獸醫檢視份量，不使用固定百分比推算。</li>
         <li><strong>體態評分 (Body Condition Score)：</strong> 定期以肋骨觸感與腰線評估體態，比單純量體重更能反映脂肪比例的變化。</li>
         <li><strong>維持均衡而非「補充過量」：</strong> 健康的成年寵物通常不需要額外的綜合維生素補充品，過量補充某些脂溶性維生素（如維生素 D、A）反而可能造成中毒風險。</li>
       </ol>
       <p>
         若想了解不同品種與體型在老化速度上的差異，可參考我們另一篇文章
         <a href="/blog/dog-aging-by-breed/" class="text-blue-600 underline">狗狗品種與老化速度</a>，
-        其中提到大型犬種往往較早進入熟齡期，這也意味著飲食調整的時間點需要相應提前。
+        體型可提供背景，但是否調整飲食仍須評估個體，不能只由年齡計算結果決定。
       </p>
 
-      <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">四、熟齡與老年期營養需求：腎臟、關節與認知保健</h2>
+      <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">四、熟齡與老年期：體態、肌肉與健康背景</h2>
       <p>
-        根據美國獸醫師協會 (AVMA) 與美國動物醫院協會 (AAHA) 的高齡寵物照護指引，熟齡與老年寵物的營養策略應從「單純熱量管理」進階為「器官功能保護」。以下三項是老年期飲食最需要關注的方向：
+        選擇適合物種及生長或成年維持需求、營養完整均衡的食品。與獸醫一起評估體態、肌肉狀態、體重趨勢、食慾、活動及病史；年齡本身不能決定固定熱量減幅、蛋白質比例或低磷飲食。
       </p>
       <ul class="space-y-3 bg-slate-50 p-6 rounded-2xl border border-slate-100">
-        <li><strong>腎臟保健：</strong> 老年犬貓的慢性腎病 (CKD) 發生率隨年齡顯著上升。適度控制飲食中的磷含量，並維持優質、高消化率的蛋白質來源，有助於減輕腎臟代謝負擔，同時避免肌肉量流失。</li>
-        <li><strong>關節保健：</strong> Omega-3 脂肪酸 (DHA/EPA) 與葡萄糖胺、軟骨素等成分，已被多項研究證實能輔助減緩關節發炎反應，對 12 歲以上、超過九成患有關節炎的貓咪尤其重要。</li>
-        <li><strong>認知功能保健：</strong> 富含抗氧化物（維生素 E、C）與中鏈三酸甘油酯 (MCT) 的飲食，可能有助於延緩認知功能退化，減少老年寵物的夜間焦慮與作息混亂。</li>
+        <li><strong>疾病飲食：</strong>確有醫療需要時由獸醫選擇治療性飲食；不要因老年就一律限磷或套用腎臟病飲食。</li>
+        <li><strong>行動變化：</strong>記錄跛行或不願跳躍等變化，請獸醫評估；不要用保健品代替疼痛評估。</li>
+        <li><strong>行為變化：</strong>記錄作息、互動與食慾，與獸醫討論；飲食或補充品不能保證延緩認知退化。</li>
       </ul>
       <p>
-        值得注意的是，「蛋白質限制」是老年寵物飲食中最常被誤解的觀念。除非已被獸醫師診斷為中後期慢性腎病，否則健康的老年犬貓<strong>不應</strong>盲目降低蛋白質攝取，因為這反而會加速老年性肌肉萎縮 (Sarcopenia)，降低生活品質。關於老年寵物的整體照護策略，可參考
+        選擇適合物種及生長或成年維持需求、營養完整均衡的食品。與獸醫一起評估體態、肌肉狀態、體重趨勢、食慾、活動及病史；年齡本身不能決定固定熱量減幅、蛋白質比例或低磷飲食。 整體照護也可參考
         <a href="/blog/senior-pet-health-guide/" class="text-blue-600 underline">老年寵物健康照護全攻略</a>，
         其中也說明了營養與其他照護環節（如環境調整、健康監測）如何相互配合。
       </p>
@@ -124,35 +124,35 @@ const hrefLangAlternates = [
           <tbody class="divide-y divide-slate-100">
             <tr>
               <td class="p-3 font-semibold">幼年期</td>
-              <td class="p-3">0 ~ 1 歲（大型犬可至 1.5-2 歲）</td>
-              <td class="p-3">0 ~ 1 歲</td>
-              <td class="p-3">高蛋白、高熱量、注意鈣磷比</td>
+              <td class="p-3">依成長與預期成年體型評估</td>
+              <td class="p-3">生長期需求</td>
+              <td class="p-3">適合生長需求的完整均衡食品</td>
             </tr>
             <tr>
               <td class="p-3 font-semibold">成年期</td>
-              <td class="p-3">1 ~ 7 歲</td>
-              <td class="p-3">1 ~ 7 歲</td>
+              <td class="p-3">成年維持需求</td>
+              <td class="p-3">成年維持需求</td>
               <td class="p-3">依活動量調整熱量、維持理想體態</td>
             </tr>
             <tr>
               <td class="p-3 font-semibold">熟齡 / 老年期</td>
-              <td class="p-3">7 歲以上（大型犬可提前至 5-6 歲）</td>
-              <td class="p-3">7 歲以上</td>
-              <td class="p-3">腎臟保健、關節保健、優質蛋白維持肌肉量</td>
+              <td class="p-3">依個別年齡與健康背景評估</td>
+              <td class="p-3">依個別年齡與健康背景評估</td>
+              <td class="p-3">評估體態、肌肉、食慾及病史</td>
             </tr>
           </tbody>
         </table>
       </div>
       <p>
-        建議的換糧步驟，是在 7-10 天內，將新飼料以逐步增加比例的方式混入原飼料中，避免因腸胃適應期過短而導致軟便或嘔吐。若毛孩本身已有慢性疾病（如腎病、糖尿病），任何飲食調整都應在獸醫師的指導下進行，不應自行更換處方飼料。
+        換糧可循序進行，依食慾及腸胃反應調整；若已有疾病或正在使用治療性飲食，先與獸醫討論，不自行用固定天數取代個別安排。
       </p>
 
       <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">六、常見飲食迷思與錯誤</h2>
       <ol class="list-decimal pl-6 space-y-2">
-        <li><strong>「全齡配方」適合所有寵物：</strong> 全齡配方通常是以「滿足各階段最低需求」為設計目標，對特定階段（如幼年期或老年期）的精準照護效果有限，並非最佳選擇。</li>
+        <li><strong>只看「全齡」或「老年」標籤：</strong>應確認營養適用性、完整均衡聲明及個別需求；配方名稱不能單獨判定品質或是否適合。</li>
         <li><strong>人類食物可以當作主食：</strong> 即使是看似健康的雞胸肉、白飯，長期作為主食也容易導致營養失衡，缺乏犬貓所需的特定維生素與微量元素。</li>
         <li><strong>保健品越多越好：</strong> 在飲食已均衡的前提下，疊加多種保健品可能造成某些營養素（如脂溶性維生素）過量，建議先諮詢獸醫師再決定是否補充。</li>
-        <li><strong>老犬老貓一定要吃「低蛋白」飼料：</strong> 如前文所述，這是過時且可能有害的觀念，蛋白質的「品質」遠比單純「降低含量」更重要。</li>
+        <li><strong>年齡決定蛋白質：</strong>不要只因老年就限制或增加固定比例；請依體態、肌肉及醫療需要討論。</li>
       </ol>
     </div>
 
@@ -160,7 +160,7 @@ const hrefLangAlternates = [
       <div class="relative z-10">
         <h3 class="text-2xl font-bold mb-4">先確認毛孩的生命階段，再規劃飲食</h3>
         <p class="mb-8 opacity-90 leading-relaxed">
-          營養計畫的第一步，是準確掌握毛孩目前所處的生命階段。立即使用我們的年齡計算機，獲取基於獸醫醫學演算法的生命階段報告，作為飲食調整的科學依據。
+          年齡計算機是本站教育性近似值，不是官方獸醫公式或營養處方。可以把它當背景，與獸醫討論實際體態、肌肉、食慾及病史。
         </p>
         <div class="flex flex-wrap gap-4">
           <a href="/tools/dog-age-calculator/" class="bg-white text-indigo-900 px-8 py-3 rounded-xl font-bold hover:bg-slate-100 transition-all">狗狗年齡計算 →</a>
@@ -170,7 +170,7 @@ const hrefLangAlternates = [
     </div>
 
     <footer class="mt-16 pt-8 border-t border-slate-200 text-sm text-slate-400">
-      <p>引用文獻：AAFCO Dog and Cat Food Nutrient Profiles, AVMA Senior Pet Care Guidelines, AAHA Canine and Feline Life Stage Guidelines, WSAVA Global Nutrition Guidelines.</p>
+      <p>來源：<a href="https://www.aaha.org/resources/2023-aaha-senior-care-guidelines-for-dogs-and-cats/nutrition/">AAHA 個別營養與體態評估</a>；<a href="https://wsava.org/global-guidelines/global-nutrition-guidelines/">WSAVA 營養評估與食品選擇</a>。來源不提供本站計算公式，也不支持所有老年寵物同一套數字處方。</p>
       <p class="mt-2">免責聲明：本站內容僅供參考，不取代專業獸醫營養諮詢。若毛孩有特殊健康狀況或正在接受治療，請務必諮詢執業獸醫師後再調整飲食。</p>
     </footer>
   </article>

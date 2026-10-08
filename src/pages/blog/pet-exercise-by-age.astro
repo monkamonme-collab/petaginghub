@@ -2,8 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdSenseAd from '../../components/AdSenseAd.astro';
 
-const title = "寵物各年齡階段的運動量需求完整指南：幼犬幼貓到老年寵物的科學活動規劃";
-const description = "狗狗每天該運動多久？貓咪需要規律運動嗎？本指南依據 AAHA 與 AVMA 生命階段照護指引，完整解析幼年、成年、熟齡與老年寵物的運動量需求、適合的活動類型，以及常見的運動迷思與風險。";
+const title = "寵物各年齡階段的活動指南：依個別體能與健康調整";
+const description = "依犬貓的體能、品種、年齡、健康與活動後反應循序安排活動，不提供通用分鐘數處方；行動變化請與獸醫討論。";
 const date = "2026-06-15";
 const image = "https://images.unsplash.com/photo-1517849845537-4d257902454a?w=1200&q=80";
 const currentPath = Astro.url.pathname;
@@ -19,7 +19,7 @@ const hrefLangAlternates = [
 <article class="max-w-3xl mx-auto px-6 py-12">
 <header class="mb-12">
 <div class="flex items-center gap-3 text-sm text-slate-500 mb-4">
-<span class="bg-indigo-600 text-white px-2 py-0.5 rounded font-bold">權威指南</span>
+<span class="bg-indigo-600 text-white px-2 py-0.5 rounded font-bold">活動參考</span>
 <span>最後更新：{date}</span>
 </div>
 <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-6">{title}</h1>
@@ -37,23 +37,23 @@ loading="lazy"
 
 <div class="prose prose-slate max-w-none text-slate-700 leading-relaxed">
 <p>
-許多飼主對「運動」的想像，往往停留在「每天遛狗散步」或「貓咪會自己活動，不用特別安排」。但事實上，運動量與運動類型，應該隨著寵物的年齡階段不斷調整。根據美國動物醫院協會 (AAHA) 與美國獸醫師協會 (AVMA) 的生命階段照護指引，<strong>幼年期過度運動可能傷害發育中的骨骼與關節，而老年期運動不足則會加速肌肉流失與關節僵硬</strong>。換句話說，「運動」這件事，從毛孩出生到老年，從來都不是一套固定不變的標準。
+依個別寵物的體能、品種、年齡、健康與活動後反應，循序調整活動。不要強迫有疼痛或明顯疲倦的寵物繼續；部分老年寵物可能適合較短、較溫和的活動，新的明顯行動變化應與獸醫討論。
 </p>
 <p>
-本篇文章將以「生命階段」為主軸，說明狗狗與貓咪在幼年、成年、熟齡與老年期分別適合哪些運動類型、大致的運動量參考範圍，以及飼主最容易犯的運動安排錯誤，幫助您用更科學的方式陪伴毛孩動起來。
+本文保留日常活動及環境調整方向；年齡只能提供背景，不能取代個別活動能力與健康評估。
 </p>
 
 <AdSenseAd format="in-article" />
 
 <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">一、為什麼「年齡」也是運動規劃的關鍵指標</h2>
 <p>
-狗狗與貓咪的骨骼、關節與心肺功能，會隨著年齡產生明顯變化。幼犬幼貓的生長板（骺板）尚未完全閉合，過度或不當的高衝擊運動（例如長距離跑步、頻繁跳躍）可能造成生長板損傷，影響骨骼發育；而進入老年期後，關節軟骨磨損、肌肉量自然流失，過於激烈或時間過長的運動則容易造成關節發炎或運動傷害。
+年齡可提供成長與熟齡背景，但活動安排仍需看實際能力及健康；新的疼痛或明顯疲倦不應只歸因於年齡。
 </p>
 <p>
 想要替毛孩規劃合適的運動量，第一步同樣是先確認牠目前所處的生命階段。您可以先使用我們的
 <a href="/tools/dog-age-calculator/" class="text-blue-600 underline">狗狗年齡計算機</a> 或
 <a href="/tools/cat-age-calculator/" class="text-blue-600 underline">貓咪年齡計算機</a>，
-依據 AAHA 的生命階段分類，了解毛孩目前是幼年、成年、熟齡還是老年——這個分類，正是本文所有運動建議的基礎。
+本站計算機提供教育性年齡階段參考，不是活動處方，也不等於 AAHA 完整官方分類。
 </p>
 
 <h2 class="text-2xl font-bold text-slate-900 mt-10 mb-4">二、幼年期運動需求：成長中的活動量該怎麼安排</h2>
@@ -64,17 +64,17 @@ class="w-full h-auto rounded-2xl my-6 object-cover"
 loading="lazy"
 />
 <p>
-幼年期（狗約 0-1 歲，大型犬可能延伸至 1.5-2 歲；貓約 0-1 歲）是骨骼、肌肉與神經系統快速發育的階段。這個時期的運動重點，不是「練體能」，而是「安全的探索與社會化」。
+幼年寵物的活動應配合個別成長及反應，以合適的探索、遊戲與休息安排為起點。
 </p>
-<h3 class="text-xl font-bold text-slate-900 mt-6 mb-3">幼犬：避免過度運動，掌握「五分鐘原則」</h3>
+<h3 class="text-xl font-bold text-slate-900 mt-6 mb-3">幼犬：循序探索，不用固定分鐘規則</h3>
 <ul class="space-y-3 bg-slate-50 p-6 rounded-2xl border border-slate-100">
-<li><strong>五分鐘原則：</strong> 部分獸醫師建議，幼犬每多一個月齡，每天結構化運動（如正式散步、訓練）時間可增加約五分鐘，並分成兩次進行，例如 3 個月齡的幼犬，每次散步建議控制在 15 分鐘左右。</li>
-<li><strong>避免高衝擊動作：</strong> 在生長板閉合前（通常約 12-18 個月，依品種而異），應避免讓幼犬從高處跳下、進行長時間奔跑或在硬地上重複跳躍，以降低骨骼與關節受傷風險。</li>
+<li><strong>依個別反應：</strong>幼犬應依個別成長、體能與健康安排探索及遊戲，觀察是否願意參與與活動後反應，不套用月齡分鐘規則。</li>
+<li><strong>成長與健康：</strong>成長進度因個體而異；高衝擊或強迫性活動是否合適應與獸醫討論，不使用固定閉合月份。</li>
 <li><strong>以遊戲與社會化為主：</strong> 短時間的自由玩耍、嗅聞探索、基礎服從訓練，對幼犬的身心發展比單純的體能消耗更有價值。</li>
 </ul>
 <h3 class="text-xl font-bold text-slate-900 mt-6 mb-3">幼貓：自由玩耍，建立日常活動習慣</h3>
 <p>
-幼貓天生活力充沛，通常不需要刻意「安排運動」，但飼主可以利用這個階段，建立牠日後的活動習慣。每天安排數次、每次 10-15 分鐘的互動式玩具遊戲（如逗貓棒、激光玩具），不僅能消耗精力，也有助於建立貓咪與飼主之間的互動模式，降低成年後因活動量不足而出現的行為問題。
+提供符合貓咪興趣與能力的互動遊戲，依反應調整；不強迫疼痛或明顯疲倦的貓咪繼續。 可嘗試合適玩具及容易到達的探索空間。
 </p>
 
 <AdSenseAd format="in-article" />
@@ -87,15 +87,15 @@ class="w-full h-auto rounded-2xl my-6 object-cover"
 loading="lazy"
 />
 <p>
-進入成年期後，狗狗與貓咪的生長已趨於穩定，這個階段的運動目標，是「維持理想體態、心肺功能與行為穩定」。許多寵物的肥胖與行為問題（如過度吠叫、破壞行為、焦慮），其根源都與成年期運動量不足有關。
+成年犬貓可從現有活動習慣與體能出發循序調整；是否需要改變活動或飲食，應一併考量健康與實際反應。
 </p>
 <p>
 成年期建議重點：
 </p>
 <ol class="list-decimal pl-6 space-y-2">
-<li><strong>依品種與性格調整運動量：</strong> 工作犬種（如邊境牧羊犬、哈士奇）每天可能需要 1-2 小時以上的中高強度活動，而短吻犬種（如法國鬥牛犬、巴哥犬）則應避免在高溫或長時間進行劇烈運動，以免造成呼吸負擔。</li>
-<li><strong>規律性比強度更重要：</strong> 每天固定時段的中等強度活動（如 30-60 分鐘散步），對體態與行為穩定的幫助，通常優於「週末一次性大量運動」的不規律模式。</li>
-<li><strong>貓咪的「狩獵式」運動：</strong> 室內貓建議每天安排 2-3 次、每次 10-15 分鐘的狩獵式互動遊戲（讓貓咪追逐、撲擊玩具），搭配垂直空間（貓跳台、貓爬架），有助於模擬野外活動模式，減少肥胖與行為問題。</li>
+<li><strong>依個別體能與健康：</strong>體型與品種只能提供背景，仍須看個別體能與健康；不要為達到固定活動量而強迫有疼痛或疲倦的寵物。</li>
+<li><strong>循序安排：</strong>依活動反應調整，不以固定分鐘或集中大量活動取代個別安排。</li>
+<li><strong>貓咪互動：</strong>提供合適的追逐、撲擊與探索機會，依興趣及體能調整，避免強迫活動。</li>
 </ol>
 <p>
 若想了解不同品種在老化速度上的差異，可參考我們另一篇文章
@@ -113,12 +113,12 @@ class="w-full h-auto rounded-2xl my-6 object-cover"
 loading="lazy"
 />
 <p>
-根據 AVMA 與 AAHA 的高齡寵物照護指引，熟齡與老年寵物並不是「不需要運動」，而是需要「換一種方式運動」。適度且規律的低衝擊活動，能延緩肌肉量流失（肌少症）、維持關節活動度，並提供重要的認知刺激。
+部分熟齡寵物可能適合較短、較溫和的活動；觀察舒適度及恢復情形，新的跛行或不願跳躍應與獸醫討論。
 </p>
 <ul class="space-y-3 bg-slate-50 p-6 rounded-2xl border border-slate-100">
-<li><strong>縮短時間、增加頻率：</strong> 將原本一次 30-40 分鐘的散步，調整為一天兩到三次、每次 10-15 分鐘的短程散步，可以減少關節負擔，同時維持每日活動總量。</li>
-<li><strong>低衝擊運動優先：</strong> 游泳、水中跑步機等水療運動，能在大幅降低關節負擔的同時維持肌肉量，是許多關節炎犬貓的理想選擇，但須在獸醫師評估後進行。</li>
-<li><strong>嗅聞與認知遊戲：</strong> 對行動力下降的老年寵物，「嗅聞墊」、「益智餵食玩具」等低體能消耗、高腦力刺激的活動，能有效填補運動量減少後的活動需求，也有助於延緩認知功能退化。</li>
+<li><strong>較短、較溫和：</strong>部分老年寵物可能適合較短的活動，依舒適度與活動後反應調整，不提供所有寵物通用的分鐘數。</li>
+<li><strong>復健評估：</strong>游泳或復健並非適合每隻寵物；應由獸醫評估物種、病況與耐受能力。</li>
+<li><strong>互動與探索：</strong>可提供容易到達的嗅聞或益智遊戲，但不把它當成延緩疾病或認知退化的保證。</li>
 <li><strong>觀察「運動後反應」：</strong> 若毛孩在運動後出現明顯的跛行、喘氣時間過長或第二天活動力明顯下降，這通常是運動量或強度超過目前身體負荷的警訊，應適度減量並諮詢獸醫師。</li>
 </ul>
 <p>
@@ -150,20 +150,20 @@ loading="lazy"
 <tr>
 <td class="p-3 font-semibold">幼年期</td>
 <td class="p-3">短時間多次，避免高衝擊跳躍</td>
-<td class="p-3">每日數次、每次10-15分鐘自由玩耍</td>
+<td class="p-3">依興趣及體能安排遊戲</td>
 <td class="p-3">社會化、保護生長板</td>
 </tr>
 <tr>
 <td class="p-3 font-semibold">成年期</td>
-<td class="p-3">每日30-90分鐘，依品種調整強度</td>
-<td class="p-3">每日2-3次狩獵式互動遊戲</td>
+<td class="p-3">依體能、健康及反應調整</td>
+<td class="p-3">提供合適的互動遊戲</td>
 <td class="p-3">維持體態、行為穩定</td>
 </tr>
 <tr>
 <td class="p-3 font-semibold">熟齡 / 老年期</td>
 <td class="p-3">短程多次散步，搭配低衝擊活動</td>
 <td class="p-3">短時間互動、嗅聞與益智遊戲</td>
-<td class="p-3">關節保護、延緩肌肉流失</td>
+<td class="p-3">觀察舒適度與行動變化</td>
 </tr>
 </tbody>
 </table>
@@ -173,7 +173,7 @@ loading="lazy"
 <ol class="list-decimal pl-6 space-y-2">
 <li><strong>「狗狗精力旺盛，運動越多越好」：</strong> 即使是精力旺盛的品種，幼年期過度運動仍可能傷害生長板，成年期過量運動也可能造成累積性關節損傷，運動量應循序漸進增加。</li>
 <li><strong>「貓咪不需要運動」：</strong> 室內貓缺乏運動是肥胖與行為問題的常見原因之一，每天規律的互動式遊戲對貓咪同樣重要。</li>
-<li><strong>「老年寵物應該完全靜養」：</strong> 完全不活動反而會加速肌肉萎縮與關節僵硬，老年期需要的是「調整方式」，而不是「停止運動」。</li>
+<li><strong>老年寵物是否需要休息：</strong>活動與休息需依病況及舒適度安排；不要強迫疼痛或明顯疲倦的寵物運動，請與獸醫討論。</li>
 <li><strong>「天氣不影響運動安排」：</strong> 短吻犬種、肥胖或有心肺疾病的寵物，在高溫高濕環境下運動容易出現中暑風險，應避開正午時段，並隨時觀察喘氣與精神狀態。</li>
 </ol>
 </div>
@@ -182,7 +182,7 @@ loading="lazy"
 <div class="relative z-10">
 <h3 class="text-2xl font-bold mb-4">先確認毛孩的生命階段，再規劃運動量</h3>
 <p class="mb-8 opacity-90 leading-relaxed">
-運動計畫的第一步，是準確掌握毛孩目前所處的生命階段。立即使用我們的年齡計算機，獲取基於獸醫醫學演算法的生命階段報告，作為運動與飲食調整的科學依據。
+本站年齡計算機只提供教育性近似值，不是官方獸醫演算法或運動處方。實際安排仍需考量體能、健康、舒適度與獸醫評估。
 </p>
 <div class="flex flex-wrap gap-4">
 <a href="/tools/dog-age-calculator/" class="bg-white text-indigo-900 px-8 py-3 rounded-xl font-bold hover:bg-slate-100 transition-all">狗狗年齡計算 →</a>
@@ -192,7 +192,7 @@ loading="lazy"
 </div>
 
 <footer class="mt-16 pt-8 border-t border-slate-200 text-sm text-slate-400">
-<p>引用文獻：AAHA Canine and Feline Life Stage Guidelines, AVMA Senior Pet Care Guidelines, AAHA/AAFP Feline Life Stage Guidelines.</p>
+<p>來源：<a href="https://www.aaha.org/resources/2023-aaha-senior-care-guidelines-for-dogs-and-cats/pain-management/">AAHA 個別疼痛與行動照護</a>。來源支持個別評估與照護方向，不支持所有寵物同一套分鐘數。</p>
 <p class="mt-2">免責聲明：本站內容僅供參考，不取代專業獸醫診斷與建議。若毛孩有心臟、關節、呼吸道或其他慢性疾病，請務必諮詢執業獸醫師後再調整運動計畫。</p>
 </footer>
 </article>

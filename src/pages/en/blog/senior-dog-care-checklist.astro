@@ -28,14 +28,14 @@ hrefLangAlternates={hrefLangAlternates}>
 <header class="mb-8">
 <span class="inline-block bg-amber-100 text-amber-700 text-xs font-bold px-3 py-1 rounded-full mb-4">Dogs</span>
 <h1 class="text-4xl font-extrabold text-slate-900 mb-4">{title}</h1>
-<p class="text-xl text-slate-600 leading-relaxed">Your dog just slowed down a little. Here's what to actually do about it — a practical checklist used by experienced dog owners and backed by veterinary guidelines.</p>
+<p class="text-xl text-slate-600 leading-relaxed">Your dog just slowed down a little. Here's what to actually do about it — a practical checklist for recording observations and discussing individual care with a veterinarian; it is not a validated health score.</p>
 </header>
 
 <div class="space-y-10">
 
 <section>
 <h2>When Does a Dog Become "Senior"?</h2>
-<p>There's no single age — it depends heavily on size. Veterinarians generally use these benchmarks:</p>
+<p>There's no single age — it depends heavily on size. The table below is an existing site reference, not veterinary cutoffs, a validated lifespan forecast or a feeding prescription. Individual care needs vary:</p>
 <div class="overflow-x-auto mt-3">
 <table class="w-full text-sm border-collapse">
 <thead>
@@ -68,10 +68,10 @@ hrefLangAlternates={hrefLangAlternates}>
 <h2>✅ Veterinary Care Checklist</h2>
 <div class="space-y-3">
 {[
-{ item: "Schedule vet visits every 6 months (not once a year)", detail: "Age-related conditions like kidney disease and hypothyroidism often show up in bloodwork before symptoms appear." },
-{ item: "Request a senior wellness blood panel", detail: "CBC, chemistry panel, urinalysis, and thyroid (T4) screen are the standard four for dogs 7+." },
-{ item: "Get a dental cleaning if overdue", detail: "Dental disease affects 80% of dogs over 3. In seniors, infected gums can stress the heart and kidneys." },
-{ item: "Discuss a pain assessment for arthritis", detail: "Over 65% of dogs over 7 have some degree of osteoarthritis on X-ray — many don't visibly limp. Ask your vet." },
+{ item: "Discuss an individual examination and testing plan", detail: "Age-related conditions like kidney disease and hypothyroidism often show up in bloodwork before symptoms appear." },
+{ item: "Discuss whether laboratory testing is appropriate", detail: "Ask which tests and intervals fit the dog’s history, findings and risks; no single panel applies automatically to every dog above one age." },
+{ item: "Get a dental cleaning if overdue", detail: "Oral problems can cause pain even when a dog still eats; assessment and procedure timing depend on individual findings." },
+{ item: "Discuss a pain assessment for arthritis", detail: "Record stiffness, limping or changes in daily function; these observations require assessment, not a diagnosis from a prevalence figure." },
 { item: "Update parasite prevention year-round", detail: "Senior dogs have less immune resilience. Don't skip heartworm, flea, and tick prevention in winter." },
 { item: "Ask about a blood pressure check", detail: "Hypertension is underdiagnosed in older dogs. It can cause sudden blindness or stroke if uncontrolled." },
 ].map(({ item, detail }) => (
@@ -90,12 +90,12 @@ hrefLangAlternates={hrefLangAlternates}>
 <h2>✅ Nutrition Checklist</h2>
 <div class="bg-amber-50 rounded-2xl p-5 border border-amber-100">
 <ul class="space-y-3 text-slate-700 text-sm">
-<li><strong>Switch to a senior-formula food:</strong> Lower calorie density (seniors are less active), higher protein to preserve muscle mass, often with added joint support (glucosamine/chondroitin).</li>
-<li><strong>Add omega-3 fatty acids:</strong> Fish oil (EPA/DHA) reduces joint inflammation and supports brain, skin, and coat health. Dose: ~20–55 mg EPA+DHA per kg of body weight daily.</li>
-<li><strong>Watch for weight gain:</strong> Obesity worsens arthritis, heart disease, and diabetes. If your dog's ribs are hard to feel under fat, it's time to reduce portions.</li>
+<li>Choose a complete and balanced diet appropriate to the species and life stage. Review body condition, muscle condition, weight trend, appetite, activity and medical history with your veterinarian. Age alone does not prescribe a calorie cut, fixed protein percentage or low-phosphorus diet.</li>
+<li>Supplements are not automatically needed with a complete and balanced diet. Benefits, contraindications and interactions depend on the product, species and condition. Discuss them with your veterinarian; this page does not provide a dose or promise effectiveness.</li>
+<li><strong>Watch for weight gain:</strong> Obesity worsens arthritis, heart disease, and diabetes. Review body condition, weight trend, current portions, treats and the feeding plan with your veterinarian rather than changing portions by a single observation.</li>
 <li><strong>Watch for weight loss too:</strong> Unexplained weight loss in seniors can signal kidney disease, diabetes, cancer, or dental pain making eating difficult.</li>
 <li><strong>Keep fresh water available always:</strong> Senior dogs are more prone to dehydration and kidney strain. Consider a pet water fountain to encourage drinking.</li>
-<li><strong>Adjust meal frequency if needed:</strong> Dogs with nausea, dental pain, or small stomachs often do better with 2–3 smaller meals per day.</li>
+<li>Review portions and meal patterns with your veterinarian based on appetite, nutrition and tolerance—not a universal meal count.</li>
 </ul>
 </div>
 <p class="mt-3 text-slate-700 text-sm">For a full breakdown of how calorie, protein, and supplement needs shift across a dog's life, see our <a href="/en/blog/pet-nutrition-by-age/" class="text-blue-600 underline">pet nutrition by life stage guide</a>.</p>
@@ -105,12 +105,12 @@ hrefLangAlternates={hrefLangAlternates}>
 <h2>✅ Exercise &amp; Mobility Checklist</h2>
 <div class="space-y-3">
 {[
-{ item: "Shorter, more frequent walks instead of one long one", detail: "20–30 minute walks 2–3 times a day is often better for stiff joints than one 90-minute session." },
+{ item: "Shorter, more frequent walks instead of one long one", detail: "Some dogs may suit shorter, gentler activity. Adapt it to fitness, health and response; do not force movement through pain or marked fatigue." },
 { item: "Let your dog set the pace", detail: "Forcing a senior dog to keep up on a run or long hike can injure joints that are already compromised." },
-{ item: "Add swimming or hydrotherapy if available", detail: "Low-impact exercise preserves muscle mass without stressing joints. Many senior dogs love it." },
+{ item: "Add swimming or hydrotherapy if available", detail: "Swimming or rehabilitation may not suit every dog; ask your veterinarian whether it is appropriate for the condition and individual response." },
 { item: "Use ramps or steps for furniture and car access", detail: "Jumping on/off couches and in/out of cars is a major source of spinal and joint injury in senior dogs." },
 { item: "Place non-slip mats on slick floors", detail: "Hardwood and tile floors are hard to navigate with weakened hindquarters. Yoga mats work well." },
-{ item: "Keep up with gentle daily movement", detail: "Complete rest isn't ideal — gentle movement keeps joints lubricated and muscles from wasting." },
+{ item: "Keep up with gentle daily movement", detail: "Adapt movement and rest to the dog’s condition, comfort and response, with veterinary guidance for mobility problems." },
 ].map(({ item, detail }) => (
 <div class="flex items-start gap-3 bg-white rounded-xl p-4 border border-slate-200">
 <span class="text-green-500 font-bold mt-0.5 flex-shrink-0">✓</span>
@@ -127,9 +127,9 @@ hrefLangAlternates={hrefLangAlternates}>
 <h2>✅ Home Environment Checklist</h2>
 <div class="bg-slate-50 rounded-2xl p-5 border border-slate-200">
 <ul class="space-y-3 text-slate-700 text-sm">
-<li><strong>Orthopedic dog bed:</strong> Memory foam reduces pressure on arthritic joints. Place in a warm, draft-free spot. Many senior dogs sleep 16+ hours a day.</li>
-<li><strong>Raised food and water bowls:</strong> For large dogs or those with neck/back stiffness, raising bowls to elbow height reduces discomfort while eating.</li>
-<li><strong>More frequent potty breaks:</strong> Senior dogs may need to go out every 4–6 hours. Urinary incontinence is common and manageable — don't punish accidents.</li>
+<li><strong>Orthopedic dog bed:</strong> Memory foam reduces pressure on arthritic joints. Place in a warm, draft-free spot. Monitor changes from the dog’s own sleep and activity pattern.</li>
+<li>Discuss eating posture and accessible feeding arrangements if your dog has discomfort; do not automatically raise every dog’s bowls.</li>
+<li><strong>More frequent potty breaks:</strong> Adapt access and opportunities to individual needs. Urinary incontinence is common and manageable — don't punish accidents.</li>
 <li><strong>Nightlights for dogs with failing vision:</strong> Senior dogs often develop cataracts or nuclear sclerosis. A small nightlight helps them navigate at night.</li>
 <li><strong>Keep the layout consistent:</strong> Dogs with cognitive decline rely heavily on spatial memory. Rearranging furniture can cause significant confusion and anxiety.</li>
 </ul>
@@ -141,8 +141,8 @@ hrefLangAlternates={hrefLangAlternates}>
 <div class="space-y-3">
 {[
 { item: "Maintain consistent daily routines", detail: "Same walk times, mealtimes, and bedtime reduce anxiety — especially important for dogs showing cognitive changes." },
-{ item: "Offer sniff walks (let them smell everything)", detail: "Mental stimulation from sniffing is tiring in a good way. A 20-minute sniff walk can satisfy a senior dog as much as a 1-hour brisk walk." },
-{ item: "Gentle training sessions", detail: "Short, positive-reinforcement training keeps minds sharp and reinforces your bond. 5–10 minutes is plenty." },
+{ item: "Offer sniff walks (let them smell everything)", detail: "Mental stimulation from sniffing is tiring in a good way. Offer sniffing opportunities suited to your dog’s comfort and interests; no fixed exercise equivalence is assumed." },
+{ item: "Gentle training sessions", detail: "Short, positive-reinforcement training keeps minds sharp and reinforces your bond. Adapt the session to comfort, attention and response." },
 { item: "Watch for CCD signs", detail: "Canine Cognitive Dysfunction signs include: staring at walls, getting 'stuck' in corners, waking at night, forgetting housetraining. Ask your vet about medications that can help." },
 { item: "Maximize quality time", detail: "Quiet companionship — sitting together, gentle petting, calm car rides — matters enormously to senior dogs." },
 ].map(({ item, detail }) => (
@@ -161,15 +161,15 @@ hrefLangAlternates={hrefLangAlternates}>
 <h2>Warning Signs: When to Call the Vet</h2>
 <p class="text-slate-700 text-sm mb-3">Learning to recognize <a href="/en/blog/dog-aging-signs/" class="text-blue-600 underline">the early signs of aging in dogs</a> before they become emergencies can make a real difference in outcomes.</p>
 <div class="bg-red-50 border border-red-200 rounded-2xl p-5">
-<p class="font-semibold text-red-800 text-sm mb-3">Contact your vet promptly if you notice:</p>
+<p class="font-semibold text-red-800 text-sm mb-3">For collapse, labored breathing or an obvious emergency, seek veterinary help immediately. Contact your veterinarian promptly about other new or persistent changes, including:</p>
 <ul class="space-y-2 text-red-700 text-sm list-disc pl-4">
 <li>Sudden collapse or inability to stand</li>
 <li>Rapid, labored, or noisy breathing</li>
 <li>Sudden vision loss (bumping into things)</li>
 <li>Drinking or urinating dramatically more or less than usual</li>
-<li>Unexplained weight loss over 2–3 weeks</li>
+<li>Unexplained weight loss or a changing trend</li>
 <li>Lumps that appear or change size rapidly</li>
-<li>Prolonged loss of appetite (more than 2 days)</li>
+<li>Not eating or a marked appetite change — contact a veterinarian promptly</li>
 <li>Sudden behavioral changes — confusion, aggression, extreme clinginess</li>
 </ul>
 </div>
@@ -179,10 +179,10 @@ hrefLangAlternates={hrefLangAlternates}>
 <h2>Frequently Asked Questions</h2>
 <div class="space-y-4">
 {[
-{ q: "How often should a senior dog see the vet?", a: "Every 6 months is the standard recommendation for dogs age 7 and older. Senior bloodwork panels can detect kidney disease, diabetes, thyroid issues, and other conditions before they cause visible symptoms." },
-{ q: "What is the best food for senior dogs?", a: "Look for a diet labeled 'senior' or 'all life stages' with high-quality protein as the first ingredient, moderate fat, and added omega-3s. Some seniors need reduced calories; others with muscle wasting need higher protein. Ask your vet to tailor the recommendation." },
-{ q: "Should I give my senior dog supplements?", a: "Fish oil (omega-3s) and glucosamine/chondroitin are the most well-supported supplements for senior dogs. Always check with your vet before adding any supplement, especially if your dog takes medications." },
-{ q: "My old dog sleeps all day — is that normal?", a: "Senior dogs sleep 16–18 hours a day, which is normal. But if the sleep is accompanied by loss of appetite, difficulty getting up, or disinterest in things they once enjoyed, a vet visit is warranted to rule out pain or illness." },
+{ q: "How often should a senior dog see the vet?", a: "Discuss an individual examination and testing plan with your veterinarian. Age, history, examination findings and risk factors guide the schedule and tests." },
+{ q: "What is the best food for senior dogs?", a: "Choose a complete and balanced diet appropriate to the species and life stage. Review body condition, muscle condition, weight trend, appetite, activity and medical history with your veterinarian. Age alone does not prescribe a calorie cut, fixed protein percentage or low-phosphorus diet." },
+{ q: "Should I give my senior dog supplements?", a: "Supplements are not automatically needed with a complete and balanced diet. Benefits, contraindications and interactions depend on the product, species and condition. Discuss them with your veterinarian; this page does not provide a dose or promise effectiveness." },
+{ q: "My old dog sleeps all day — is that normal?", a: "Compare sleep and activity with your dog’s usual pattern. New, persistent or worsening changes warrant veterinary discussion; a sleep-hour count cannot rule out pain or illness." },
 ].map(({ q, a }) => (
 <details class="group border border-slate-200 rounded-xl overflow-hidden">
 <summary class="flex justify-between items-center cursor-pointer px-5 py-4 bg-white hover:bg-slate-50 font-medium text-slate-800">
@@ -212,6 +212,7 @@ hrefLangAlternates={hrefLangAlternates}>
 </footer>
 </article>
 
+<p class="mt-6 text-sm text-slate-600">Sources: <a href="https://www.aaha.org/resources/2023-aaha-senior-care-guidelines-for-dogs-and-cats/nutrition/">AAHA individualized nutrition</a>; <a href="https://www.aaha.org/resources/2023-aaha-senior-care-guidelines-for-dogs-and-cats/pain-management/">AAHA pain care</a>; <a href="https://www.vet.cornell.edu/hospitals/services/emergency-and-critical-care-0">Cornell emergency signs</a>. These do not validate the legacy lifespan table or a fixed feeding or exercise prescription.</p>
 <script type="application/ld+json" is:inline>
 {
 "@context": "https://schema.org",
@@ -231,22 +232,22 @@ hrefLangAlternates={hrefLangAlternates}>
 {
 "@type": "Question",
 "name": "How often should a senior dog see the vet?",
-"acceptedAnswer": { "@type": "Answer", "text": "Every 6 months is the standard recommendation for dogs age 7 and older. Senior bloodwork panels can detect kidney disease, diabetes, thyroid issues, and other conditions before they cause visible symptoms." }
+"acceptedAnswer": { "@type": "Answer", "text": "Discuss an individual examination and testing plan with your veterinarian. Age, history, examination findings and risk factors guide the schedule and tests." }
 },
 {
 "@type": "Question",
 "name": "What is the best food for senior dogs?",
-"acceptedAnswer": { "@type": "Answer", "text": "Look for a diet labeled 'senior' or 'all life stages' with high-quality protein as the first ingredient, moderate fat, and added omega-3s. Some seniors need reduced calories; others with muscle wasting need higher protein. Ask your vet to tailor the recommendation." }
+"acceptedAnswer": { "@type": "Answer", "text": "Choose a complete and balanced diet appropriate to the species and life stage. Review body condition, muscle condition, weight trend, appetite, activity and medical history with your veterinarian. Age alone does not prescribe a calorie cut, fixed protein percentage or low-phosphorus diet." }
 },
 {
 "@type": "Question",
 "name": "Should I give my senior dog supplements?",
-"acceptedAnswer": { "@type": "Answer", "text": "Fish oil (omega-3s) and glucosamine/chondroitin are the most well-supported supplements for senior dogs. Always check with your vet before adding any supplement, especially if your dog takes medications." }
+"acceptedAnswer": { "@type": "Answer", "text": "Supplements are not automatically needed with a complete and balanced diet. Benefits, contraindications and interactions depend on the product, species and condition. Discuss them with your veterinarian; this page does not provide a dose or promise effectiveness." }
 },
 {
 "@type": "Question",
 "name": "My old dog sleeps all day — is that normal?",
-"acceptedAnswer": { "@type": "Answer", "text": "Senior dogs sleep 16–18 hours a day, which is normal. But if the sleep is accompanied by loss of appetite, difficulty getting up, or disinterest in things they once enjoyed, a vet visit is warranted to rule out pain or illness." }
+"acceptedAnswer": { "@type": "Answer", "text": "Compare sleep and activity with your dog’s usual pattern. New, persistent or worsening changes warrant veterinary discussion; a sleep-hour count cannot rule out pain or illness." }
 }
 ]
 }

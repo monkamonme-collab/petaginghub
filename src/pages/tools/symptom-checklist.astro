@@ -12,20 +12,20 @@ const hrefLangAlternates = [
 ---
 
 <BaseLayout
-  title="寵物症狀檢核表：快速評估狗狗貓咪的健康警訊"
-  description="透過這份互動式檢核表，評估你家寵物的健康狀況。根據勾選的症狀，獲得初步的健康風險評估和就醫建議。"
+  title="寵物症狀檢核表：整理狗狗貓咪的變化與就醫警訊"
+  description="整理觀察到的症狀，辨識需立即求助的警訊，並準備與獸醫討論的紀錄。本工具不診斷疾病或計算風險分數。"
   breadcrumbs={[{ label: '工具集', url: '/tools' }, { label: '寵物症狀檢核表', url: currentPath }]}
  lang="zh-TW" hrefLangAlternates={hrefLangAlternates}>
   <div class="bg-gradient-to-br from-red-50 to-orange-50 border-b border-red-100">
     <div class="max-w-5xl mx-auto px-6 py-12 text-center">
       <div class="inline-flex items-center gap-2 bg-red-100 text-red-800 text-xs font-bold px-3 py-1.5 rounded-full mb-4">
-        ⚠️ 健康評估工具
+        ⚠️ 症狀整理工具
       </div>
       <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 leading-tight">
         寵物症狀檢核表
       </h1>
       <p class="text-lg text-slate-600 max-w-2xl mx-auto">
-        勾選你家寵物目前的症狀，獲得初步健康風險評估。本工具無法取代獸醫診斷，若有疑慮請立即就醫。
+        勾選觀察到的變化，整理與獸醫討論的紀錄。本工具不計算健康風險，也不能排除疾病；出現急症警訊請立即求助，不要等待填完。
       </p>
     </div>
   </div>
@@ -78,7 +78,7 @@ const hrefLangAlternates = [
             <h2 class="text-xl font-bold flex items-center gap-2">
               <span>📋</span> 勾選觀察到的症狀
             </h2>
-            <p class="text-sm text-red-100 mt-1">可複選。症狀越多，風險等級可能越高。</p>
+            <p class="text-sm text-red-100 mt-1">可複選。數量不代表風險高低；單一急症警訊也需要立即求助。</p>
           </div>
 
           <div class="p-8 space-y-8">
@@ -90,42 +90,42 @@ const hrefLangAlternates = [
               </h3>
               <div class="grid md:grid-cols-2 gap-3">
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="general" data-severity="mild" data-symptom="lethargy" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="general" data-symptom="lethargy" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">精神不振/嗜睡</span>
                     <p class="text-xs text-slate-500">比平常更累，不想互動</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="general" data-severity="moderate" data-symptom="no-appetite" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="general" data-symptom="no-appetite" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">食慾減退</span>
-                    <p class="text-xs text-slate-500">拒絕進食或只吃零食</p>
+                    <p class="text-xs text-slate-500">拒絕進食或食量明顯下降；貓咪不吃東西應盡快聯絡獸醫，不要等滿固定天數</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="general" data-severity="mild" data-symptom="drinking-more" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="general" data-symptom="drinking-more" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">喝水量異常增加</span>
                     <p class="text-xs text-slate-500">頻繁喝水，尿量也增加</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="general" data-severity="moderate" data-symptom="weight-loss" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="general" data-symptom="weight-loss" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">體重明顯減輕</span>
                     <p class="text-xs text-slate-500">在沒有減肥的情況下體重下降</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="general" data-severity="severe" data-symptom="collapse" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="general" data-symptom="collapse" />
                   <div>
                     <span class="text-sm font-medium text-red-700">虛脫/暈倒</span>
                     <p class="text-xs text-red-500">突發性倒下或失去意識</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="general" data-severity="moderate" data-symptom="confusion" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="general" data-symptom="confusion" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">方向感混亂/迷失</span>
                     <p class="text-xs text-slate-500">在熟悉環境中找不到方向</p>
@@ -142,28 +142,28 @@ const hrefLangAlternates = [
               </h3>
               <div class="grid md:grid-cols-2 gap-3">
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="physical" data-severity="mild" data-symptom="cloudy-eyes" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="physical" data-symptom="cloudy-eyes" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">眼睛混濁/變色</span>
                     <p class="text-xs text-slate-500">視力可能受影響</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="physical" data-severity="mild" data-symptom="grey-hair" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="physical" data-symptom="grey-hair" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">毛髮提前變白/脫落</span>
                     <p class="text-xs text-slate-500">臉部周圍毛髮花白加劇</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="physical" data-severity="moderate" data-symptom="lumps" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="physical" data-symptom="lumps" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">皮膚有腫塊/腫瘤</span>
                     <p class="text-xs text-slate-500">新出現或快速增大的腫塊</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="physical" data-severity="mild" data-symptom="bad-breath" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="physical" data-symptom="bad-breath" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">口臭/牙齦問題</span>
                     <p class="text-xs text-slate-500">牙齦紅腫、出血</p>
@@ -180,28 +180,28 @@ const hrefLangAlternates = [
               </h3>
               <div class="grid md:grid-cols-2 gap-3">
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="mobility" data-severity="mild" data-symptom="slow-rise" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="mobility" data-symptom="slow-rise" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">起身困難/緩慢</span>
                     <p class="text-xs text-slate-500">起床時動作僵硬</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="mobility" data-severity="mild" data-symptom="stiff" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="mobility" data-symptom="stiff" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">關節僵硬</span>
                     <p class="text-xs text-slate-500">活動一段時間後才好轉</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="mobility" data-severity="moderate" data-symptom="limping" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="mobility" data-symptom="limping" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">跛行/不願負重</span>
                     <p class="text-xs text-slate-500">某隻腳不敢著地</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="mobility" data-severity="moderate" data-symptom="hunched" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="mobility" data-symptom="hunched" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">背部拱起/姿勢異常</span>
                     <p class="text-xs text-slate-500">可能表示脊椎問題</p>
@@ -218,31 +218,31 @@ const hrefLangAlternates = [
               </h3>
               <div class="grid md:grid-cols-2 gap-3">
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="digestive" data-severity="moderate" data-symptom="vomiting" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="digestive" data-symptom="vomiting" />
                   <div>
-                    <span class="text-sm font-medium text-slate-700">嘔吐（反覆）</span>
-                    <p class="text-xs text-slate-500">一天嘔吐超過一次</p>
+                    <span class="text-sm font-medium text-slate-700">嚴重或持續嘔吐</span>
+                    <p class="text-xs text-slate-500">急症警訊：嚴重或持續嘔吐請立即求助</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="digestive" data-severity="moderate" data-symptom="diarrhea" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="digestive" data-symptom="diarrhea" />
                   <div>
-                    <span class="text-sm font-medium text-slate-700">腹瀉/大便異常</span>
-                    <p class="text-xs text-slate-500">血便或黑色糞便</p>
+                    <span class="text-sm font-medium text-slate-700">嚴重腹瀉伴血便或黑色柏油樣便</span>
+                    <p class="text-xs text-slate-500">急症警訊：嚴重腹瀉伴紅色血液或黑色柏油樣便</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="digestive" data-severity="severe" data-symptom="bloating" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="digestive" data-symptom="bloating" />
                   <div>
-                    <span class="text-sm font-medium text-red-700">腹脹/腹部鼓起</span>
-                    <p class="text-xs text-red-500">可能涉及嚴重問題</p>
+                    <span class="text-sm font-medium text-red-700">腹部突然明顯膨脹或變硬</span>
+                    <p class="text-xs text-red-500">尤其伴隨乾嘔、明顯不適或快速惡化時，請立即聯絡獸醫或動物急診。</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="digestive" data-severity="moderate" data-symptom="constipation" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="digestive" data-symptom="constipation" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">便秘/如廁困難</span>
-                    <p class="text-xs text-slate-500">2天以上沒有大便</p>
+                    <p class="text-xs text-slate-500">排便困難或與平常習慣明顯不同；請向獸醫詢問合適的評估時機</p>
                   </div>
                 </label>
               </div>
@@ -256,28 +256,28 @@ const hrefLangAlternates = [
               </h3>
               <div class="grid md:grid-cols-2 gap-3">
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="respiratory" data-severity="mild" data-symptom="coughing" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="respiratory" data-symptom="coughing" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">咳嗽/乾咳</span>
-                    <p class="text-xs text-slate-500">持續超過2天</p>
+                    <p class="text-xs text-slate-500">新出現、持續或變嚴重的咳嗽；若伴呼吸困難請立即求助</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="respiratory" data-severity="moderate" data-symptom="heavy-breathing" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="respiratory" data-symptom="heavy-breathing" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">呼吸急促/困難</span>
                     <p class="text-xs text-slate-500">休息時也呼吸急促</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="respiratory" data-severity="severe" data-symptom="blue-gums" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="respiratory" data-symptom="blue-gums" />
                   <div>
-                    <span class="text-sm font-medium text-red-700">牙齦發紫/發白</span>
-                    <p class="text-xs text-red-500">立即就醫——缺氧警訊</p>
+                    <span class="text-sm font-medium text-red-700">牙齦發藍、發紫或非常蒼白</span>
+                    <p class="text-xs text-red-500">急症警訊：立即聯絡獸醫或急診</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="respiratory" data-severity="moderate" data-symptom="wheezing" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="respiratory" data-symptom="wheezing" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">喘鳴/呼吸有聲</span>
                     <p class="text-xs text-slate-500">可能是氣管問題</p>
@@ -294,14 +294,14 @@ const hrefLangAlternates = [
               </h3>
               <div class="grid md:grid-cols-2 gap-3">
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="sensory" data-severity="mild" data-symptom="hearing-loss" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="sensory" data-symptom="hearing-loss" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">聽力減退</span>
                     <p class="text-xs text-slate-500">叫名字沒反應</p>
                   </div>
                 </label>
                 <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition-colors">
-                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="sensory" data-severity="mild" data-symptom="vision-loss" />
+                  <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="sensory" data-symptom="vision-loss" />
                   <div>
                     <span class="text-sm font-medium text-slate-700">視力減退</span>
                     <p class="text-xs text-slate-500">晚上走路撞到東西</p>
@@ -310,11 +310,16 @@ const hrefLangAlternates = [
               </div>
             </div>
 
+            <label class="flex items-start gap-3 p-3 rounded-xl border border-red-200 cursor-pointer">
+              <input type="checkbox" class="symptom-checkbox mt-1 w-4 h-4 text-red-600 rounded" data-category="general" data-symptom="active-seizure" />
+              <div><span class="text-sm font-medium text-red-700">正在抽搐或失去反應</span><p class="text-xs text-red-700">急症警訊：立即聯絡獸醫或動物急診，不要等待。</p></div>
+            </label>
             <button
+              type="button"
               id="evaluate-btn"
               class="w-full py-4 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-bold text-lg rounded-xl transition-all shadow-lg"
             >
-              評估健康風險 →
+              查看觀察紀錄與求助提醒 →
             </button>
           </div>
         </div>
@@ -322,7 +327,7 @@ const hrefLangAlternates = [
     </div>
 
     <!-- Results Section -->
-    <div id="results-section" class="hidden mt-10">
+    <div id="results-section" class="hidden mt-10 scroll-mt-20" aria-live="polite" aria-atomic="true" role="status">
       <div class="max-w-3xl mx-auto">
         <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
           <div id="result-header" class="p-8 text-center">
@@ -359,9 +364,9 @@ const hrefLangAlternates = [
 
   <AdSenseAd format="in-article" />
 
+  <p class="mt-6 text-sm text-slate-600">來源：<a href="https://www.vet.cornell.edu/hospitals/services/emergency-and-critical-care-0" class="underline">Cornell 急症警訊</a>；<a href="https://www.vet.cornell.edu/departments-centers-and-institutes/cornell-feline-health-center/health-information/feline-health-topics/anorexia" class="underline">Cornell 貓咪不食資訊</a>。來源支持上述警訊，不支持症狀計數風險分數。若正在抽搐、失去反應，或有未列出的明顯急症，請立即求助，不要等待填表。</p>
   <script>
     let petType = '';
-    const symptoms = [];
 
     document.querySelectorAll('.symptom-type-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -380,127 +385,29 @@ const hrefLangAlternates = [
       });
     });
 
-    document.querySelectorAll('.symptom-checkbox').forEach(cb => {
-      cb.addEventListener('change', () => {
-        if (cb.checked) {
-          symptoms.push({
-            category: cb.dataset.category,
-            severity: cb.dataset.severity,
-            symptom: cb.dataset.symptom
-          });
-        } else {
-          const idx = symptoms.findIndex(s => s.symptom === cb.dataset.symptom);
-          if (idx !== -1) symptoms.splice(idx, 1);
-        }
-      });
-    });
-
     document.getElementById('evaluate-btn').addEventListener('click', () => {
-      const severeCount = symptoms.filter(s => s.severity === 'severe').length;
-      const moderateCount = symptoms.filter(s => s.severity === 'moderate').length;
-      const mildCount = symptoms.filter(s => s.severity === 'mild').length;
-
-      let riskLevel, riskColor, riskMessage, riskIcon;
-
-      if (severeCount > 0 || moderateCount >= 3) {
-        riskLevel = 'high';
-        riskColor = 'red';
-        riskIcon = '🚨';
-        riskMessage = '高風險';
-      } else if (moderateCount >= 1 || mildCount >= 3) {
-        riskLevel = 'medium';
-        riskColor = 'amber';
-        riskIcon = '⚠️';
-        riskMessage = '中等風險';
-      } else if (mildCount >= 1) {
-        riskLevel = 'low';
-        riskColor = 'emerald';
-        riskIcon = '✅';
-        riskMessage = '低風險';
-      } else {
-        riskLevel = 'minimal';
-        riskColor = 'slate';
-        riskIcon = '✅';
-        riskMessage = '目前未勾選所列症狀';
-      }
-
-      const colorClasses = {
-        red: { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-800', badge: 'bg-red-100 text-red-800' },
-        amber: { bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-800', badge: 'bg-amber-100 text-amber-800' },
-        emerald: { bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-800', badge: 'bg-emerald-100 text-emerald-800' },
-        slate: { bg: 'bg-slate-50', border: 'border-slate-200', text: 'text-slate-800', badge: 'bg-slate-100 text-slate-800' }
-      };
-
-      const c = colorClasses[riskColor];
-
-      let recommendations = '';
-      if (riskLevel === 'high' || riskLevel === 'medium') {
-        recommendations = `
-          <div class="bg-red-50 border border-red-200 rounded-xl p-5 mb-6">
-            <h3 class="font-bold text-red-800 mb-2">建議行動</h3>
-            <p class="text-sm text-red-700 leading-relaxed">
-              ${riskLevel === 'high' ? '建議<strong>立即就醫</strong>。以上症狀組合可能表示需要緊急醫療關注。' : '建議<strong>預約獸醫門診</strong>，在1-2天內進行檢查。'}
-              請記錄所有觀察到的症狀和症狀出現的時間，帶給獸醫參考。
-            </p>
-          </div>
-        `;
-      } else if (riskLevel === 'low') {
-        recommendations = `
-          <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-6">
-            <h3 class="font-bold text-amber-800 mb-2">建議行動</h3>
-            <p class="text-sm text-amber-700 leading-relaxed">
-              這些症狀可能與老化相關，建議在下次例行檢查時向獸醫提出。若症狀惡化或出現新症狀，請提前就醫。
-            </p>
-          </div>
-        `;
-      } else {
-        recommendations = `
-          <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 mb-6">
-            <h3 class="font-bold text-emerald-800 mb-2">建議行動</h3>
-            <p class="text-sm text-emerald-700 leading-relaxed">
-              未勾選到需要分級的症狀。這不表示寵物一定健康；請持續觀察，若有疑慮或症狀改變請諮詢獸醫。
-            </p>
-          </div>
-        `;
-      }
-
-      document.getElementById('result-header').innerHTML = `
-        <div class="w-20 h-20 ${c.bg} border-4 ${c.border} rounded-full flex items-center justify-center mx-auto mb-4">
-          <span class="text-4xl">${riskIcon}</span>
-        </div>
-        <div class="inline-flex items-center gap-2 ${c.badge} px-4 py-2 rounded-full text-sm font-bold mb-4">
-          ${riskMessage}
-        </div>
-        <h2 class="text-2xl font-bold text-slate-900 mb-2">
-          ${petType === 'dog' ? '狗狗' : '貓咪'}健康評估結果
-        </h2>
-        <p class="text-slate-600">
-          勾選了 ${symptoms.length} 個症狀
-        </p>
-      `;
-
-      document.getElementById('result-details').innerHTML = `
-        ${recommendations}
-
-        <h3 class="font-bold text-slate-900 mb-4">已勾選的症狀</h3>
-        <div class="space-y-2">
-          ${symptoms.map(s => `
-            <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
-              <span class="w-3 h-3 rounded-full ${s.severity === 'severe' ? 'bg-red-500' : s.severity === 'moderate' ? 'bg-amber-500' : 'bg-emerald-500'}"></span>
-              <span class="text-sm text-slate-700">${s.symptom === 'lumps' ? '皮膚有腫塊／腫瘤' : s.symptom.replace(/-/g, ' ')}</span>
-              <span class="ml-auto text-xs text-slate-500 capitalize">${s.severity} severity</span>
-            </div>
-          `).join('')}
-        </div>
-
-        <div class="mt-8 p-5 bg-slate-50 rounded-xl border border-slate-200">
-          <h3 class="font-bold text-slate-900 mb-2">💡 關於症狀檢核</h3>
-          <p class="text-sm text-slate-600 leading-relaxed">
-            本工具僅供教育與症狀整理參考，不能替代獸醫的專業檢查、診斷或治療建議。突然、嚴重或持續惡化的變化應盡快向獸醫尋求協助。
-          </p>
-        </div>
-      `;
-
+      const checked = Array.from(document.querySelectorAll('.symptom-checkbox:checked'));
+      const emergencySigns = new Set(['collapse', 'heavy-breathing', 'blue-gums', 'vomiting', 'diarrhea', 'bloating', 'active-seizure']);
+      const hasEmergency = checked.some(cb => emergencySigns.has(cb.dataset.symptom));
+      const message = hasEmergency
+        ? '已勾選急症警訊：請立即聯絡獸醫或動物急診，不要等待。'
+        : checked.length > 0
+          ? '請記錄症狀並聯絡獸醫，依嚴重度、持續情形、快速惡化及其他變化確認評估時機。貓咪不吃東西應盡快求助，不要等滿固定天數。'
+          : '目前未勾選所列症狀。這不能確認寵物健康或排除疾病；若有疑慮或新變化，請聯絡獸醫。';
+      document.getElementById('result-header').textContent = hasEmergency ? '請立即尋求急診協助' : '觀察紀錄與求助提醒';
+      const details = document.getElementById('result-details');
+      details.replaceChildren();
+      const guidance = document.createElement('p');
+      guidance.textContent = message;
+      details.appendChild(guidance);
+      const list = document.createElement('ul');
+      list.className = 'mt-4 space-y-2';
+      checked.forEach(cb => {
+        const item = document.createElement('li');
+        item.textContent = cb.closest('label').querySelector('span').textContent;
+        list.appendChild(item);
+      });
+      details.appendChild(list);
       document.getElementById('results-section').classList.remove('hidden');
       document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
     });
