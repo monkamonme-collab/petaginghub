@@ -54,7 +54,7 @@ const ogType = Astro.props.ogType ?? (isBlogPost ? 'article' : 'website');
         🌐 {isEn ? (hasCounterpart ? '中文' : '中文部落格') : (hasCounterpart ? 'EN' : 'EN Blog')}
       </a>
     </div>
-    <main class="flex-grow max-w-5xl mx-auto px-6 py-8">
+    <main class="flex-grow w-full min-w-0 max-w-5xl mx-auto px-6 py-8">
       {breadcrumbs.length > 0 && <Breadcrumb items={breadcrumbs} lang={lang} />}
       <slot />
     </main>

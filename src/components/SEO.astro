@@ -11,13 +11,20 @@ const { title, description, ogType = 'website', hrefLangAlternates = [], schemaT
 const siteUrl = "https://www.petaginghub.com";
 const canonicalStr = siteUrl + Astro.url.pathname;
 
-const resolvedSchemaType = schemaType ?? (ogType === 'article' ? 'BlogPosting' : 'WebPage');
+const isHome = Astro.url.pathname === '/';
+const resolvedSchemaType = schemaType ?? (isHome ? 'WebSite' : ogType === 'article' ? 'BlogPosting' : 'WebPage');
+const isArticle = resolvedSchemaType === 'BlogPosting';
+const publisher = { '@type': 'Organization', '@id': siteUrl + '/#organization', name: 'Pet Aging Hub', url: siteUrl + '/' };
 const schemaJSON = JSON.stringify({
   "@context": "https://schema.org",
   "@type": resolvedSchemaType,
-  "name": title,
+  "@id": canonicalStr + (isHome ? '#website' : isArticle ? '#article' : '#webpage'),
+  "name": isHome ? 'Pet Aging Hub' : title,
   "description": description,
-  "url": canonicalStr
+  "url": canonicalStr,
+  "inLanguage": Astro.url.pathname.startsWith('/en/') ? 'en' : 'zh-TW',
+  ...(isHome ? { publisher } : {}),
+  ...(isArticle ? { headline: title, mainEntityOfPage: canonicalStr, publisher } : {})
 });
 
 // Normalize hreflang URLs: ensure trailing slash and correct domain

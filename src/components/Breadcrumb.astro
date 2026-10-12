@@ -6,15 +6,32 @@ interface Props {
 const { items, lang = 'zh-TW' } = Astro.props;
 const homeLabel = lang === 'en' ? 'Home' : '首頁';
 const homeUrl = lang === 'en' ? '/en/' : '/';
+const siteUrl = 'https://www.petaginghub.com';
+const normalizePath = (url: string) => {
+  const path = new URL(url, siteUrl).pathname;
+  return path.endsWith('/') ? path : `${path}/`;
+};
+const trail = [{ label: homeLabel, url: homeUrl }, ...items].filter(
+  (item, index, all) => all.findIndex(candidate => normalizePath(candidate.url) === normalizePath(item.url)) === index
+);
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  '@id': siteUrl + Astro.url.pathname + '#breadcrumb',
+  itemListElement: trail.map((item, index) => ({
+    '@type': 'ListItem', position: index + 1, name: item.label,
+    item: siteUrl + normalizePath(item.url),
+  })),
+};
 ---
 <nav aria-label="Breadcrumb" class="my-4 text-sm text-slate-500">
   <ol class="flex items-center space-x-2">
-    <li><a href={homeUrl} class="hover:text-blue-600">{homeLabel}</a></li>
-    {items.map(item => (
+    {trail.map((item, index) => (
       <li class="flex items-center">
-        <span class="mx-2">/</span>
+        {index > 0 && <span class="mx-2">/</span>}
         <a href={item.url} class="hover:text-blue-600">{item.label}</a>
       </li>
     ))}
   </ol>
 </nav>
+{trail.length >= 2 && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}

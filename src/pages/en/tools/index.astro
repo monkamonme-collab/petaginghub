@@ -34,10 +34,13 @@ const tools = [
     description: 'Estimate your cat\'s age in human years and explore a general life-stage reference for educational context.',
     tags: ['Cats', 'Life Stage', 'Educational'],
   },
+  { href: '/en/tools/compare-aging/', emoji: '⚖️', badge: 'Educational comparison', title: 'Compare Dog and Cat Aging', description: 'Compare educational age estimates for dogs and cats; not a health assessment.', tags: ['Dogs', 'Cats', 'Comparison'] },
+  { href: '/en/tools/lifespan-calculator/', emoji: '🔮', badge: 'Site assumptions', title: 'Lifespan Reference Tool', description: 'Explore site-derived lifespan ranges, not an individual lifespan prediction.', tags: ['Dogs', 'Cats', 'Reference'] },
+  { href: '/en/tools/symptom-checklist/', emoji: '📋', badge: 'Observation checklist', title: 'Symptom Checklist', description: 'Record listed changes and seek veterinary help when needed; not a diagnosis or health score.', tags: ['Dogs', 'Cats', 'Observations'] },
 ];
 ---
 
-<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs} lang="en" hrefLangAlternates={hrefLangAlternates}>
+<BaseLayout schemaType="CollectionPage" title={title} description={description} breadcrumbs={breadcrumbs} lang="en" hrefLangAlternates={hrefLangAlternates}>
 
   <!-- Hero -->
   <header class="max-w-4xl mx-auto px-6 pt-10 pb-8">
@@ -66,7 +69,7 @@ const tools = [
             ))}
           </div>
           <div class="mt-4 text-sm font-medium text-blue-600 group-hover:text-blue-700">
-            Open calculator →
+            Open tool →
           </div>
         </a>
       ))}
@@ -95,14 +98,14 @@ const tools = [
   <section class="max-w-4xl mx-auto px-6 mb-12">
     <h2 class="text-2xl font-bold text-slate-900 mb-4">Related Reading</h2>
     <div class="grid md:grid-cols-2 gap-4">
-      <a href="/blog/senior-pet-health-guide/" class="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-md transition-all group">
+      <a href="/en/blog/senior-pet-health-guide/" class="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-md transition-all group">
         <div class="flex items-center gap-2 mb-2">
           <span class="text-lg">🏥</span>
           <span class="font-semibold text-slate-800 group-hover:text-blue-600 transition-colors">Senior Pet Health Guide</span>
         </div>
         <p class="text-sm text-slate-500">What changes when your pet becomes a senior — vet schedules, nutrition, mobility, and cognition.</p>
       </a>
-      <a href="/blog/pet-nutrition-by-age/" class="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-md transition-all group">
+      <a href="/en/blog/pet-nutrition-by-age/" class="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 hover:shadow-md transition-all group">
         <div class="flex items-center gap-2 mb-2">
           <span class="text-lg">🥗</span>
           <span class="font-semibold text-slate-800 group-hover:text-blue-600 transition-colors">Pet Nutrition by Life Stage</span>
@@ -112,25 +115,5 @@ const tools = [
     </div>
   </section>
 
-  <!-- JSON-LD -->
-  <script type="application/ld+json" is:inline set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": "Pet Health Tools",
-    "description": "Free dog and cat age calculators with transparent educational models.",
-    "url": siteUrl + canonicalPath,
-    "hasPart": [
-      {
-        "@type": "WebApplication",
-        "name": "Dog Age Calculator",
-        "url": siteUrl + "/en/tools/dog-age-calculator"
-      },
-      {
-        "@type": "WebApplication",
-        "name": "Cat Age Calculator",
-        "url": siteUrl + "/en/tools/cat-age-calculator"
-      }
-    ]
-  })} />
 
 </BaseLayout>
