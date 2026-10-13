@@ -45,7 +45,7 @@ const hrefLangAlternates = [
               id="dog-age"
               min="0"
               max="30"
-              step="0.01"
+              step="any"
               value="5"
               class="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white text-lg focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-slate-400"
               placeholder="輸入狗狗年齡"
@@ -65,7 +65,7 @@ const hrefLangAlternates = [
               id="cat-age"
               min="0"
               max="30"
-              step="0.01"
+              step="any"
               value="5"
               class="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white text-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 placeholder-slate-400"
               placeholder="輸入貓咪年齡"
@@ -83,8 +83,9 @@ const hrefLangAlternates = [
     </div>
   </div>
 
+  <p id="compare-error" role="alert" class="text-red-700 font-medium" hidden></p>
   <!-- Results Section (hidden until calculated) -->
-  <div id="results-section" class="max-w-5xl mx-auto px-6 py-16 hidden">
+  <div id="results-section" aria-live="polite" aria-atomic="true" class="max-w-5xl mx-auto px-6 py-16 hidden">
     <div class="text-center mb-10">
       <h2 class="text-2xl font-bold text-slate-900 mb-2">比較結果</h2>
       <p class="text-slate-500">以下為你家狗狗與貓咪的人類年齡對照</p>
@@ -311,33 +312,52 @@ const hrefLangAlternates = [
     }
 
     function calculate() {
-      const dogAge = parseFloat(document.getElementById('dog-age').value) || 0;
-      const catAge = parseFloat(document.getElementById('cat-age').value) || 0;
+      const dogInput = document.getElementById('dog-age') as HTMLInputElement;
+      const catInput = document.getElementById('cat-age') as HTMLInputElement;
+      const inputs = [dogInput, catInput];
+      const invalidValue = (input: HTMLInputElement) => input.validity.badInput || (input.value !== '' && (!Number.isFinite(input.valueAsNumber) || input.valueAsNumber < 0 || input.valueAsNumber > 30));
+      const invalid = inputs.find(invalidValue);
+      inputs.forEach(input => { input.setAttribute('aria-describedby', 'compare-error'); input.setAttribute('aria-invalid', String(invalidValue(input))); });
+      const error = document.getElementById('compare-error')!;
+      const missing = inputs.every(input => input.value === '');
+      if (missing) dogInput.setAttribute('aria-invalid', 'true');
+      error.hidden = !invalid && !missing;
+      if (!error.hidden) {
+        error.textContent = invalid ? '請輸入 0 到 30 歲的有效數字，可以使用小數。' : '請至少輸入狗狗或貓咪的年齡；出生年齡可填 0。';
+        document.getElementById('results-section')!.classList.add('hidden');
+        (invalid || dogInput).focus();
+        return;
+      }
+      error.textContent = '';
+      const hasDog = dogInput.value !== '';
+      const hasCat = catInput.value !== '';
+      const dogAge = dogInput.valueAsNumber;
+      const catAge = catInput.valueAsNumber;
       const dogSize = document.getElementById('dog-size').value as 'small' | 'medium' | 'large' | 'giant';
 
-      if (dogAge <= 0 || catAge <= 0) return;
-
-      const dogHumanAge = estimateDogHumanAge(dogAge, dogSize);
-      const catHumanAge = estimateCatHumanAge(catAge);
+      const dogHumanAge = hasDog ? estimateDogHumanAge(dogAge, dogSize) : '—';
+      const catHumanAge = hasCat ? estimateCatHumanAge(catAge) : '—';
 
       // Update DOM
       document.getElementById('dog-human-age').textContent = dogHumanAge;
-      const dogStage = getDogLifeStage(dogAge, dogSize);
-      const catStage = getCatLifeStage(catAge);
-      document.getElementById('dog-life-stage').textContent = dogStageLabels[dogStage];
-      document.getElementById('dog-stage-label').textContent = `狗狗 · ${dogStageLabels[dogStage]}`;
+      const dogStage = hasDog ? getDogLifeStage(dogAge, dogSize) : null;
+      const catStage = hasCat ? getCatLifeStage(catAge) : null;
+      document.getElementById('dog-life-stage').textContent = dogStage ? dogStageLabels[dogStage] : '—';
+      document.getElementById('dog-stage-label').textContent = dogStage ? `狗狗 · ${dogStageLabels[dogStage]}` : '尚未輸入年齡';
       document.getElementById('dog-checkup').textContent = '請與獸醫討論';
-      document.getElementById('dog-years-left').textContent = getYearsToSenior(dogAge, false, dogSize);
+      document.getElementById('dog-years-left').textContent = hasDog ? getYearsToSenior(dogAge, false, dogSize) : '—';
 
       document.getElementById('cat-human-age').textContent = catHumanAge;
-      document.getElementById('cat-life-stage').textContent = catStageLabels[catStage];
-      document.getElementById('cat-stage-label').textContent = `貓咪 · ${catStageLabels[catStage]}`;
+      document.getElementById('cat-life-stage').textContent = catStage ? catStageLabels[catStage] : '—';
+      document.getElementById('cat-stage-label').textContent = catStage ? `貓咪 · ${catStageLabels[catStage]}` : '尚未輸入年齡';
       document.getElementById('cat-checkup').textContent = '請與獸醫討論';
       document.getElementById('cat-years-left').textContent = '超過 10 歲；不是生理切換點';
 
       // Summary text
       let summary = '';
-      if (dogAge > catAge + 1) {
+      if (!hasDog || !hasCat) {
+        summary = '已顯示所輸入寵物的教育性年齡對照；再輸入另一隻寵物的年齡即可比較。';
+      } else if (dogAge > catAge + 1) {
         summary = `狗狗的實際年齡比貓咪大 ${(dogAge - catAge).toFixed(1)} 歲；上方顯示各自的人類年齡教育性對照與生命階段。`;
       } else if (catAge > dogAge + 1) {
         summary = `貓咪的實際年齡比狗狗大 ${(catAge - dogAge).toFixed(1)} 歲；上方顯示各自的人類年齡教育性對照與生命階段。`;

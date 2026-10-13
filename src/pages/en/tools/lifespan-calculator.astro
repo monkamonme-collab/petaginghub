@@ -45,14 +45,14 @@ const hrefLangAlternates = [
         </div>
 
         <div id="dogOptions">
-          <label class="block text-sm font-semibold text-slate-700 mb-2">Dog Size / Breed</label>
+          <label for="dogSizeSelect" class="block text-sm font-semibold text-slate-700 mb-2">Dog Size / Breed</label>
           <select id="dogSizeSelect" class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-400">
             {dogSizeBands.map(({ size }) => <option value={size} selected={size === 'medium'}>{getDogSizeLabel(size, 'en')} — site reference: {lifespanRanges.dog[size].join('–')} yrs</option>)}
           </select>
         </div>
 
         <div id="catOptions" class="hidden">
-          <label class="block text-sm font-semibold text-slate-700 mb-2">Cat Type</label>
+          <label for="catTypeSelect" class="block text-sm font-semibold text-slate-700 mb-2">Cat Type</label>
           <select id="catTypeSelect" class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-400">
             <option value="indoor" selected>Indoor cat — site reference: {lifespanRanges.cat.indoor.join('–')} yrs</option>
             <option value="outdoor">Outdoor / free-roaming — site reference: {lifespanRanges.cat.outdoor.join('–')} yrs</option>
@@ -63,8 +63,8 @@ const hrefLangAlternates = [
         </div>
 
         <div>
-          <label class="block text-sm font-semibold text-slate-700 mb-2">Current Age (years)</label>
-          <input type="number" id="currentAge" min="0" max="30" step="0.01" placeholder="e.g. 5"
+          <label for="currentAge" class="block text-sm font-semibold text-slate-700 mb-2">Current Age (years)</label>
+          <input type="number" id="currentAge" min="0" max="30" step="any" placeholder="e.g. 5"
             class="w-full border border-slate-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-400" />
         </div>
 
@@ -102,7 +102,8 @@ const hrefLangAlternates = [
       </div>
     </div>
 
-    <div id="results" class="hidden bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl p-6 border border-slate-200 mb-8">
+    <p id="lifespan-error" role="alert" class="text-red-700 font-medium" hidden></p>
+    <div id="results" aria-live="polite" aria-atomic="true" class="hidden bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl p-6 border border-slate-200 mb-8">
       <h2 class="text-xl font-bold text-slate-900 mb-4">📊 Your Estimate</h2>
       <div class="grid grid-cols-2 gap-4 mb-6">
         <div class="bg-white rounded-xl p-4 text-center border border-slate-100">
@@ -165,7 +166,20 @@ const hrefLangAlternates = [
 
     document.getElementById('calcBtn').addEventListener('click', function() {
       const species = document.querySelector('input[name="species"]:checked').value as 'dog' | 'cat';
-      const currentAge = parseFloat(document.getElementById('currentAge').value);
+      const ageInput = document.getElementById('currentAge') as HTMLInputElement;
+      const currentAge = ageInput.valueAsNumber;
+      const valid = ageInput.value !== '' && !ageInput.validity.badInput && Number.isFinite(currentAge) && currentAge >= 0 && currentAge <= 30;
+      ageInput.setAttribute('aria-describedby', 'lifespan-error');
+      ageInput.setAttribute('aria-invalid', String(!valid));
+      const error = document.getElementById('lifespan-error')!;
+      error.hidden = valid;
+      if (!valid) {
+        error.textContent = 'Enter a valid age from 0 to 30 years. Decimals are allowed.';
+        document.getElementById('results')!.classList.add('hidden');
+        ageInput.focus();
+        return;
+      }
+      error.textContent = '';
       document.getElementById('range-label').textContent = species === 'cat' ? 'Site reference range, not an individual forecast' : 'Estimated lifespan';
       const neutered = document.getElementById('neutered').checked;
       const regularVet = document.getElementById('regularVet').checked;
@@ -179,7 +193,7 @@ const hrefLangAlternates = [
       const [lo, hi] = estimateLifespanRange(species, sizeKey as 'small' | 'medium' | 'large' | 'giant' | 'indoor' | 'outdoor' | 'indoor_outdoor' | 'large_breed');
 
       const midpoint = (lo + hi) / 2;
-      const remaining = isNaN(currentAge) || currentAge <= 0 ? null : Math.max(0, Math.round((midpoint - currentAge) * 10) / 10);
+      const remaining = Math.max(0, Math.round((midpoint - currentAge) * 10) / 10);
 
       document.getElementById('lifespanRange').textContent = lo + '–' + hi + ' yrs';
       document.getElementById('yearsRemaining').textContent = remaining !== null ? '~' + remaining + ' yrs' : 'N/A';

@@ -35,7 +35,7 @@ const hrefLangAlternates = [
         <div class="space-y-4">
           <div>
             <label for="dogAge" class="block text-sm font-medium text-slate-700 mb-1">Dog's Age (years)</label>
-            <input type="number" id="dogAge" min="0" max="30" step="0.01" placeholder="e.g. 7"
+            <input type="number" id="dogAge" min="0" max="30" step="any" placeholder="e.g. 7"
               class="w-full border border-slate-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-amber-400" />
           </div>
           <div>
@@ -52,7 +52,7 @@ const hrefLangAlternates = [
         <div class="space-y-4">
           <div>
             <label for="catAge" class="block text-sm font-medium text-slate-700 mb-1">Cat's Age (years)</label>
-            <input type="number" id="catAge" min="0" max="30" step="0.01" placeholder="e.g. 10"
+            <input type="number" id="catAge" min="0" max="30" step="any" placeholder="e.g. 10"
               class="w-full border border-slate-300 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-purple-400" />
           </div>
         </div>
@@ -66,7 +66,8 @@ const hrefLangAlternates = [
       </button>
     </div>
 
-    <div id="results" class="hidden">
+    <p id="compare-error" role="alert" class="text-red-700 font-medium" hidden></p>
+    <div id="results" aria-live="polite" aria-atomic="true" class="hidden">
       <div class="grid md:grid-cols-2 gap-6 mb-8">
         <div class="bg-amber-50 rounded-2xl p-6 border-2 border-amber-300 text-center">
           <div class="text-5xl font-extrabold text-amber-600 mb-2" id="dogHumanAge">—</div>
@@ -111,13 +112,29 @@ const hrefLangAlternates = [
   <script>
     import { estimateDogHumanAge, estimateCatHumanAge, getDogLifeStage, getCatLifeStage } from '../../../utils/agingModel';
 
-    document.getElementById('compareBtn').addEventListener('click', function() {
-      const dogAge = parseFloat(document.getElementById('dogAge').value);
-      const catAge = parseFloat(document.getElementById('catAge').value);
+    function calculate() {
+      const dogInput = document.getElementById('dogAge') as HTMLInputElement;
+      const catInput = document.getElementById('catAge') as HTMLInputElement;
+      const inputs = [dogInput, catInput];
+      const invalidValue = (input: HTMLInputElement) => input.validity.badInput || (input.value !== '' && (!Number.isFinite(input.valueAsNumber) || input.valueAsNumber < 0 || input.valueAsNumber > 30));
+      const invalid = inputs.find(invalidValue);
+      inputs.forEach(input => { input.setAttribute('aria-describedby', 'compare-error'); input.setAttribute('aria-invalid', String(invalidValue(input))); });
+      const error = document.getElementById('compare-error')!;
+      const missing = inputs.every(input => input.value === '');
+      if (missing) dogInput.setAttribute('aria-invalid', 'true');
+      error.hidden = !invalid && !missing;
+      if (!error.hidden) {
+        error.textContent = invalid ? 'Enter a valid age from 0 to 30 years. Decimals are allowed.' : 'Enter at least one age. Birth age (0) is supported.';
+        document.getElementById('results')!.classList.add('hidden');
+        (invalid || dogInput).focus();
+        return;
+      }
+      error.textContent = '';
+      const dogAge = dogInput.valueAsNumber;
+      const catAge = catInput.valueAsNumber;
       const dogSize = document.getElementById('dogSize').value;
-      const hasDog = !isNaN(dogAge) && dogAge > 0;
-      const hasCat = !isNaN(catAge) && catAge > 0;
-      if (!hasDog && !hasCat) { alert('Please enter at least one age.'); return; }
+      const hasDog = dogInput.value !== '';
+      const hasCat = catInput.value !== '';
       const dogHuman = hasDog ? estimateDogHumanAge(dogAge, dogSize) : null;
       const catHuman = hasCat ? estimateCatHumanAge(catAge) : null;
       document.getElementById('dogHumanAge').textContent = dogHuman !== null ? dogHuman : '—';
@@ -137,6 +154,10 @@ const hrefLangAlternates = [
       }
       document.getElementById('comparisonText').textContent = compText;
       document.getElementById('results').classList.remove('hidden');
-    });
+    }
+    document.getElementById('compareBtn').addEventListener('click', calculate);
+    ['dogAge', 'catAge'].forEach(id => document.getElementById(id)!.addEventListener('keydown', event => {
+      if (event.key === 'Enter') { event.preventDefault(); calculate(); }
+    }));
   </script>
 </BaseLayout>
