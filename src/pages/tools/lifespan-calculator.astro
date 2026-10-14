@@ -44,12 +44,13 @@ const hrefLangAlternates = [
         <!-- Pet Type -->
         <div>
           <label class="block text-sm font-semibold text-slate-700 mb-3">你的寵物是？</label>
-          <div class="grid grid-cols-2 gap-4">
+          <div class="grid grid-cols-2 gap-4" role="group" aria-label="選擇寵物種類">
             <button
               type="button"
               id="type-dog"
               class="pet-type-btn flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-slate-200 hover:border-emerald-300 transition-all"
               data-type="dog"
+              aria-pressed="false"
             >
               <span class="text-4xl">🐕</span>
               <span class="font-semibold text-slate-700">狗狗</span>
@@ -59,6 +60,7 @@ const hrefLangAlternates = [
               id="type-cat"
               class="pet-type-btn flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-slate-200 hover:border-emerald-300 transition-all"
               data-type="cat"
+              aria-pressed="false"
             >
               <span class="text-4xl">🐱</span>
               <span class="font-semibold text-slate-700">貓咪</span>
@@ -283,7 +285,20 @@ const hrefLangAlternates = [
       return labels[stage];
     }
 
+    let categoryErrorControl: HTMLElement | null = null;
+
+    function clearCategoryError() {
+      if (!categoryErrorControl) return;
+      categoryErrorControl.removeAttribute('aria-invalid');
+      categoryErrorControl.removeAttribute('aria-describedby');
+      categoryErrorControl = null;
+      const error = document.getElementById('lifespan-error')!;
+      error.hidden = true;
+      error.textContent = '';
+    }
+
     function calculate() {
+      clearCategoryError();
       const ageInput = document.getElementById('pet-age') as HTMLInputElement;
       const weightInput = document.getElementById('mixed-weight') as HTMLInputElement;
       const ageValid = ageInput.value !== '' && !ageInput.validity.badInput && Number.isFinite(ageInput.valueAsNumber) && ageInput.valueAsNumber >= 0 && ageInput.valueAsNumber <= 30;
@@ -301,6 +316,12 @@ const hrefLangAlternates = [
         document.getElementById('results-section')!.classList.add('hidden');
         if (!ageValid) ageInput.focus();
         else if (!weightValid) weightInput.focus();
+        else {
+          categoryErrorControl = document.getElementById(petType === 'dog' ? 'dog-breed' : petType === 'cat' ? 'cat-type' : 'type-dog')!;
+          categoryErrorControl.setAttribute('aria-invalid', 'true');
+          categoryErrorControl.setAttribute('aria-describedby', 'lifespan-error');
+          categoryErrorControl.focus();
+        }
         return;
       }
       error.textContent = '';
@@ -360,12 +381,15 @@ const hrefLangAlternates = [
     // Event listeners
     document.querySelectorAll('.pet-type-btn').forEach(btn => {
       btn.addEventListener('click', () => {
+        clearCategoryError();
         document.querySelectorAll('.pet-type-btn').forEach(b => {
           b.classList.remove('border-emerald-500', 'bg-emerald-50');
           b.classList.add('border-slate-200');
+          b.setAttribute('aria-pressed', 'false');
         });
         btn.classList.remove('border-slate-200');
         btn.classList.add('border-emerald-500', 'bg-emerald-50');
+        btn.setAttribute('aria-pressed', 'true');
 
         petType = btn.dataset.type;
         document.getElementById('dog-breed-section').classList.toggle('hidden', petType !== 'dog');
@@ -374,12 +398,14 @@ const hrefLangAlternates = [
     });
 
     document.getElementById('dog-breed').addEventListener('change', (e) => {
+      clearCategoryError();
       dogBreed = e.target.value;
       document.getElementById('mixed-weight-section').classList.toggle('hidden', dogBreed !== 'mixed');
       document.getElementById('mixed-weight-hint').classList.toggle('hidden', dogBreed !== 'mixed');
     });
 
     document.getElementById('cat-type').addEventListener('change', (e) => {
+      clearCategoryError();
       catType = e.target.value;
     });
 
