@@ -378,7 +378,7 @@ const hrefLangAlternates = [
       if (lifeStage.stage === '老年期') recs.push({ icon: '💬', color: 'blue', text: '可在下次獸醫諮詢時討論年齡、生活品質與適合該寵物的預防照護安排。' });
 
       const recsHtml = recs.map(r => `
-        <div class="flex gap-3 p-3 bg-${r.color}-50 rounded-xl">
+        <div class="flex gap-3 p-3 ${r.color === 'green' ? 'bg-green-50' : 'bg-blue-50'} rounded-xl">
           <span class="${r.color === 'green' ? 'text-green-600' : r.color === 'yellow' ? 'text-yellow-600' : r.color === 'red' ? 'text-red-600' : 'text-blue-600'} text-lg">${r.icon}</span>
           <p class="text-sm text-slate-700">${r.text}</p>
         </div>
