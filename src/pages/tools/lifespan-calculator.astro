@@ -13,7 +13,7 @@ const hrefLangAlternates = [
 ---
 
 <BaseLayout
-  title="寵物壽命計算機：根據品種、年齡與健康狀況估算剩餘壽命"
+  title="寵物壽命範圍參考工具：犬貓教育性估算"
   description="輸入寵物的年齡、體型與生活背景，查看壽命範圍與生命階段的教育性參考；這不是壽命保證或醫療預測。"
   breadcrumbs={[{ label: '工具集', url: '/tools' }, { label: '寵物壽命計算機', url: currentPath }]}
  lang="zh-TW" hrefLangAlternates={hrefLangAlternates}>
@@ -130,19 +130,29 @@ const hrefLangAlternates = [
           />
         </div>
 
-        <!-- Spayed/Neutered -->
-        <div>
+        <!-- Optional health-history context: notes only, never alters the numeric range. -->
+        <fieldset class="space-y-3">
+          <legend class="text-sm font-semibold text-slate-700 mb-2">照護與健康背景（選填）</legend>
           <label class="flex items-center gap-3 cursor-pointer">
-            <input type="checkbox" id="spayed" checked class="w-4 h-4 text-emerald-600 rounded" />
-            <span class="text-sm text-slate-700">已結紮（作為與獸醫討論個別健康背景的資訊）</span>
+            <input type="checkbox" id="spayed" class="w-4 h-4 text-emerald-600 rounded" />
+            <span class="text-sm text-slate-700">已結紮</span>
           </label>
-        </div>
+          <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" id="regular-vet" class="w-4 h-4 text-emerald-600 rounded" />
+            <span class="text-sm text-slate-700">定期接受獸醫檢查</span>
+          </label>
+          <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" id="overweight" class="w-4 h-4 text-emerald-600 rounded" />
+            <span class="text-sm text-slate-700">目前有過重或肥胖疑慮</span>
+          </label>
+          <p class="text-xs text-slate-600">以上選項僅用於提供與獸醫討論的背景提示，不會改變本站壽命參考範圍，也不能推算個別剩餘年數。</p>
+        </fieldset>
 
         <button
           id="calculate-btn"
           class="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold text-lg rounded-xl transition-all shadow-lg hover:shadow-xl"
         >
-          計算壽命 →
+          查看壽命範圍參考 →
         </button>
       </div>
     </div>
@@ -184,7 +194,7 @@ const hrefLangAlternates = [
 
       <!-- Life Progress Bar -->
       <div class="bg-white rounded-2xl p-6 border border-slate-200 mb-8">
-        <h3 id="range-progress-heading" class="font-bold text-slate-900 mb-4">生命進度</h3>
+        <h3 id="range-progress-heading" class="font-bold text-slate-900 mb-4">年齡相對於本站參考中點</h3>
         <div class="relative">
           <div class="h-4 bg-slate-100 rounded-full overflow-hidden">
             <div id="progress-bar" class="h-full bg-gradient-to-r from-emerald-400 to-teal-500 transition-all duration-1000" style="width: 0%"></div>
@@ -192,7 +202,7 @@ const hrefLangAlternates = [
           <div class="flex justify-between text-xs text-slate-500 mt-2">
             <span>出生</span>
             <span id="current-age-marker">0歲</span>
-            <span id="range-end-label">預估終點</span>
+            <span id="range-end-label">參考中點（非壽命終點）</span>
           </div>
         </div>
       </div>
@@ -263,7 +273,7 @@ const hrefLangAlternates = [
     let catType = '';
     let mixedWeight = 15;
     let petAge = 5;
-    let spayed = true;
+    let spayed = false;
 
     // Human age conversion
     function getDogModelSize() {
@@ -352,8 +362,8 @@ const hrefLangAlternates = [
       document.getElementById('human-age').textContent = humanAge;
       document.getElementById('life-stage').textContent = lifeStage.stage;
       document.getElementById('life-stage-sub').textContent = lifeStage.sub;
-      document.getElementById('range-progress-heading').textContent = petType === 'dog' ? '生命進度' : '年齡相對於本站參考中點（不是生命進度）';
-      document.getElementById('range-end-label').textContent = petType === 'dog' ? '預估終點' : '參考中點，不是壽命終點';
+      document.getElementById('range-progress-heading').textContent = '年齡相對於本站參考中點（不是生命進度）';
+      document.getElementById('range-end-label').textContent = '參考中點，不是壽命終點';
       document.getElementById('total-age').textContent = `${low}–${high}`;
       document.getElementById('life-expectancy').textContent = `生命階段：${lifeStage.stage}（${lifeStage.sub}）`;
       document.getElementById('current-age-marker').textContent = `${petAge}歲`;
@@ -363,10 +373,12 @@ const hrefLangAlternates = [
       const recs = [];
       recs.push({ icon: 'ℹ️', color: 'blue', text: '此範圍不是對個別寵物健康或剩餘壽命的預測，請把結果作為與獸醫討論照護規劃的起點。' });
       if (spayed) recs.push({ icon: '✓', color: 'green', text: '已結紮狀態已記錄為健康背景資訊；本工具不會把它換算成特定壽命差異。' });
+      if ((document.getElementById('regular-vet') as HTMLInputElement).checked) recs.push({ icon: '✓', color: 'green', text: '定期獸醫檢查有助於討論個別預防照護計畫，但不會改變本站計算數值。' });
+      if ((document.getElementById('overweight') as HTMLInputElement).checked) recs.push({ icon: 'ℹ️', color: 'blue', text: '如有過重或肥胖疑慮，可與獸醫討論體態及健康管理；本工具不會推算少活幾年。' });
       if (lifeStage.stage === '老年期') recs.push({ icon: '💬', color: 'blue', text: '可在下次獸醫諮詢時討論年齡、生活品質與適合該寵物的預防照護安排。' });
 
       const recsHtml = recs.map(r => `
-        <div class="flex gap-3 p-3 bg-${r.color}-50 rounded-xl">
+        <div class="flex gap-3 p-3 ${r.color === 'green' ? 'bg-green-50' : 'bg-blue-50'} rounded-xl">
           <span class="${r.color === 'green' ? 'text-green-600' : r.color === 'yellow' ? 'text-yellow-600' : r.color === 'red' ? 'text-red-600' : 'text-blue-600'} text-lg">${r.icon}</span>
           <p class="text-sm text-slate-700">${r.text}</p>
         </div>
